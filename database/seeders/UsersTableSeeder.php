@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,61 +21,104 @@ class UsersTableSeeder extends Seeder
             // Create superAdmin user
             User::create([
                 'name' => 'superAdmin',
-                'email' => 'superAdmin@superAdmin.com',
                 'password' => Hash::make('123456'),
                 'role_id' => Role::where('name', 'superAdmin')->first()->id,
-                'user_id' => 'SA0001',
-                'permission_id'=>1
+                'login_id' => 'SA0001',
+                'image' => 'https://www.w3schools.com/howto/img_avatar.png',
+                'permission_id' => 1,
+                'status' => 1,
+                'created_by' => 0
             ]);
             // Create admin user
-            User::create([
-                'name' => 'admin',
-                'email' => 'admin@admin.com',
-                'password' => Hash::make('123456'),
-                'role_id' => Role::where('name', 'admin')->first()->id,
-                'user_id' => 'A0001',
-                'permission_id'=>1
+            // create user
+            $user  =  new User();
+            $user->name = 'admin';
+            $user->password = Hash::make('123456');
+            $user->role_id = Role::where('name', 'admin')->first()->id;
+            $user->login_id = 'A0001';
+            $user->image = 'https://www.w3schools.com/howto/img_avatar.png';
+            $user->permission_id = 1;
+            $user->status = 1;
+            $user->created_by = 1;
+            $user->save();
+            // create admin
+            if ($user) {
+                $admin  =  new Admin();
+                $admin->user_id = $user->id;
+                $admin->first_name = 'admin';
+                $admin->last_name = 'admin';
+                $admin->phone = '123456789';
+                $admin->address = 'admin address';
+                $admin->email = 'admin@admin.com';
+                $admin->save();
+            }
+            $user  =  new User();
+            $user->name = 'admin_offline';
+            $user->password = Hash::make('123456');
+            $user->role_id = Role::where('name', 'admin')->first()->id;
+            $user->login_id = 'A0002';
+            $user->image = 'https://www.w3schools.com/howto/img_avatar.png';
+            $user->permission_id = 1;
+            $user->status = 0;
+            $user->created_by = 1;
+            $user->save();
+            // create admin
+            if ($user) {
+                $admin  =  new Admin();
+                $admin->user_id = $user->id;
+                $admin->first_name = 'admin';
+                $admin->last_name = 'admin';
+                $admin->phone = '123456789';
+                $admin->address = 'admin address';
+                $admin->email = 'admin1@admin.com';
+                $admin->save();
+            }
 
-            ]);
+
             // Create student user
             User::create([
                 'name' => 'student',
-                'email' => 'student@student.com',
                 'password' => Hash::make('123456'),
                 'role_id' => Role::where('name', 'student')->first()->id,
-                'user_id' => 'S0001',
-                'permission_id'=>1
+                'login_id' => 'S0001',
+                'image' => 'https://www.w3schools.com/howto/img_avatar.png',
+                'permission_id' => 1,
+                'status' => 1,
+                'created_by' => 1
             ]);
             // Create teacher user
             User::create([
                 'name' => 'teacher',
-                'email' => 'teacher@teacher.com',
                 'password' => Hash::make('123456'),
                 'role_id' => Role::where('name', 'teacher')->first()->id,
-                'user_id' => 'T0001',
-                'permission_id'=>1
+                'login_id' => 'T0001',
+                'image' => 'https://www.w3schools.com/howto/img_avatar.png',
+                'permission_id' => 1,
+                'status' => 1,
+                'created_by' => 1
             ]);
             // Create hod user
             User::create([
                 'name' => 'hod',
-                'email' => 'hod@hod.com',
                 'password' => Hash::make('123456'),
                 'role_id' => Role::where('name', 'hod')->first()->id,
-                'user_id' => 'H0001',
-                'permission_id'=>1
+                'login_id' => 'H0001',
+                'image' => 'https://www.w3schools.com/howto/img_avatar.png',
+                'permission_id' => 1,
+                'status' => 1,
+                'created_by' => 1
             ]);
             // Create cod user
             User::create([
                 'name' => 'cod',
-                'email' => 'cod@cod.com',
                 'password' => Hash::make('123456'),
                 'role_id' => Role::where('name', 'cod')->first()->id,
-                'user_id' => 'C0001',
-                'permission_id'=>1
+                'login_id' => 'C0001',
+                'image' => 'https://www.w3schools.com/howto/img_avatar.png',
+                'permission_id' => 1,
+                'status' => 1,
+                'created_by' => 1
             ]);
-
-
-
         }
     }
 }

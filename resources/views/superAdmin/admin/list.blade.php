@@ -1,7 +1,7 @@
 @extends('layout')
 {{-- @section('breadcrumb')
     @include('parts.breadcrumb', [
-        'title' => 'Admin list Page',
+        'page_title' => 'Admin list Page',
         'links' => [
             [
                 'title' => 'dashboard',
@@ -20,77 +20,79 @@
     @include('parts.breadcrumb')
 @endsection
 @section('content')
-    @include('parts.title_start', ['title' => 'Admin list table'])
+    @include('parts.title_start', ['title' => $title ?? 'Admin list table'])
 
     <div class="card shadow ">
         <div class="card-header">
             <h3 class="card-title"> List</h3>
-          </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Task</th>
-                        <th>Progress</th>
-                        <th style="width: 40px">Label</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>Update software</td>
-                        <td>
-                            <div class="progress progress-xs">
-                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>Clean database</td>
-                        <td>
-                            <div class="progress progress-xs">
-                                <div class="progress-bar bg-warning" style="width: 70%"></div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-warning">70%</span></td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>Cron job running</td>
-                        <td>
-                            <div class="progress progress-xs progress-striped active">
-                                <div class="progress-bar bg-primary" style="width: 30%"></div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-primary">30%</span></td>
-                    </tr>
-                    <tr>
-                        <td>4.</td>
-                        <td>Fix and squish bugs</td>
-                        <td>
-                            <div class="progress progress-xs progress-striped active">
-                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-success">90%</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="card-tools">
+                <form action="{{ route('superAdmin.admin.index') }}" method="GET">
+                    @csrf
+                    <div class="input-group input-group-sm">
+                        <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <a href="{{ route('superAdmin.admin.index') }}"class="btn btn-primary  ml-2">All Admins</a>
+                            <a
+                                href="{{ route('superAdmin.admin.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                                Admins</a>
+                            <a href="{{ route('superAdmin.admin.index', ['status' => 0]) }}"
+                                class="btn btn-warning">Deactive
+                                Admins</a>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-            </ul>
-        </div>
+    </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Login Id</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($datas as $data)
+                    <tr>
+                        <td>{{ $data->first_name }} {{ $data->last_name }}</td>
+                        <td>{{ $data->user->login_id }}</td>
+                        <td>{{ $data->phone }}</td>
+                        <td>
+                            @if ($data->user->status === 1)
+                                Active
+                            @else
+                                Deactive
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('superAdmin.admin.destroy', $data->id) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-success">View</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @if ($datas->isEmpty())<h1 class="text-center text-black-50">No Data Found</h1>@endif
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <nav aria-label="Page navigation example">
+            <div class="pagination">
+                {{ $datas->links('pagination::bootstrap-4') }}
+            </div>
+        </nav>
+    </div>
     </div>
 
     @include('parts.title_end')

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
     Route::get('/superAdmin/dashboard',[SuperAdminController::class,"dashboard"])->name('superAdmin.dashboard');
     // admin
+    
     Route::resource('/superAdmin/admin', SuperAdminAdminController::class)->names('superAdmin.admin');
     // teacher
     Route::resource('/superAdmin/teacher', SuperAdminTeacherController::class)->names('superAdmin.teacher');

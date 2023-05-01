@@ -27,7 +27,7 @@
       <form action="{{ route('authenticate') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" name="user_id" class="form-control" placeholder="User ID">
+          <input type="text" name="login_id" class="form-control" placeholder="User ID">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>{{ $title ?? 'Super admin Pages' }}</h1>
+                <h1>{{ $page_title ?? 'Super admin Pages' }}</h1>
             </div>
             @isset($links)
                 <div class="col-sm-6">

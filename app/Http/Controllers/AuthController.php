@@ -31,10 +31,10 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'user_id' => 'required',
+            'login_id' => 'required',
             'password' => 'required',
         ]);
-        if (Auth::attempt(['user_id' => $request->user_id, 'password' => $request->password])) {
+        if (Auth::attempt(['login_id' => $request->login_id, 'password' => $request->password])) {
             $request->session()->regenerate();
             $role = Auth::user()->role->name;
         if ($role === "superAdmin") { // superAdmin check
