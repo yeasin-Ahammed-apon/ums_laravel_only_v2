@@ -37,6 +37,7 @@ class AuthController extends Controller
         if (Auth::attempt(['login_id' => $request->login_id, 'password' => $request->password])) {
             $request->session()->regenerate();
             $role = Auth::user()->role->name;
+            fmassage('Welcome',Auth::user()->name,'success');
         if ($role === "superAdmin") { // superAdmin check
             return redirect()->route('superAdmin.dashboard');
         } elseif ($role === "admin") { // admin check
@@ -51,9 +52,7 @@ class AuthController extends Controller
             return redirect()->route('cod.dashboard');
         }
         }
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return back();
     }
     public function logout(){
         Auth::logout();

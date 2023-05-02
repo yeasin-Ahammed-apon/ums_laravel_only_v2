@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UMS</title>
+    <title>@yield('meta-tag') || UMS</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    {{-- sweet alert --}}
+    <link rel="stylesheet" href="{{ asset('assets/admin_lte/plugins/sweetalert2/sweetalert2.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/fontawesome-free/css/all.min.css') }}>
     <!-- overlayScrollbars -->
@@ -50,7 +51,10 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
+    {{-- sweet alert --}}
+    <script src="{{ asset('assets/admin_lte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    {{-- popper --}}
+    <script src="{{ asset('assets/admin_lte/plugins/popper/umd/popper.min.js') }}"></script>
     <!-- jQuery -->
     <script src={{ asset('assets/admin_lte/plugins/jquery/jquery.min.js') }}></script>
     <!-- Bootstrap 4 -->
@@ -59,6 +63,16 @@
     <script src={{ asset('assets/admin_lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}></script>
     <!-- AdminLTE App -->
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
+    @if (session('alert'))
+        <script>
+            Swal.fire({
+                title: "{{ session('alert')['title'] }}",
+                text: "{{ session('alert')['text'] }}",
+                icon: "{{ session('alert')['icon'] }}",
+                // confirmButtonText: 'done'
+            })
+        </script>
+    @endif
 </body>
 
 </html>

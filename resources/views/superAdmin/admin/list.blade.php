@@ -1,4 +1,7 @@
 @extends('layout')
+@section('meta-tag')
+    Admin list || {{ auth()->user()->role->name }}
+@endsection
 {{-- @section('breadcrumb')
     @include('parts.breadcrumb', [
         'page_title' => 'Admin list Page',
@@ -20,7 +23,10 @@
     @include('parts.breadcrumb')
 @endsection
 @section('content')
-    @include('parts.title_start', ['title' => $title ?? 'Admin list table'])
+    @include('parts.title_start', [
+        'title' => $title ?? 'Admin list table',
+        'color' => 'card-primary',
+    ])
 
     <div class="card shadow ">
         <div class="card-header">
@@ -48,13 +54,14 @@
             </div>
         </div>
     </div>
-    </div>
+
     <!-- /.card-header -->
     <div class="card-body">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Full Name</th>
                     <th>Login Id</th>
                     <th>Phone</th>
                     <th>Status</th>
@@ -64,6 +71,7 @@
             <tbody>
                 @foreach ($datas as $data)
                     <tr>
+                        <td>{{ $data->user->name }}</td>
                         <td>{{ $data->first_name }} {{ $data->last_name }}</td>
                         <td>{{ $data->user->login_id }}</td>
                         <td>{{ $data->phone }}</td>
@@ -75,15 +83,21 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                            <a href="{{ route('superAdmin.admin.destroy', $data->id) }}" class="btn btn-danger">Delete</a>
                             <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-success">View</a>
+                            <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        @if ($datas->isEmpty())<h1 class="text-center text-black-50">No Data Found</h1>@endif
+        @if ($datas->isEmpty())
+            <h1 class="text-center text-black-50">No Data Found</h1>
+        @endif
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">

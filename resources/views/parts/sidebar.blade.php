@@ -24,8 +24,8 @@
                     'enabled' => true,
                 ],
                 [
-                    'title' => 'Add Admin',
-                    'route' => 'superAdmin.admin.add',
+                    'title' => 'Admin Create',
+                    'route' => 'superAdmin.admin.create',
                     'enabled' => true,
                 ],
             ],
