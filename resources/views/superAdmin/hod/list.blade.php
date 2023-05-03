@@ -8,12 +8,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
+                'route' => 'superAdmin.hod.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
+                'route' => 'superAdmin.hod.index',
                 'enable' => false,
             ],
         ],
@@ -31,7 +31,7 @@
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('superAdmin.admin.index') }}" method="GET">
+                <form action="{{ route('superAdmin.hod.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
@@ -39,12 +39,12 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.admin.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('superAdmin.admin.index') }}"class="btn btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('superAdmin.hod.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('superAdmin.hod.index') }}"class="btn btn-default  ml-2">All Admins</a>
                             <a
-                                href="{{ route('superAdmin.admin.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                                href="{{ route('superAdmin.hod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
                                 Admins</a>
-                            <a href="{{ route('superAdmin.admin.index', ['status' => 0]) }}"
+                            <a href="{{ route('superAdmin.hod.index', ['status' => 0]) }}"
                                 class="btn btn-warning">Deactive
                                 Admins</a>
                         </div>
@@ -79,15 +79,15 @@
                         <td>{{ $data->phone }}</td>
                         <td>
                             @if ($data->user->status === 1)
-                                <a href="{{ route('superAdmin.admin.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
+                                <a href="{{ route('superAdmin.hod.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
                             @else
-                                <a href="{{ route('superAdmin.admin.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
+                                <a href="{{ route('superAdmin.hod.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-success">View</a>
-                            <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST"
+                            <a href="{{ route('superAdmin.hod.show', $data->id) }}" class="btn btn-success">View</a>
+                            <a href="{{ route('superAdmin.hod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('superAdmin.hod.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>

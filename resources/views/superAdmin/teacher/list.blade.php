@@ -64,6 +64,7 @@
                     <th>Full Name</th>
                     <th>Login Id</th>
                     <th>Phone</th>
+                    <th>Access</th>
                     <th>Status</th>
                     <th class="text-center">Action</th>
                 </tr>
@@ -77,6 +78,16 @@
                         <td>{{ $data->first_name }} {{ $data->last_name }}</td>
                         <td>{{ $data->user->login_id }}</td>
                         <td>{{ $data->phone }}</td>
+                        <td>
+                            @if ($data->hod)<span class="text-success">Hod</span>@endif
+                            @if ($data->cod)<span class="text-success">Cod</span>@endif
+                            @if (!$data->cod&& !$data->hod)
+                                <span class="text-secondary">
+                                    No Access
+                                </span>
+                            @endif
+
+                        </td>
                         <td>
                             @if ($data->user->status === 1)
                                 <a href="{{ route('superAdmin.teacher.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>

@@ -14,6 +14,7 @@ use Illuminate\Validation\Rule;
 
 class SuperAdminAdminController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -180,7 +181,6 @@ class SuperAdminAdminController extends Controller
                 Rule::unique('admins')->ignore($id, 'user_id'),
                 'max:255',
             ],
-            'password' => 'string|min:6|max:255',
             'role' => 'required|string',
             'first_name' => 'required|string|max:255 ',
             'last_name' => 'required|string|max:255 ',
@@ -198,6 +198,7 @@ class SuperAdminAdminController extends Controller
         $user->role_id = Role::where('name', $request->role)->first()->id;
         // Update password if a new password is provided
         if (!empty($request->password)) {
+            $validatedData = $request->validate(['password' => 'min:6|max:255']);
             $user->password = Hash::make($request->password);
         }
         // Update user image

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\superAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hod;
 use App\Models\Role;
-use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class SuperAdminTeacherController extends Controller
+class SuperAdminHodController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -26,52 +26,65 @@ class SuperAdminTeacherController extends Controller
         // 1 mean active
         // 0 mean deactive
         if ($request->status === '1') {
-            $this->datas = Teacher::whereHas('user', function ($users) {
+            $this->datas = Hod::whereHas('user', function ($users) {
                 $users->where('status', 1);
             })->paginate(10);
-            return view('superAdmin.teacher.list', [
+            return view('superAdmin.hod.list', [
                 'datas' => $this->datas,
                 'title' => "Active Admin List"
             ]);
         }
         if ($request->status === '0') {
-            $this->datas = Teacher::whereHas('user', function ($users) {
+            $this->datas = Hod::whereHas('user', function ($users) {
                 $users->where('status', 0);
             })->paginate(10);
-            return view('superAdmin.teacher.list', [
+            return view('superAdmin.hod.list', [
                 'datas' => $this->datas,
                 'title' => "Dective Admin List"
             ]);
         }
         if ($request->search) {
             $this->data = $request->search;
-            $this->datas = Teacher::whereHas('user', function ($users) {
+            $this->datas = Hod::whereHas('user', function ($users) {
                 $users->where('login_id', 'LIKE', "%{$this->data}%")
                     ->orWhere('name', 'LIKE', "%{$this->data}%");
             })->paginate(10);
 
-            return view('superAdmin.teacher.list', [
+            return view('superAdmin.hod.list', [
                 'datas' => $this->datas,
                 'title' => "Admin Search Result List"
             ]);
         }
 
 
-        $this->datas = Teacher::with('user')->paginate(10);
-        return view('superAdmin.teacher.list', [
+        $this->datas = Hod::with('user')->paginate(10);
+        return view('superAdmin.hod.list', [
             'datas' => $this->datas
         ]);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        return view('superAdmin.teacher.create');
+        return view('superAdmin.hod.create');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         // validation
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:admins|max:255',
+            'email' => 'required|email|unique:hods|max:255',
             'password' => 'required|string|min:6|max:255',
             'role' => 'required|string',
             'first_name' => 'required|string|max:255 ',
@@ -88,9 +101,9 @@ class SuperAdminTeacherController extends Controller
         $user->role_id = Role::where('name', $request->role)->first()->id;
         // user login id create
         $lastUser = User::where('role_id', $user->role_id)->orderBy('id', 'desc')->first();
-        $lastLoginId = ($lastUser === null) ? substr('T0000', 1) : substr($lastUser->login_id, 1);
+        $lastLoginId = ($lastUser === null) ? substr('H0000', 1) : substr($lastUser->login_id, 1);
         $nextLoginId = str_pad($lastLoginId + 1, 4, '0', STR_PAD_LEFT);
-        $nextLoginIdValue = 'T' . $nextLoginId;
+        $nextLoginIdValue = 'H' . $nextLoginId;
         $user->login_id = $nextLoginIdValue; // created and stored
         $user->permission_id = 1;
         $user->status = 1;
@@ -107,7 +120,7 @@ class SuperAdminTeacherController extends Controller
         }
         // create admin
         if ($user) { // If the user was successfully stored
-            $admin  =  new Teacher();
+            $admin  =  new Hod();
             $admin->user_id = $user->id;
             $admin->first_name = $request->first_name;
             $admin->last_name = $request->last_name;
@@ -121,20 +134,42 @@ class SuperAdminTeacherController extends Controller
             return redirect()->back();
         }
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
-        $this->data = Teacher::with('user')->findOrFail($id);
-        return view('superAdmin.teacher.show',[
+        $this->data = Hod::with('user')->findOrFail($id);
+        return view('superAdmin.hod.show',[
             'data'=>$this->data
         ]);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
-        $this->data = Teacher::with('user')->find($id);
-        return view('superAdmin.teacher.edit', [
+        $this->data = Hod::with('user')->find($id);
+        return view('superAdmin.hod.edit', [
             'data' => $this->data,
         ]);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -142,9 +177,10 @@ class SuperAdminTeacherController extends Controller
             'email' => [
                 'required',
                 'email',
-                Rule::unique('teachers')->ignore($id, 'user_id'),
+                Rule::unique('hods')->ignore($id, 'user_id'),
                 'max:255',
             ],
+
             'role' => 'required|string',
             'first_name' => 'required|string|max:255 ',
             'last_name' => 'required|string|max:255 ',
@@ -176,7 +212,7 @@ class SuperAdminTeacherController extends Controller
         // Save user changes
         $user->save();
         // Find the associated admin and update their information
-        $admin = Teacher::where('user_id', $user->id)->first();
+        $admin = Hod::where('user_id', $user->id)->first();
         if ($admin) {
             $admin->first_name = $request->first_name;
             $admin->last_name = $request->last_name;
@@ -191,6 +227,12 @@ class SuperAdminTeacherController extends Controller
         fmassage('Success', 'Admin information updated successfully', 'success');
         return redirect()->back();
     }
+/**
+     * Update the specified resource field  from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function status($id)
     {
         $user = User::findOrFail($id);
@@ -200,9 +242,15 @@ class SuperAdminTeacherController extends Controller
         fmassage('Success', 'Admin Status updated successfully', 'success');
         return redirect()->back();
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-        $this->data = Teacher::find($id);
+        $this->data = Hod::find($id);
         $user_id = $this->data->user_id;
         $this->data->delete();
         $this->data = User::find($user_id);
@@ -213,8 +261,4 @@ class SuperAdminTeacherController extends Controller
         fmassage('Success', 'Admin deleted successfully', 'success');
         return redirect()->back();
     }
-    // public function cod($id){
-    //     $this->data = Teacher::findOrFail($id);
-    //     dd($this->data->user->name);
-    // }
 }

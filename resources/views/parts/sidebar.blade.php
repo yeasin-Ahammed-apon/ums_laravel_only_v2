@@ -54,12 +54,12 @@
             'sub_menu' => [
                 [
                     'title' => 'Hod List',
-                    'route' => 'superAdmin.hod.list',
+                    'route' => 'superAdmin.hod.index',
                     'enabled' => true,
                 ],
                 [
                     'title' => 'Add Hod',
-                    'route' => 'superAdmin.hod.add',
+                    'route' => 'superAdmin.hod.create',
                     'enabled' => true,
                 ],
             ],
