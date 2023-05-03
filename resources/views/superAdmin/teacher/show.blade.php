@@ -5,19 +5,19 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
+                'route' => 'superAdmin.teacher.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
+                'route' => 'superAdmin.teacher.index',
                 'enable' => false,
             ],
         ],
     ])
 @endsection --}}
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
+    Show Teacher || {{ auth()->user()->role->name }}
 @endsection
 @section('breadcrumb')
     @include('parts.breadcrumb')
@@ -25,7 +25,7 @@
 
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Edit Form',
+        'title' => $title ?? 'Teacher Show Form',
         'color' => 'card-warning',
     ])
     <div class="col-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">
@@ -54,8 +54,8 @@
           </div>
           <div class="card-footer">
             <div class="text-right">
-                <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST"
+                <a href="{{ route('superAdmin.teacher.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                <form action="{{ route('superAdmin.teacher.destroy', $data->id) }}" method="POST"
                     class="d-inline">
                     @csrf @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

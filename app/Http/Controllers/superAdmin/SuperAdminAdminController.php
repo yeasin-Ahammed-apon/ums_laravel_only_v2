@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class SuperAdminAdminController extends Controller
 {
@@ -80,6 +81,19 @@ class SuperAdminAdminController extends Controller
      */
     public function store(Request $request)
     {
+        // validation
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admins|max:255',
+            'password' => 'required|string|min:6|max:255',
+            'role' => 'required|string',
+            'first_name' => 'required|string|max:255 ',
+            'last_name' => 'required|string|max:255 ',
+            'phone' => 'required',
+            'address' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
         // create user
         $user  =  new User();
         $user->name = $request->name;
@@ -129,7 +143,10 @@ class SuperAdminAdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->data = Admin::with('user')->findOrFail($id);
+        return view('superAdmin.admin.show',[
+            'data'=>$this->data
+        ]);
     }
 
     /**
@@ -140,10 +157,10 @@ class SuperAdminAdminController extends Controller
      */
     public function edit($id)
     {
-            $this->data = Admin::with('user')->find($id);
-            return view('superAdmin.admin.edit',[
-                'data'=>$this->data,
-            ]);
+        $this->data = Admin::with('user')->find($id);
+        return view('superAdmin.admin.edit', [
+            'data' => $this->data,
+        ]);
     }
 
     /**
@@ -155,49 +172,75 @@ class SuperAdminAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('admins')->ignore($id, 'user_id'),
+                'max:255',
+            ],
+            'password' => 'string|min:6|max:255',
+            'role' => 'required|string',
+            'first_name' => 'required|string|max:255 ',
+            'last_name' => 'required|string|max:255 ',
+            'phone' => 'required',
+            'address' => 'required|string',
+            'image' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'status' => 'required',
+        ]);
         // Find the user by ID
-    $user = User::findOrFail($id);
+        $user = User::findOrFail($id);
+        // Update user information
+        $user->name = $request->name;
+        $user->status = $request->status;
+        // $user->updated_at = Carbon::now();
+        $user->role_id = Role::where('name', $request->role)->first()->id;
+        // Update password if a new password is provided
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+        // Update user image
+        $image = $request->file('image');
+        if ($image) {
+            $imageName = time() . '-' . $image->getClientOriginalName();
+            $imagePath = public_path('/users/images/');
+            $image->move($imagePath, $imageName);
+            $user->image = $imageName;
+        }
+        // Save user changes
+        $user->save();
+        // Find the associated admin and update their information
+        $admin = Admin::where('user_id', $user->id)->first();
+        if ($admin) {
+            $admin->first_name = $request->first_name;
+            $admin->last_name = $request->last_name;
+            $admin->phone = $request->phone;
+            $admin->address = $request->address;
+            $admin->email = $request->email;
+            $admin->updated_at = Carbon::now();
+            $admin->save();
+        }
 
-    // Update user information
-    $user->name = $request->name;
-    $user->status = $request->status;
-    // $user->updated_at = Carbon::now();
-    $user->role_id = Role::where('name', $request->role)->first()->id;
-
-    // Update password if a new password is provided
-    if (!empty($request->password)) {
-        $user->password = Hash::make($request->password);
+        // Redirect back to the user's edit page
+        fmassage('Success', 'Admin information updated successfully', 'success');
+        return redirect()->back();
     }
+/**
+     * Update the specified resource field  from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = !$user->status;
+        $user->save();
 
-    // Update user image
-    $image = $request->file('image');
-    if ($image) {
-        $imageName = time() . '-' . $image->getClientOriginalName();
-        $imagePath = public_path('/users/images/');
-        $image->move($imagePath, $imageName);
-        $user->image = $imageName;
+        fmassage('Success', 'Admin Status updated successfully', 'success');
+        return redirect()->back();
     }
-
-    // Save user changes
-    $user->save();
-
-    // Find the associated admin and update their information
-    $admin = Admin::where('user_id', $user->id)->first();
-    if ($admin) {
-        $admin->first_name = $request->first_name;
-        $admin->last_name = $request->last_name;
-        $admin->phone = $request->phone;
-        $admin->address = $request->address;
-        $admin->email = $request->email;
-        $admin->updated_at = Carbon::now();
-        $admin->save();
-    }
-
-    // Redirect back to the user's edit page
-    fmassage('Success', 'Admin information updated successfully', 'success');
-    return redirect()->back();
-    }
-
     /**
      * Remove the specified resource from storage.
      *

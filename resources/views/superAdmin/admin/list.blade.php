@@ -27,7 +27,6 @@
         'title' => $title ?? 'Admin list table',
         'color' => 'card-primary',
     ])
-
     <div class="card shadow ">
         <div class="card-header">
             <h3 class="card-title"> List</h3>
@@ -40,7 +39,8 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.admin.index') }}"class="btn btn-primary  ml-2">All Admins</a>
+                            <a href="{{ route('superAdmin.admin.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('superAdmin.admin.index') }}"class="btn btn-default  ml-2">All Admins</a>
                             <a
                                 href="{{ route('superAdmin.admin.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
                                 Admins</a>
@@ -54,12 +54,12 @@
             </div>
         </div>
     </div>
-
     <!-- /.card-header -->
     <div class="card-body">
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>image</th>
                     <th>Name</th>
                     <th>Full Name</th>
                     <th>Login Id</th>
@@ -70,16 +70,19 @@
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                    <tr>
+                        <td width="10%">
+                                <img src="{{ asset('users/images/'.$data->user->image) }}" class="img-fluid mx-auto d-block"  alt="Image">
+                        </td>
                         <td>{{ $data->user->name }}</td>
                         <td>{{ $data->first_name }} {{ $data->last_name }}</td>
                         <td>{{ $data->user->login_id }}</td>
                         <td>{{ $data->phone }}</td>
                         <td>
                             @if ($data->user->status === 1)
-                                Active
+                                <a href="{{ route('superAdmin.admin.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
+
                             @else
-                                Deactive
+                                <a href="{{ route('superAdmin.admin.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
                             @endif
                         </td>
                         <td class="text-center">

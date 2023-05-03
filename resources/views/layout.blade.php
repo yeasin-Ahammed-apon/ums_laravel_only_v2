@@ -18,8 +18,6 @@
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
 
 </head>
-
-
 <body class="hold-transition sidebar-mini layout-fixed">
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -73,6 +71,6 @@
             })
         </script>
     @endif
+    @yield('scripts')
 </body>
-
 </html>

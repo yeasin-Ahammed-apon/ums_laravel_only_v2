@@ -37,12 +37,12 @@
             'sub_menu' => [
                 [
                     'title' => 'Teacher List',
-                    'route' => 'superAdmin.teacher.list',
+                    'route' => 'superAdmin.teacher.index',
                     'enabled' => true,
                 ],
                 [
                     'title' => 'Add Teacher',
-                    'route' => 'superAdmin.teacher.add',
+                    'route' => 'superAdmin.teacher.create',
                     'enabled' => true,
                 ],
             ],

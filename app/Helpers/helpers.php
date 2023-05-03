@@ -9,3 +9,12 @@ if (! function_exists('fmassage')) {
         ]);
     }
 }
+if (! function_exists('validationError')) {
+    function validationError($name,$message)
+    {
+        if ($message->has($name)) {
+            return '<div class="text-danger">' . $message->first($name) . '</div>';
+        }
+        return '';
+    }
+}
