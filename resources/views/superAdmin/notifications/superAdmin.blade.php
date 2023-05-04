@@ -31,7 +31,7 @@
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('superAdmin.hod.index') }}" method="GET">
+                <form action="{{ route('superAdmin.notification.superAdmin') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
@@ -39,14 +39,9 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.hod.create') }}"class="btn btn-primary  ml-2">+ Add Hod</a>
-                            <a href="{{ route('superAdmin.hod.index') }}"class="btn btn-default  ml-2">All Hod</a>
-                            <a
-                                href="{{ route('superAdmin.hod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
-                                Hod</a>
-                            <a href="{{ route('superAdmin.hod.index', ['status' => 0]) }}"
-                                class="btn btn-warning">Deactive
-                                Hod</a>
+                            <a href="{{ route('superAdmin.notification.superAdmin') }}"class="btn btn-default  ml-2">All Notification</a>
+                            <a href="{{ route('superAdmin.notification.superAdmin',['seen'=>0]) }}"class="btn btn-success  ml-2">All Unseen Notification</a>
+                            <a href="{{ route('superAdmin.notification.superAdmin',['seen'=>1]) }}"class="btn btn-secondary  ml-2">All Seen Notification</a>
                         </div>
 
                     </div>
@@ -63,23 +58,30 @@
                     <th>Action</th>
                     <th>Description</th>
                     <th>Seen</th>
-                    <th class="text-center">Action</th>
+                    <th>Seen By</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                        <td>{{ $data->user_id }}</td>
+                        <td>{{ $data->user->name }}</td>
                         <td>{{ $data->action }}</td>
                         <td>{{ $data->description }}</td>
                         <td>
                             @if ($data->seen)
-                                Read
+                            <span class="btn btn-secondary">Unread</span>
                             @else
-                                Unread
+                            <a href="{{ route('superAdmin.notification.superAdmin', [
+                                'id'=>$data->id,
+                                'type'=>'read'
+                                ]) }}" class="btn btn-success">Read</a>
                             @endif
                         </td>
-                        <td class="text-center">
-                            <a href="{{ route('superAdmin.hod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                        <td>
+                            @if ($data->seen_by !== 0)
+                                {{ \App\Models\User::where('id',$data->seen_by)->first()->name }}
+                            @else
+                                ....
+                            @endif
                         </td>
                     </tr>
                 @endforeach

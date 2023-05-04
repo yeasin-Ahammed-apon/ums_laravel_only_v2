@@ -24,11 +24,11 @@
         @include('parts.navbar')
         @include('parts.sidebar')
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="background-color: rgba(66, 1, 245, 0.192)">
             <!-- Content Header (Page header) -->
             @yield('breadcrumb')
             <!-- Main content -->
-            <section class="content">
+            <section class="content ">
                 <div class="row">
                     <div class="col-12">
                         <!-- Default box -->

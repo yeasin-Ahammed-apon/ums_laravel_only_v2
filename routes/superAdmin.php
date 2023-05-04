@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Route;
 // superAdmin routes
 Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
     Route::prefix('/superAdmin')->group(function () {
-        
+
         Route::get('/dashboard', [SuperAdminController::class, "dashboard"])->name('superAdmin.dashboard');
         Route::get('/notification/superAdmin', [SuperAdminController::class, "notification_superAdmin"])->name('superAdmin.notification.superAdmin');
+        Route::get('/notification/admin', [SuperAdminController::class, "notification_admin"])->name('superAdmin.notification.admin');
         Route::get('/notification/hod', [SuperAdminController::class, "notification_hod"])->name('superAdmin.notification.hod');
         Route::get('/notification/cod', [SuperAdminController::class, "notification_cod"])->name('superAdmin.notification.cod');
         Route::get('/notification/teacher', [SuperAdminController::class, "notification_teacher"])->name('superAdmin.notification.teacher');

@@ -16,6 +16,7 @@ class CreateEmployeesNotificationsTable extends Migration
         Schema::create('employees_notifications', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('seen_by')->default(0);
             $table->string('action');
             $table->string('description');
             $table->string('role');
