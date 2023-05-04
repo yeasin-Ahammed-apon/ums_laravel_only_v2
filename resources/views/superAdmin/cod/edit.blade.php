@@ -5,12 +5,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
+                'route' => 'superAdmin.cod.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
+                'route' => 'superAdmin.cod.index',
                 'enable' => false,
             ],
         ],
@@ -30,12 +30,12 @@
     ])
     <!-- general form elements -->
     <div class="card">
-        <form action="{{ route('superAdmin.admin.update', $data->user_id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('superAdmin.cod.update', $data->user_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body row">
                 {{-- role --}}
-                <input type="hidden" name="role" value="admin" class="form-control" placeholder="Enter name">
+                <input type="hidden" name="role" value="cod" class="form-control" placeholder="Enter name">
                 {{-- name --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>name</label>
@@ -126,7 +126,7 @@
                 <button type="submit" class="btn btn-primary">
                     Update
                 </button>
-                <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-success">View</a>
+                <a href="{{ route('superAdmin.cod.show', $data->id) }}" class="btn btn-success">View</a>
             </div>
         </form>
     </div>

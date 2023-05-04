@@ -8,12 +8,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.cod.dashboard',
+                'route' => 'superAdmin.hod.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.cod.index',
+                'route' => 'superAdmin.hod.index',
                 'enable' => false,
             ],
         ],
@@ -31,7 +31,7 @@
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('superAdmin.cod.index') }}" method="GET">
+                <form action="{{ route('superAdmin.hod.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
@@ -39,14 +39,14 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.cod.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('superAdmin.cod.index') }}"class="btn btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('superAdmin.hod.create') }}"class="btn btn-primary  ml-2">+ Add Hod</a>
+                            <a href="{{ route('superAdmin.hod.index') }}"class="btn btn-default  ml-2">All Hod</a>
                             <a
-                                href="{{ route('superAdmin.cod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
-                                Admins</a>
-                            <a href="{{ route('superAdmin.cod.index', ['status' => 0]) }}"
+                                href="{{ route('superAdmin.hod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                                Hod</a>
+                            <a href="{{ route('superAdmin.hod.index', ['status' => 0]) }}"
                                 class="btn btn-warning">Deactive
-                                Admins</a>
+                                Hod</a>
                         </div>
 
                     </div>
@@ -59,39 +59,27 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>image</th>
-                    <th>Name</th>
-                    <th>Full Name</th>
-                    <th>Login Id</th>
-                    <th>Phone</th>
-                    <th>Status</th>
+                    <th>By </th>
+                    <th>Action</th>
+                    <th>Description</th>
+                    <th>Seen</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                        <td width="10%">
-                                <img src="{{ asset('users/images/'.$data->user->image) }}" class="img-fluid mx-auto d-block"  alt="Image">
-                        </td>
-                        <td>{{ $data->user->name }}</td>
-                        <td>{{ $data->first_name }} {{ $data->last_name }}</td>
-                        <td>{{ $data->user->login_id }}</td>
-                        <td>{{ $data->phone }}</td>
+                        <td>{{ $data->user_id }}</td>
+                        <td>{{ $data->action }}</td>
+                        <td>{{ $data->description }}</td>
                         <td>
-                            @if ($data->user->status === 1)
-                                <a href="{{ route('superAdmin.cod.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
+                            @if ($data->seen)
+                                Read
                             @else
-                                <a href="{{ route('superAdmin.cod.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
+                                Unread
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('superAdmin.cod.show', $data->id) }}" class="btn btn-success">View</a>
-                            <a href="{{ route('superAdmin.cod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('superAdmin.cod.destroy', $data->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            <a href="{{ route('superAdmin.hod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
                 @endforeach

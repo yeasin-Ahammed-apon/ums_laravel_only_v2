@@ -61,6 +61,11 @@
     <script src={{ asset('assets/admin_lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}></script>
     <!-- AdminLTE App -->
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
+    <script>
+        function Mute(event){
+
+        }
+    </script>
     @if (session('alert'))
         <script>
             Swal.fire({

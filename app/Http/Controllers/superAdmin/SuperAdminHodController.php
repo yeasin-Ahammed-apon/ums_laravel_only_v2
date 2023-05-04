@@ -259,6 +259,6 @@ class SuperAdminHodController extends Controller
         $imagePath = public_path('/users/images/');
         unlink($imagePath . $imageName);
         fmassage('Success', 'Admin deleted successfully', 'success');
-        return redirect()->back();
+        return redirect()->route('superAdmin.hod.index');
     }
 }

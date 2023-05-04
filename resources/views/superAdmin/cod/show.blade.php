@@ -5,12 +5,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
+                'route' => 'superAdmin.cod.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
+                'route' => 'superAdmin.cod.index',
                 'enable' => false,
             ],
         ],
@@ -54,8 +54,8 @@
           </div>
           <div class="card-footer">
             <div class="text-right">
-                <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST"
+                <a href="{{ route('superAdmin.cod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                <form action="{{ route('superAdmin.cod.destroy', $data->id) }}" method="POST"
                     class="d-inline">
                     @csrf @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

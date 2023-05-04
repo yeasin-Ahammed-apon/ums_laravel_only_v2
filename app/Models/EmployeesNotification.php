@@ -5,12 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cod extends Model
+class EmployeesNotification extends Model
 {
     use HasFactory;
-    protected $table = 'cods';
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    
 }

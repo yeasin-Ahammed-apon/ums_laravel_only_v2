@@ -39,14 +39,14 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.hod.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('superAdmin.hod.index') }}"class="btn btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('superAdmin.hod.create') }}"class="btn btn-primary  ml-2">+ Add Hod</a>
+                            <a href="{{ route('superAdmin.hod.index') }}"class="btn btn-default  ml-2">All Hod</a>
                             <a
                                 href="{{ route('superAdmin.hod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
-                                Admins</a>
+                                Hod</a>
                             <a href="{{ route('superAdmin.hod.index', ['status' => 0]) }}"
                                 class="btn btn-warning">Deactive
-                                Admins</a>
+                                Hod</a>
                         </div>
 
                     </div>

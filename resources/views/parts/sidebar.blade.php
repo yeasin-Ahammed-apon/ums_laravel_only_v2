@@ -71,23 +71,36 @@
             'sub_menu' => [
                 [
                     'title' => 'Cod List',
-                    'route' => 'superAdmin.cod.list',
+                    'route' => 'superAdmin.cod.index',
                     'enabled' => true,
                 ],
                 [
                     'title' => 'Add Cod',
-                    'route' => 'superAdmin.cod.add',
+                    'route' => 'superAdmin.cod.create',
                     'enabled' => true,
                 ],
             ],
             'enabled' => true,
-        ],[
+        ],
+        [
             'title' => 'Student',
             'icon' => 'fas fa-tachometer-alt',
             'sub_menu' => [
                 [
                     'title' => 'Student List',
                     'route' => 'superAdmin.student.list',
+                    'enabled' => true,
+                ],
+            ],
+            'enabled' => true,
+        ],
+        [
+            'title' => 'Notification',
+            'icon' => 'fas fa-tachometer-alt',
+            'sub_menu' => [
+                [
+                    'title' => 'Student List',
+                    'route' => 'superAdmin.notification.superAdmin',
                     'enabled' => true,
                 ],
             ],

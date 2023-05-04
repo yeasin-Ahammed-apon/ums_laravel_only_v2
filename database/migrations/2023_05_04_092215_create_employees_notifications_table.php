@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCodTable extends Migration
+class CreateEmployeesNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateCodTable extends Migration
      */
     public function up()
     {
-        Schema::create('cod', function (Blueprint $table) {
-
+        Schema::create('employees_notifications', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('email')->unique();
-            $table->integer('hod')->default(0);
+            $table->string('action');
+            $table->string('description');
+            $table->string('role');
+            $table->boolean('seen')->default(0);
             $table->timestamps();
-            
         });
     }
 
@@ -35,6 +31,6 @@ class CreateCodTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cod');
+        Schema::dropIfExists('employees_notifications');
     }
 }

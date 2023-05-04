@@ -131,6 +131,7 @@ class SuperAdminAdminController extends Controller
             $admin->save();
         }
         if ($admin) { // // If the admin was successfully stored
+            Enotifications('Create Admin',"new user created . user id is ".$user->id.". login id is ".$user->login_id);
             fmassage('Success', 'New Admin Created Successfully', 'success');
             return redirect()->back();
         }
@@ -224,6 +225,7 @@ class SuperAdminAdminController extends Controller
         }
 
         // Redirect back to the user's edit page
+        Enotifications('updated Admin',"updated user  . user id is ".$user->id.". login id is ".$user->login_id);
         fmassage('Success', 'Admin information updated successfully', 'success');
         return redirect()->back();
     }
@@ -238,7 +240,7 @@ class SuperAdminAdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = !$user->status;
         $user->save();
-
+        Enotifications('Status update Admin',"user Status updated . user id is ".$user->id.". login id is ".$user->login_id);
         fmassage('Success', 'Admin Status updated successfully', 'success');
         return redirect()->back();
     }
@@ -250,15 +252,16 @@ class SuperAdminAdminController extends Controller
      */
     public function destroy($id)
     {
-        $this->data = Admin::find($id);
-        $user_id = $this->data->user_id;
-        $this->data->delete();
-        $this->data = User::find($user_id);
-        $imageName = $this->data->image;
-        $this->data->delete();
+        $admin = Admin::findOrFail($id);
+        $user_id = $admin->user_id;
+        $admin->delete();
+        $user = User::findOrFail($user_id);
+        $imageName = $user->image;
+        $user->delete();
         $imagePath = public_path('/users/images/');
         unlink($imagePath . $imageName);
+        Enotifications('Deleted Admin'," user deleted . user id is ".$user->id.". login id is ".$user->login_id);
         fmassage('Success', 'Admin deleted successfully', 'success');
-        return redirect()->back();
+        return redirect()->route('superAdmin.admin.index');
     }
 }

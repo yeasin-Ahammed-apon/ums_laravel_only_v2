@@ -86,11 +86,15 @@
                         </td>
                         <td class="text-center">
                             <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-success">View</a>
-                            <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary edit"
+                                onclick="Mute(event)"
+                                >Edit</a>
                             <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger delete"
+                                onclick="Mute(event)"
+                                >Delete</button>
                             </form>
                         </td>
                     </tr>
