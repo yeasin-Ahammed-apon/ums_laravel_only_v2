@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('meta-tag') || UMS</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -50,6 +51,7 @@
     </div>
     <!-- ./wrapper -->
     {{-- sweet alert --}}
+
     <script src="{{ asset('assets/admin_lte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     {{-- popper --}}
     <script src="{{ asset('assets/admin_lte/plugins/popper/umd/popper.min.js') }}"></script>
@@ -62,6 +64,7 @@
     <!-- AdminLTE App -->
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
     <script>
+        const  selector = ($param)=> document.querySelector($param)
         function Mute(event){
 
         }

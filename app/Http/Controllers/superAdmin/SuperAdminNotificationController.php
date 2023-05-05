@@ -7,15 +7,25 @@ use App\Models\EmployeesNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class SuperAdminNotificationController extends Controller
 {
     private $data;
     private $datas;
     public function notification_superAdmin(Request $request)
     {
-        if ($request->checkboxData) {
-             return $request->checkboxData;
-        }
+
+            if ($request->selectedValues) {
+                foreach ($request->selectedValues as  $value) {
+                    $this->data = EmployeesNotification::findOrFail($value);
+                    $this->data->seen = 1;
+                    $this->data->seen_by = Auth::user()->id;
+                    $this->data->save();
+                }
+                fmassage('Read', 'Message read successfully', 'success');
+                return response()->json(['status' => 'success']);
+            }
+
         if ($request->type === 'read') {
             $this->datas = EmployeesNotification::find($request->id);
             $this->datas->seen = 1;

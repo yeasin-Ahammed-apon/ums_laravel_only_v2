@@ -65,8 +65,6 @@
                 <tr>
                     <th>
                         <input type="checkbox" id="selectAll">
-                        <div class="d-inline">
-                        </div>
                     </th>
                     <th>By </th>
                     <th>Action</th>
@@ -80,7 +78,8 @@
                     <td>
                         @if ($data->seen)
                             <div class="form-check">
-                                <input type="checkbox" value="{{ $data->id }}" class="form-check-input" disabled>
+                                <input type="checkbox" value="{{ $data->id }}" class="form-check-input" checked
+                                    disabled>
                             </div>
                         @else
                             <div class="form-check">
@@ -127,27 +126,18 @@
         </nav>
     </div>
     </div>
-
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Select/Deselect all checkboxes
-            // document.querySelector('#actionOption').style.display = 'none'
-            $('#selectAll').click(function(event) {
-                if (this.checked) {
-                    document.querySelector('#actionOption').style.display = 'block'
-                    $('.checkbox-select').each(function() {
-                        this.checked = true;
-                    });
-                } else {
-                    document.querySelector('#actionOption').style.display = 'none'
-                    $('.checkbox-select').each(function() {
-                        this.checked = false;
-                    });
-                }
+        document.addEventListener("DOMContentLoaded", function() {
+            const selectAll = selector("#selectAll");
+            const checkboxes = document.querySelectorAll(".checkbox-select");
+            selectAll.addEventListener("click", function(event) {
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = selectAll.checked;
+                });
+                checking();
             });
         });
 
@@ -155,22 +145,24 @@
             var checkboxes = document.getElementsByClassName('checkbox-select');
             var selectedValues = [];
             for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    selectedValues.push(checkboxes[i].value);
-                }
+                if (checkboxes[i].checked) selectedValues.push(checkboxes[i].value);
             }
             if (selectedValues) {
-                axios({
-                        method: 'get',
-                        url: {{ route('superAdmin.notification.superAdmin') }},
-                        checkboxData: selectedValues
-                    })
-                    .then(function(response) {
-                        console.log(response.data);
-                    })
-                    .catch(function(error) {
-                        console.error(error);
-                    });
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('superAdmin.notification.superAdmin') }}",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        selectedValues,
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') window.location.reload()
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.error(errorThrown);
+                    }
+                });
+
             }
         }
 
@@ -178,15 +170,10 @@
             var checkboxes = document.getElementsByClassName('checkbox-select');
             var selectedValues = [];
             for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    selectedValues.push(checkboxes[i].value);
-                }
+                if (checkboxes[i].checked) selectedValues.push(checkboxes[i].value);
             }
-            if (selectedValues.length) {
-                document.querySelector('#actionOption').style.display = 'block'
-            } else {
-                document.querySelector('#actionOption').style.display = 'none'
-            }
+            if (selectedValues.length) selector('#actionOption').style.display = 'block'
+            else selector('#actionOption').style.display = 'none'
         }
     </script>
 @endsection
