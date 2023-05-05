@@ -22,6 +22,8 @@ class RolesTableSeeder extends Seeder
                 ['name' => 'teacher'],
                 ['name' => 'hod'],
                 ['name' => 'cod'],
+                ['name' => 'account'],
+                ['name' => 'admission'],
                 // Add more users here...
             ]);
         }

@@ -15,6 +15,38 @@
             'enabled' => true,
         ],
         [
+            'title' => 'Notification',
+            'icon' => 'fas fa-tachometer-alt',
+            'sub_menu' => [
+                [
+                    'title' => 'superAdmin',
+                    'route' => 'superAdmin.notification.superAdmin',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'admin',
+                    'route' => 'superAdmin.notification.admin',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'hod',
+                    'route' => 'superAdmin.notification.hod',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'cod',
+                    'route' => 'superAdmin.notification.cod',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'teacher',
+                    'route' => 'superAdmin.notification.teacher',
+                    'enabled' => true,
+                ],
+            ],
+            'enabled' => true,
+        ],
+        [
             'title' => 'Admin',
             'icon' => 'fas fa-tachometer-alt',
             'sub_menu' => [
@@ -83,6 +115,40 @@
             'enabled' => true,
         ],
         [
+            'title' => 'Account',
+            'icon' => 'fas fa-tachometer-alt',
+            'sub_menu' => [
+                [
+                    'title' => 'Account List',
+                    'route' => 'superAdmin.account.index',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'Add Account',
+                    'route' => 'superAdmin.account.create',
+                    'enabled' => true,
+                ],
+            ],
+            'enabled' => true,
+        ],
+        [
+            'title' => 'Admission',
+            'icon' => 'fas fa-tachometer-alt',
+            'sub_menu' => [
+                [
+                    'title' => 'Admission List',
+                    'route' => 'superAdmin.admission.index',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'Add Admission',
+                    'route' => 'superAdmin.admission.create',
+                    'enabled' => true,
+                ],
+            ],
+            'enabled' => true,
+        ],
+        [
             'title' => 'Student',
             'icon' => 'fas fa-tachometer-alt',
             'sub_menu' => [
@@ -94,18 +160,7 @@
             ],
             'enabled' => true,
         ],
-        [
-            'title' => 'Notification',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Student List',
-                    'route' => 'superAdmin.notification.superAdmin',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
+
     ];
     $sidebar = json_encode($sidebar);
     $sidebar = json_decode($sidebar, true);
@@ -123,12 +178,12 @@
     <a href="../../index3.html" class="brand-link">
         <img src="{{ asset('users/images/'.Auth::user()->image) }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">{{  Auth::user()->name}}</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user (optional) -->
+        {{-- <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -136,7 +191,7 @@
             <div class="info">
                 <a href="#" class="d-block">Alexander Pierce</a>
             </div>
-        </div>
+        </div> --}}
 
         <!-- SidebarSearch Form -->
         <div class="form-inline">

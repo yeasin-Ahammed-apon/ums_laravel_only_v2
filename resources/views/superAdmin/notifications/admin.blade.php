@@ -31,7 +31,7 @@
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('superAdmin.notification.cod') }}" method="GET">
+                <form action="{{ route('superAdmin.notification.admin') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
@@ -39,9 +39,9 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.notification.cod') }}"class="btn btn-default  ml-2">All Notification</a>
-                            <a href="{{ route('superAdmin.notification.cod',['seen'=>0]) }}"class="btn btn-success  ml-2">All Unseen Notification</a>
-                            <a href="{{ route('superAdmin.notification.cod',['seen'=>1]) }}"class="btn btn-secondary  ml-2">All Seen Notification</a>
+                            <a href="{{ route('superAdmin.notification.admin') }}"class="btn btn-default  ml-2">All Notification</a>
+                            <a href="{{ route('superAdmin.notification.admin',['seen'=>0]) }}"class="btn btn-success  ml-2">All Unseen Notification</a>
+                            <a href="{{ route('superAdmin.notification.admin',['seen'=>1]) }}"class="btn btn-secondary  ml-2">All Seen Notification</a>
                         </div>
 
                     </div>
@@ -70,7 +70,7 @@
                             @if ($data->seen)
                             <span class="btn btn-secondary">Unread</span>
                             @else
-                            <a href="{{ route('superAdmin.notification.cod', [
+                            <a href="{{ route('superAdmin.notification.admin', [
                                 'id'=>$data->id,
                                 'type'=>'read'
                                 ]) }}" class="btn btn-success">Read</a>

@@ -24,6 +24,10 @@ class AuthController extends Controller
             return redirect()->route('hod.dashboard');
         }elseif ($role === "cod") { // cod check
             return redirect()->route('cod.dashboard');
+        }elseif ($role === "account") { // account check
+            return redirect()->route('account.dashboard');
+        }elseif ($role === "admission") { // admission check
+            return redirect()->route('admission.dashboard');
         }
         }
         return view('login.login');
@@ -50,6 +54,10 @@ class AuthController extends Controller
             return redirect()->route('hod.dashboard');
         }elseif ($role === "cod") { // cod check
             return redirect()->route('cod.dashboard');
+        }elseif ($role === "account") { // account check
+            return redirect()->route('account.dashboard');
+        }elseif ($role === "admission") { // admission check
+            return redirect()->route('admission.dashboard');
         }
         }
         return back();
