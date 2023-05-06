@@ -12,9 +12,15 @@ class SuperAdminNotificationController extends Controller
 {
     private $data;
     private $datas;
+    // private $pageData;
+
     public function notification_superAdmin(Request $request)
     {
-
+        if ($request->pageData) {
+            $pageData = intval($request->pageData);
+        }else{
+            $pageData = 10;
+        }
             if ($request->selectedValues) {
                 foreach ($request->selectedValues as  $value) {
                     $this->data = EmployeesNotification::findOrFail($value);
@@ -36,39 +42,42 @@ class SuperAdminNotificationController extends Controller
         }
         if ($request->seen === '0') {
             $this->datas = EmployeesNotification::where('role', 'superAdmin')
-                ->where('seen', 0)
+                    ->where('seen', 0)
                 ->orderBy('created_at', 'desc')
-                ->paginate(10);
+                ->paginate($pageData);
             return view('superAdmin.notifications.superAdmin', [
-                'datas' => $this->datas
+                'datas' => $this->datas,
+                'pageData'=> $pageData
             ]);
         }
         if ($request->seen === '1') {
             $this->datas = EmployeesNotification::where('role', 'superAdmin')
-                ->where('seen', 1)
+                    ->where('seen', 1)
                 ->orderBy('created_at', 'desc')
-                ->paginate(10);
+                ->paginate($pageData);
             return view('superAdmin.notifications.superAdmin', [
-                'datas' => $this->datas
+                'datas' => $this->datas,
+                'pageData'=> $pageData
             ]);
         }
         if ($request->search) {
             $this->data = $request->search;
             $this->datas = EmployeesNotification::where('role', 'superAdmin')
                 ->where('action', 'LIKE', "%{$this->data}%")
-                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate(10);
+                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate($pageData);
 
             return view('superAdmin.notifications.superAdmin', [
                 'datas' => $this->datas,
-                'title' => "Admin Search Result List"
+                'pageData'=> $pageData
             ]);
         }
         $this->datas = EmployeesNotification::where('role', 'superAdmin')
-            ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', 'desc')
             ->with('user')
-            ->paginate(10);
+            ->paginate($pageData);
         return view('superAdmin.notifications.superAdmin', [
-            'datas' => $this->datas
+            'datas' => $this->datas,
+            'pageData'=> $pageData
         ]);
     }
     public function notification_admin(Request $request)
