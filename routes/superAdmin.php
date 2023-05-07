@@ -43,5 +43,7 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
         Route::get('/notification/hod', [SuperAdminNotificationController::class, "notification_hod"])->name('superAdmin.notification.hod');
         Route::get('/notification/cod', [SuperAdminNotificationController::class, "notification_cod"])->name('superAdmin.notification.cod');
         Route::get('/notification/teacher', [SuperAdminNotificationController::class, "notification_teacher"])->name('superAdmin.notification.teacher');
+        Route::get('/notification/account', [SuperAdminNotificationController::class, "notification_account"])->name('superAdmin.notification.account');
+        Route::get('/notification/admission', [SuperAdminNotificationController::class, "notification_admission"])->name('superAdmin.notification.admission');
     });
 });

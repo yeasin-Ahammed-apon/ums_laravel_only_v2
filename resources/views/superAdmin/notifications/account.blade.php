@@ -33,7 +33,7 @@
             <h3 class="card-title"> List
             </h3>
             <div class="card-tools">
-                <form action="{{ route('superAdmin.notification.admin') }}" method="GET">
+                <form action="{{ route('superAdmin.notification.account') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         @include('parts.card_tool_option_per_page',['pageData'=>$pageData])
@@ -42,13 +42,13 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.notification.admin') }}"class="btn btn-default  ml-2">All
+                            <a href="{{ route('superAdmin.notification.account') }}"class="btn btn-default  ml-2">All
                                 Notification</a>
                             <a
-                                href="{{ route('superAdmin.notification.admin', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
+                                href="{{ route('superAdmin.notification.account', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
                                 Unseen Notification</a>
                             <a onclick="disableButton(this)"
-                                href="{{ route('superAdmin.notification.admin', ['seen' => 1]) }}"class="btn btn-secondary  ml-2">All
+                                href="{{ route('superAdmin.notification.account', ['seen' => 1]) }}"class="btn btn-secondary  ml-2">All
                                 Seen Notification</a>
                         </div>
 
@@ -82,7 +82,7 @@
                         @if ($data->seen)
                             <span class="btn btn-secondary">Unread</span>
                         @else
-                            <a href="{{ route('superAdmin.notification.admin', [
+                            <a href="{{ route('superAdmin.notification.account', [
                                 'id' => $data->id,
                                 'type' => 'read',
                             ]) }}"
@@ -116,6 +116,6 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.multiple_check_js',['multiple_check_url'=>'superAdmin.notification.admin'])
-    @include('parts.page_number_set_js',['page_number_url'=>'superAdmin.notification.admin'])
+    @include('parts.multiple_check_js',['multiple_check_url'=>'superAdmin.notification.account'])
+    @include('parts.page_number_set_js',['page_number_url'=>'superAdmin.notification.account'])
 @endsection

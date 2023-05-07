@@ -43,6 +43,16 @@
                     'route' => 'superAdmin.notification.teacher',
                     'enabled' => true,
                 ],
+                [
+                    'title' => 'account',
+                    'route' => 'superAdmin.notification.account',
+                    'enabled' => true,
+                ],
+                [
+                    'title' => 'admission',
+                    'route' => 'superAdmin.notification.admission',
+                    'enabled' => true,
+                ],
             ],
             'enabled' => true,
         ],

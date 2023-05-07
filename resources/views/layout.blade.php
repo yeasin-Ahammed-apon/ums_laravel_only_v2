@@ -65,8 +65,9 @@
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
     <script>
         const  selector = ($param)=> document.querySelector($param)
-        function Mute(event){
-
+        const disableButton = (button)=> {
+            button.disabled = true;
+            button.style.color = 'gray'
         }
     </script>
     @if (session('alert'))

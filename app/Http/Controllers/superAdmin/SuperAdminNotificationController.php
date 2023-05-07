@@ -12,26 +12,28 @@ class SuperAdminNotificationController extends Controller
 {
     private $data;
     private $datas;
+    private $pageData;
     // private $pageData;
-
-    public function notification_superAdmin(Request $request)
+    public function pageDataCheck($request)
     {
-        if ($request->pageData) {
-            $pageData = intval($request->pageData);
-        }else{
-            $pageData = 10;
-        }
-            if ($request->selectedValues) {
-                foreach ($request->selectedValues as  $value) {
-                    $this->data = EmployeesNotification::findOrFail($value);
-                    $this->data->seen = 1;
-                    $this->data->seen_by = Auth::user()->id;
-                    $this->data->save();
-                }
-                fmassage('Read', 'Message read successfully', 'success');
-                return response()->json(['status' => 'success']);
+        if ($request->pageData) $this->pageData = intval($request->pageData);
+        else $this->pageData = 10;
+    }
+    public function selectedValues($request)
+    {
+        if ($request->selectedValues) {
+            foreach ($request->selectedValues as  $value) {
+                $this->data = EmployeesNotification::findOrFail($value);
+                $this->data->seen = 1;
+                $this->data->seen_by = Auth::user()->id;
+                $this->data->save();
             }
-
+            fmassage('Read', 'Message read successfully', 'success');
+            return response()->json(['status' => 'success']);
+        }
+    }
+    public function markAsRead($request)
+    {
         if ($request->type === 'read') {
             $this->datas = EmployeesNotification::find($request->id);
             $this->datas->seen = 1;
@@ -40,232 +42,162 @@ class SuperAdminNotificationController extends Controller
             fmassage('Read', 'Message read successfully', 'success');
             return redirect()->back();
         }
+    }
+    public function unseen($request, $role, $viewUrl)
+    {
         if ($request->seen === '0') {
-            $this->datas = EmployeesNotification::where('role', 'superAdmin')
-                    ->where('seen', 0)
+            $this->datas = EmployeesNotification::where('role', $role)
+                ->where('seen', 0)
                 ->orderBy('created_at', 'desc')
-                ->paginate($pageData);
-            return view('superAdmin.notifications.superAdmin', [
+                ->paginate($this->pageData);
+            return view($viewUrl, [
                 'datas' => $this->datas,
-                'pageData'=> $pageData
+                'pageData' => $this->pageData
             ]);
         }
+    }
+    public function seen($request, $role, $viewUrl)
+    {
         if ($request->seen === '1') {
-            $this->datas = EmployeesNotification::where('role', 'superAdmin')
-                    ->where('seen', 1)
+            $this->datas = EmployeesNotification::where('role', $role)
+                ->where('seen', 1)
                 ->orderBy('created_at', 'desc')
-                ->paginate($pageData);
-            return view('superAdmin.notifications.superAdmin', [
+                ->paginate($this->pageData);
+            return view($viewUrl, [
                 'datas' => $this->datas,
-                'pageData'=> $pageData
+                'pageData' => $this->pageData
             ]);
         }
+    }
+    public function searchResult($request, $role, $viewUrl)
+    {
         if ($request->search) {
             $this->data = $request->search;
-            $this->datas = EmployeesNotification::where('role', 'superAdmin')
-                ->where('action', 'LIKE', "%{$this->data}%")
-                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate($pageData);
-
-            return view('superAdmin.notifications.superAdmin', [
+            $this->datas = EmployeesNotification::where('action', 'LIKE', "%{$this->data}%")
+                ->orWhere('description', 'LIKE', "%{$this->data}%")
+                ->where('role', $role)
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
+            return view($viewUrl, [
                 'datas' => $this->datas,
-                'pageData'=> $pageData
+                'pageData' => $this->pageData
             ]);
         }
-        $this->datas = EmployeesNotification::where('role', 'superAdmin')
-                ->orderBy('created_at', 'desc')
+    }
+    public function normalRrturn($role, $viewUrl)
+    {
+        $this->datas = EmployeesNotification::where('role', $role)
+            ->orderBy('created_at', 'desc')
             ->with('user')
-            ->paginate($pageData);
-        return view('superAdmin.notifications.superAdmin', [
+            ->paginate($this->pageData);
+        return view($viewUrl, [
             'datas' => $this->datas,
-            'pageData'=> $pageData
+            'pageData' => $this->pageData
         ]);
+    }
+    public function notification_superAdmin(Request $request)
+    {
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'superAdmin', 'superAdmin.notifications.superAdmin')
+            ?: $this->seen($request, 'superAdmin', 'superAdmin.notifications.superAdmin')
+            ?: $this->searchResult($request, 'superAdmin', 'superAdmin.notifications.superAdmin')
+            ?: $this->normalRrturn('superAdmin', 'superAdmin.notifications.superAdmin');
+        if ($view) {
+            return $view;
+        }
     }
     public function notification_admin(Request $request)
     {
-        if ($request->type === 'read') {
-            $this->datas = EmployeesNotification::find($request->id);
-            $this->datas->seen = 1;
-            $this->datas->seen_by = Auth::user()->id;
-            $this->datas->save();
-            fmassage('Read', 'Message read successfully', 'success');
-            return redirect()->back();
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'admin', 'superAdmin.notifications.admin')
+            ?: $this->seen($request, 'admin', 'superAdmin.notifications.admin')
+            ?: $this->searchResult($request, 'admin', 'superAdmin.notifications.admin')
+            ?: $this->normalRrturn('admin', 'superAdmin.notifications.admin');
+        if ($view) {
+            return $view;
         }
-        if ($request->seen === '0') {
-            $this->datas = EmployeesNotification::where('role', 'admin')
-                ->where('seen', 0)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.admin', [
-                'datas' => $this->datas
-            ]);
-        }
-        if ($request->seen === '1') {
-            $this->datas = EmployeesNotification::where('role', 'admin')
-                ->where('seen', 1)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.admin', [
-                'datas' => $this->datas
-            ]);
-        }
-        if ($request->search) {
-            $this->data = $request->search;
-            $this->datas = EmployeesNotification::where('role', 'admin')
-                ->where('action', 'LIKE', "%{$this->data}%")
-                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate(10);
-
-            return view('superAdmin.notifications.admin', [
-                'datas' => $this->datas,
-                'title' => "Admin Search Result List"
-            ]);
-        }
-        $this->datas = EmployeesNotification::where('role', 'admin')
-            ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->paginate(10);
-        return view('superAdmin.notifications.admin', [
-            'datas' => $this->datas
-        ]);
     }
     public function notification_hod(Request $request)
     {
-        if ($request->type === 'read') {
-            $this->datas = EmployeesNotification::find($request->id);
-            $this->datas->seen = 1;
-            $this->datas->seen_by = Auth::user()->id;
-            $this->datas->save();
-            fmassage('Read', 'Message read successfully', 'success');
-            return redirect()->back();
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'hod', 'superAdmin.notifications.hod')
+            ?: $this->seen($request, 'hod', 'superAdmin.notifications.hod')
+            ?: $this->searchResult($request, 'hod', 'superAdmin.notifications.hod')
+            ?: $this->normalRrturn('hod', 'superAdmin.notifications.hod');
+        if ($view) {
+            return $view;
         }
-        if ($request->seen === '0') {
-            $this->datas = EmployeesNotification::where('role', 'hod')
-                ->where('seen', 0)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.hod', [
-                'datas' => $this->datas
-            ]);
-        }
-        if ($request->seen === '1') {
-            $this->datas = EmployeesNotification::where('role', 'hod')
-                ->where('seen', 1)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.hod', [
-                'datas' => $this->datas
-            ]);
-        }
-        if ($request->search) {
-            $this->data = $request->search;
-            $this->datas = EmployeesNotification::where('role', 'hod')
-                ->where('action', 'LIKE', "%{$this->data}%")
-                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate(10);
-
-            return view('superAdmin.notifications.hod', [
-                'datas' => $this->datas,
-                'title' => "Admin Search Result List"
-            ]);
-        }
-        $this->datas = EmployeesNotification::where('role', 'hod')
-            ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->paginate(10);
-        return view('superAdmin.notifications.hod', [
-            'datas' => $this->datas
-        ]);
     }
     public function notification_cod(Request $request)
     {
-        if ($request->type === 'read') {
-            $this->datas = EmployeesNotification::find($request->id);
-            $this->datas->seen = 1;
-            $this->datas->seen_by = Auth::user()->id;
-            $this->datas->save();
-            fmassage('Read', 'Message read successfully', 'success');
-            return redirect()->back();
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'cod', 'superAdmin.notifications.cod')
+            ?: $this->seen($request, 'cod', 'superAdmin.notifications.cod')
+            ?: $this->searchResult($request, 'cod', 'superAdmin.notifications.cod')
+            ?: $this->normalRrturn('cod', 'superAdmin.notifications.cod');
+        if ($view) {
+            return $view;
         }
-        if ($request->seen === '0') {
-            $this->datas = EmployeesNotification::where('role', 'cod')
-                ->where('seen', 0)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.cod', [
-                'datas' => $this->datas
-            ]);
-        }
-        if ($request->seen === '1') {
-            $this->datas = EmployeesNotification::where('role', 'cod')
-                ->where('seen', 1)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.cod', [
-                'datas' => $this->datas
-            ]);
-        }
-        if ($request->search) {
-            $this->data = $request->search;
-            $this->datas = EmployeesNotification::where('role', 'cod')
-                ->where('action', 'LIKE', "%{$this->data}%")
-                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate(10);
-
-            return view('superAdmin.notifications.cod', [
-                'datas' => $this->datas,
-                'title' => "Admin Search Result List"
-            ]);
-        }
-        $this->datas = EmployeesNotification::where('role', 'cod')
-            ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->paginate(10);
-        return view('superAdmin.notifications.cod', [
-            'datas' => $this->datas
-        ]);
     }
     public function notification_teacher(Request $request)
     {
-        if ($request->type === 'read') {
-            $this->datas = EmployeesNotification::find($request->id);
-            $this->datas->seen = 1;
-            $this->datas->seen_by = Auth::user()->id;
-            $this->datas->save();
-            fmassage('Read', 'Message read successfully', 'success');
-            return redirect()->back();
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'teacher', 'superAdmin.notifications.teacher')
+            ?: $this->seen($request, 'teacher', 'superAdmin.notifications.teacher')
+            ?: $this->searchResult($request, 'teacher', 'superAdmin.notifications.teacher')
+            ?: $this->normalRrturn('teacher', 'superAdmin.notifications.teacher');
+        if ($view) {
+            return $view;
         }
-        if ($request->seen === '0') {
-            $this->datas = EmployeesNotification::where('role', 'teacher')
-                ->where('seen', 0)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.teacher', [
-                'datas' => $this->datas
-            ]);
+    }
+    public function notification_account(Request $request)
+    {
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'account', 'superAdmin.notifications.account')
+            ?: $this->seen($request, 'account', 'superAdmin.notifications.account')
+            ?: $this->searchResult($request, 'account', 'superAdmin.notifications.account')
+            ?: $this->normalRrturn('account', 'superAdmin.notifications.account');
+        if ($view) {
+            return $view;
         }
-        if ($request->seen === '1') {
-            $this->datas = EmployeesNotification::where('role', 'teacher')
-                ->where('seen', 1)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-            return view('superAdmin.notifications.teacher', [
-                'datas' => $this->datas
-            ]);
+    }
+    public function notification_admission(Request $request)
+    {
+        $this->pageDataCheck($request);
+        $view = $this->selectedValues($request);
+        if ($view) return $view;
+        $view = $this->markAsRead($request);
+        if ($view) return $view;
+        $view = $this->unseen($request, 'admission', 'superAdmin.notifications.admission')
+            ?: $this->seen($request, 'admission', 'superAdmin.notifications.admission')
+            ?: $this->searchResult($request, 'admission', 'superAdmin.notifications.admission')
+            ?: $this->normalRrturn('admission', 'superAdmin.notifications.admission');
+        if ($view) {
+            return $view;
         }
-        if ($request->search) {
-            $this->data = $request->search;
-            $this->datas = EmployeesNotification::where('role', 'teacher')
-                ->where('action', 'LIKE', "%{$this->data}%")
-                ->orWhere('description', 'LIKE', "%{$this->data}%")->paginate(10);
-
-            return view('superAdmin.notifications.teacher', [
-                'datas' => $this->datas,
-                'title' => "Admin Search Result List"
-            ]);
-        }
-        $this->datas = EmployeesNotification::where('role', 'teacher')
-            ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->paginate(10);
-        return view('superAdmin.notifications.teacher', [
-            'datas' => $this->datas
-        ]);
     }
 }

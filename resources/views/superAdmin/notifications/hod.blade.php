@@ -17,6 +17,7 @@
                 'enable' => false,
             ],
         ],
+
     ])
 @endsection --}}
 @section('breadcrumb')
@@ -24,24 +25,31 @@
 @endsection
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin list table',
+        'title' => $title ?? 'Account Notification list table',
         'color' => 'card-primary',
     ])
     <div class="card shadow ">
         <div class="card-header">
-            <h3 class="card-title"> List</h3>
+            <h3 class="card-title"> List
+            </h3>
             <div class="card-tools">
                 <form action="{{ route('superAdmin.notification.hod') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
+                        @include('parts.card_tool_option_per_page',['pageData'=>$pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.notification.hod') }}"class="btn btn-default  ml-2">All Notification</a>
-                            <a href="{{ route('superAdmin.notification.hod',['seen'=>0]) }}"class="btn btn-success  ml-2">All Unseen Notification</a>
-                            <a href="{{ route('superAdmin.notification.hod',['seen'=>1]) }}"class="btn btn-secondary  ml-2">All Seen Notification</a>
+                            <a href="{{ route('superAdmin.notification.hod') }}"class="btn btn-default  ml-2">All
+                                Notification</a>
+                            <a
+                                href="{{ route('superAdmin.notification.hod', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
+                                Unseen Notification</a>
+                            <a onclick="disableButton(this)"
+                                href="{{ route('superAdmin.notification.hod', ['seen' => 1]) }}"class="btn btn-secondary  ml-2">All
+                                Seen Notification</a>
                         </div>
 
                     </div>
@@ -54,6 +62,9 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll">
+                    </th>
                     <th>By </th>
                     <th>Action</th>
                     <th>Description</th>
@@ -63,26 +74,28 @@
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                        <td>{{ $data->user->name }}</td>
-                        <td>{{ $data->action }}</td>
-                        <td>{{ $data->description }}</td>
-                        <td>
-                            @if ($data->seen)
+                    @include('parts.table_checkinput',$data)
+                    <td>{{ $data->user->name }}</td>
+                    <td>{{ $data->action }}</td>
+                    <td>{{ $data->description }}</td>
+                    <td>
+                        @if ($data->seen)
                             <span class="btn btn-secondary">Unread</span>
-                            @else
+                        @else
                             <a href="{{ route('superAdmin.notification.hod', [
-                                'id'=>$data->id,
-                                'type'=>'read'
-                                ]) }}" class="btn btn-success">Read</a>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($data->seen_by !== 0)
-                                {{ \App\Models\User::where('id',$data->seen_by)->first()->name }}
-                            @else
-                                ....
-                            @endif
-                        </td>
+                                'id' => $data->id,
+                                'type' => 'read',
+                            ]) }}"
+                                class="btn btn-success">Read</a>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($data->seen_by !== 0)
+                            {{ \App\Models\User::where('id', $data->seen_by)->first()->name }}
+                        @else
+                            ....
+                        @endif
+                    </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -100,6 +113,9 @@
         </nav>
     </div>
     </div>
-
     @include('parts.title_end')
+@endsection
+@section('scripts')
+    @include('parts.multiple_check_js',['multiple_check_url'=>'superAdmin.notification.hod'])
+    @include('parts.page_number_set_js',['page_number_url'=>'superAdmin.notification.hod'])
 @endsection

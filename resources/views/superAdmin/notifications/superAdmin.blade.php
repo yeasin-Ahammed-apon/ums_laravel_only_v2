@@ -36,19 +36,7 @@
                 <form action="{{ route('superAdmin.notification.superAdmin') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
-                        {{-- {{  dd($pageData) }} --}}
-                        <div class="input-group-append" id="actionOption" style="display: none">
-                            <span class="btn btn-secondary  mr-2" onclick="read()">Make <span class="totalCheck"></span>
-                                Seen</span>
-                        </div>
-                        <div class="input-group-append p-0 m-0 mr-2">
-                            <select id="pageData" onchange="pageNumberSet()">
-                                @foreach ([10, 20, 30, 40, 50] as $pData)
-                                    <option value="{{ $pData }}" @if ($pData === $pageData) selected @endif>
-                                        {{ $pData }} Per Page</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @include('parts.card_tool_option_per_page',['pageData'=>$pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
@@ -59,7 +47,7 @@
                             <a
                                 href="{{ route('superAdmin.notification.superAdmin', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
                                 Unseen Notification</a>
-                            <a
+                            <a onclick="disableButton(this)"
                                 href="{{ route('superAdmin.notification.superAdmin', ['seen' => 1]) }}"class="btn btn-secondary  ml-2">All
                                 Seen Notification</a>
                         </div>
@@ -86,19 +74,7 @@
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                    <td>
-                        @if ($data->seen)
-                            <div class="form-check">
-                                <input type="checkbox" value="{{ $data->id }}" class="form-check-input" checked
-                                    disabled>
-                            </div>
-                        @else
-                            <div class="form-check">
-                                <input type="checkbox" name="checked" value="{{ $data->id }}"
-                                    class="checkbox-select form-check-input" onclick="checking()">
-                            </div>
-                        @endif
-                    </td>
+                    @include('parts.table_checkinput',$data)
                     <td>{{ $data->user->name }}</td>
                     <td>{{ $data->action }}</td>
                     <td>{{ $data->description }}</td>
@@ -140,102 +116,6 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const selectAll = selector("#selectAll");
-            const checkboxes = document.querySelectorAll(".checkbox-select");
-            selectAll.addEventListener("click", function(event) {
-                checkboxes.forEach(function(checkbox) {
-                    checkbox.checked = selectAll.checked;
-                });
-                checking();
-            });
-        });
-
-        function read() {
-            var checkboxes = document.getElementsByClassName('checkbox-select');
-            var selectedValues = [];
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) selectedValues.push(checkboxes[i].value);
-            }
-            if (selectedValues) {
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('superAdmin.notification.superAdmin') }}",
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        selectedValues,
-                    },
-                    success: function(data) {
-                        if (data.status === 'success') window.location.reload()
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.error(errorThrown);
-                    }
-                });
-
-            }
-        }
-
-        function read() {
-            var checkboxes = document.getElementsByClassName('checkbox-select');
-            var selectedValues = [];
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) selectedValues.push(checkboxes[i].value);
-            }
-            if (selectedValues) {
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('superAdmin.notification.superAdmin') }}",
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        selectedValues,
-                    },
-                    success: function(data) {
-                        if (data) window.location.reload()
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.error(errorThrown);
-                    }
-                });
-
-            }
-        }
-
-        function checking() {
-            var checkboxes = document.getElementsByClassName('checkbox-select');
-            var selectedValues = [];
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) selectedValues.push(checkboxes[i].value);
-            }
-            if (selectedValues.length) {
-                selector('#actionOption').style.display = 'block'
-                selector('.totalCheck').innerText = selectedValues.length
-            } else {
-                selector('#actionOption').style.display = 'none'
-            }
-        }
-
-        function pageNumberSet() {
-            var pageData = document.getElementById("pageData").value;
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('superAdmin.notification.superAdmin') }}",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    pageData,
-                },
-                success: function(data) {
-                    if (data) {
-                        var url = new URL(window.location.href);
-                        url.searchParams.set('pageData', pageData);
-                        window.location.href = url.href;
-                    }
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    console.error(errorThrown);
-                }
-            });
-        }
-    </script>
+    @include('parts.multiple_check_js',['multiple_check_url'=>'superAdmin.notification.superAdmin'])
+    @include('parts.page_number_set_js',['page_number_url'=>'superAdmin.notification.superAdmin'])
 @endsection
