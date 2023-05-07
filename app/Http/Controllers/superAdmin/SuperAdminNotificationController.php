@@ -13,6 +13,7 @@ class SuperAdminNotificationController extends Controller
     private $data;
     private $datas;
     private $pageData;
+    private $url = 'superAdmin.notifications.';
     // private $pageData;
     public function pageDataCheck($request)
     {
@@ -95,109 +96,47 @@ class SuperAdminNotificationController extends Controller
             'pageData' => $this->pageData
         ]);
     }
-    public function notification_superAdmin(Request $request)
+    public function notification($request, $role)
     {
         $this->pageDataCheck($request);
         $view = $this->selectedValues($request);
         if ($view) return $view;
         $view = $this->markAsRead($request);
         if ($view) return $view;
-        $view = $this->unseen($request, 'superAdmin', 'superAdmin.notifications.superAdmin')
-            ?: $this->seen($request, 'superAdmin', 'superAdmin.notifications.superAdmin')
-            ?: $this->searchResult($request, 'superAdmin', 'superAdmin.notifications.superAdmin')
-            ?: $this->normalRrturn('superAdmin', 'superAdmin.notifications.superAdmin');
+        $view = $this->unseen($request, $role, $this->url . $role)
+            ?: $this->seen($request, $role, $this->url . $role)
+            ?: $this->searchResult($request, $role, $this->url . $role)
+            ?: $this->normalRrturn($role, $this->url . $role);
         if ($view) {
             return $view;
         }
+    }
+    public function notification_superAdmin(Request $request)
+    {
+        return $this->notification($request, 'superAdmin');
     }
     public function notification_admin(Request $request)
     {
-        $this->pageDataCheck($request);
-        $view = $this->selectedValues($request);
-        if ($view) return $view;
-        $view = $this->markAsRead($request);
-        if ($view) return $view;
-        $view = $this->unseen($request, 'admin', 'superAdmin.notifications.admin')
-            ?: $this->seen($request, 'admin', 'superAdmin.notifications.admin')
-            ?: $this->searchResult($request, 'admin', 'superAdmin.notifications.admin')
-            ?: $this->normalRrturn('admin', 'superAdmin.notifications.admin');
-        if ($view) {
-            return $view;
-        }
+        return $this->notification($request, 'admin');
     }
     public function notification_hod(Request $request)
     {
-        $this->pageDataCheck($request);
-        $view = $this->selectedValues($request);
-        if ($view) return $view;
-        $view = $this->markAsRead($request);
-        if ($view) return $view;
-        $view = $this->unseen($request, 'hod', 'superAdmin.notifications.hod')
-            ?: $this->seen($request, 'hod', 'superAdmin.notifications.hod')
-            ?: $this->searchResult($request, 'hod', 'superAdmin.notifications.hod')
-            ?: $this->normalRrturn('hod', 'superAdmin.notifications.hod');
-        if ($view) {
-            return $view;
-        }
+        return $this->notification($request, 'hod');
     }
     public function notification_cod(Request $request)
     {
-        $this->pageDataCheck($request);
-        $view = $this->selectedValues($request);
-        if ($view) return $view;
-        $view = $this->markAsRead($request);
-        if ($view) return $view;
-        $view = $this->unseen($request, 'cod', 'superAdmin.notifications.cod')
-            ?: $this->seen($request, 'cod', 'superAdmin.notifications.cod')
-            ?: $this->searchResult($request, 'cod', 'superAdmin.notifications.cod')
-            ?: $this->normalRrturn('cod', 'superAdmin.notifications.cod');
-        if ($view) {
-            return $view;
-        }
+        return $this->notification($request, 'cod');
     }
     public function notification_teacher(Request $request)
     {
-        $this->pageDataCheck($request);
-        $view = $this->selectedValues($request);
-        if ($view) return $view;
-        $view = $this->markAsRead($request);
-        if ($view) return $view;
-        $view = $this->unseen($request, 'teacher', 'superAdmin.notifications.teacher')
-            ?: $this->seen($request, 'teacher', 'superAdmin.notifications.teacher')
-            ?: $this->searchResult($request, 'teacher', 'superAdmin.notifications.teacher')
-            ?: $this->normalRrturn('teacher', 'superAdmin.notifications.teacher');
-        if ($view) {
-            return $view;
-        }
+        return $this->notification($request, 'teacher');
     }
     public function notification_account(Request $request)
     {
-        $this->pageDataCheck($request);
-        $view = $this->selectedValues($request);
-        if ($view) return $view;
-        $view = $this->markAsRead($request);
-        if ($view) return $view;
-        $view = $this->unseen($request, 'account', 'superAdmin.notifications.account')
-            ?: $this->seen($request, 'account', 'superAdmin.notifications.account')
-            ?: $this->searchResult($request, 'account', 'superAdmin.notifications.account')
-            ?: $this->normalRrturn('account', 'superAdmin.notifications.account');
-        if ($view) {
-            return $view;
-        }
+        return $this->notification($request, 'account');
     }
     public function notification_admission(Request $request)
     {
-        $this->pageDataCheck($request);
-        $view = $this->selectedValues($request);
-        if ($view) return $view;
-        $view = $this->markAsRead($request);
-        if ($view) return $view;
-        $view = $this->unseen($request, 'admission', 'superAdmin.notifications.admission')
-            ?: $this->seen($request, 'admission', 'superAdmin.notifications.admission')
-            ?: $this->searchResult($request, 'admission', 'superAdmin.notifications.admission')
-            ?: $this->normalRrturn('admission', 'superAdmin.notifications.admission');
-        if ($view) {
-            return $view;
-        }
+        return $this->notification($request, 'admission');
     }
 }
