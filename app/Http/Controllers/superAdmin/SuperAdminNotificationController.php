@@ -4,6 +4,7 @@ namespace App\Http\Controllers\superAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeesNotification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,26 +23,51 @@ class SuperAdminNotificationController extends Controller
     }
     public function selectedValues($request)
     {
-        if ($request->selectedValues) {
-            foreach ($request->selectedValues as  $value) {
-                $this->data = EmployeesNotification::findOrFail($value);
-                $this->data->seen = 1;
-                $this->data->seen_by = Auth::user()->id;
-                $this->data->save();
+        try {
+            if ($request->selectedValues) {
+                foreach ($request->selectedValues as  $value) {
+                    $this->data = EmployeesNotification::findOrFail($value);
+                    $this->data->seen = 1;
+                    $this->data->seen_by = Auth::user()->id;
+                    $this->data->save();
+                }
+                fmassage('Read', 'Message read successfully', 'success');
+                return response()->json(['status' => 'success']);
             }
-            fmassage('Read', 'Message read successfully', 'success');
-            return response()->json(['status' => 'success']);
+        } catch (ModelNotFoundException $e) {
+            return view('exception.userNotFound',[
+                "title"=>"Notification Not Found",
+                "description"=>"Notification Not Found",
+            ]);
+        }catch(\Exception $e){
+            return view('exception.userNotFound',[
+                "title"=>"Error",
+                "description"=>"Something went wrong , plz connect with your devloper",
+            ]);
         }
     }
     public function markAsRead($request)
     {
-        if ($request->type === 'read') {
-            $this->datas = EmployeesNotification::find($request->id);
-            $this->datas->seen = 1;
-            $this->datas->seen_by = Auth::user()->id;
-            $this->datas->save();
-            fmassage('Read', 'Message read successfully', 'success');
-            return redirect()->back();
+
+        try {
+            if ($request->type === 'read') {
+                $this->datas = EmployeesNotification::findOrFail($request->id);
+                $this->datas->seen = 1;
+                $this->datas->seen_by = Auth::user()->id;
+                $this->datas->save();
+                fmassage('Read', 'Message read successfully', 'success');
+                return redirect()->back();
+            }
+        } catch (ModelNotFoundException $e) {
+            return view('exception.userNotFound',[
+                "title"=>"Notification Not Found",
+                "description"=>"Notification Not Found",
+            ]);
+        }catch(\Exception $e){
+            return view('exception.userNotFound',[
+                "title"=>"Error",
+                "description"=>"Something went wrong , plz connect with your devloper",
+            ]);
         }
     }
     public function unseen($request, $role, $viewUrl)

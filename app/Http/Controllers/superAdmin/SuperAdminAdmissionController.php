@@ -12,6 +12,7 @@ class SuperAdminAdmissionController extends Controller
     use SuperAdmin;
     private $data;
     private $datas;
+    private $authUser = 'superAdmin';
     public function index(Request $request)
     {
         return $this->showUserList(Admission::class, $request, 'admission');
@@ -22,21 +23,15 @@ class SuperAdminAdmissionController extends Controller
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Admission::class,$request,'admissions','AD');
+        return $this->StoreUser(Admission::class,$request,'admissions');
     }
     public function show($id)
     {
-        $this->data = Admission::with('user')->findOrFail($id);
-        return view('superAdmin.admin.show',[
-            'data'=>$this->data
-        ]);
+        return $this->ShowUser(Admission::class,'admission',$id);
     }
     public function edit($id)
     {
-        $this->data = Admission::with('user')->find($id);
-        return view('superAdmin.admin.edit', [
-            'data' => $this->data,
-        ]);
+        return $this->EditUser(Admission::class,'admission',$id);
     }
     public function update(Request $request, $id)
     {

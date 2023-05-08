@@ -24,6 +24,7 @@ if (! function_exists('validationError')) {
 }
 //employees notifications notification
 if (! function_exists('Enotifications')) {
+    // dd(Auth::user()->role->name);
     function Enotifications($action,$description){
         $notification = new EmployeesNotification();
         $notification->user_id = Auth::user()->id;

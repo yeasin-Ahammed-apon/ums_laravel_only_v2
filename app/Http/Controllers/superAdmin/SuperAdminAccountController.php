@@ -12,6 +12,7 @@ class SuperAdminAccountController extends Controller
     use SuperAdmin;
     private $data;
     private $datas;
+    private $authUser = 'superAdmin';
     public function index(Request $request)
     {
         return $this->showUserList(Account::class, $request, 'account');
@@ -22,21 +23,15 @@ class SuperAdminAccountController extends Controller
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Account::class, $request, 'account', 'AC');
+        return $this->StoreUser(Account::class, $request, 'accounts');
     }
     public function show($id)
     {
-        $this->data = Account::with('user')->findOrFail($id);
-        return view('superAdmin.account.show', [
-            'data' => $this->data
-        ]);
+        return $this->ShowUser(Account::class,'account',$id);
     }
     public function edit($id)
     {
-        $this->data = Account::with('user')->find($id);
-        return view('superAdmin.account.edit', [
-            'data' => $this->data,
-        ]);
+        return $this->EditUser(Account::class,'account',$id);
     }
     public function update(Request $request, $id)
     {

@@ -5,9 +5,7 @@ namespace App\Http\Controllers\superAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\SuperAdmin;
 use App\Models\Admin;
-use App\Models\User;
 use Illuminate\Http\Request;
-
 
 class SuperAdminAdminController extends Controller
 {
@@ -16,27 +14,21 @@ class SuperAdminAdminController extends Controller
     /*** Display a listing of the resource.*/
     private $data;
     private $datas;
+    private $authUser = 'superAdmin';
     public function index(Request $request){
         return $this->showUserList(Admin::class, $request, 'admin');
-
     }
     public function create(){
         return view('superAdmin.admin.create');
     }
     public function store(Request $request){
-        return $this->StoreUser(Admin::class,$request,'admins','A');
+        return $this->StoreUser(Admin::class,$request,'admins');
     }
     public function show($id){
-        $this->data = Admin::with('user')->findOrFail($id);
-        return view('superAdmin.admin.show',[
-            'data'=>$this->data
-        ]);
+        return $this->ShowUser(Admin::class,'admin',$id);
     }
     public function edit($id){
-        $this->data = Admin::with('user')->find($id);
-        return view('superAdmin.admin.edit', [
-            'data' => $this->data,
-        ]);
+        return $this->EditUser(Admin::class,'admin',$id);
     }
     public function update(Request $request, $id){
         return $this->UpdateUser(Admin::class,$request,'admins',$id);

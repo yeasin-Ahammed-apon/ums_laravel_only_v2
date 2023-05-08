@@ -5,30 +5,45 @@ namespace App\Http\Traits;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
+
 trait SuperAdmin
 {
-    /*** Store a newly created resource in storage.*/
-    public function showUserList($model, $request, $role){
+    private $pageData;
+    public function pageDataCheck($request)
+    {
+        if ($request->pageData) $this->pageData = intval($request->pageData);
+        else $this->pageData = 10;
+    }
+    public function showUserList($model, $request, $role)
+    {
+         $this->pageDataCheck($request);
         if ($request->status === '1') {
             $this->datas = $model::whereHas('user', function ($users) {
                 $users->where('status', 1);
-            })->paginate(10);
-            return view('superAdmin.' . $role . '.list', [
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->pageData);
+            return view($this->authUser.'.' . $role . '.list', [
                 'datas' => $this->datas,
-                'title' => "Active Admin List"
+                'title' => "Active Admin List",
+                'pageData'=> $this->pageData
             ]);
         }
         if ($request->status === '0') {
             $this->datas = $model::whereHas('user', function ($users) {
                 $users->where('status', 0);
-            })->paginate(10);
-            return view('superAdmin.' . $role . '.list', [
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->pageData);
+            return view($this->authUser.'.'. $role . '.list', [
                 'datas' => $this->datas,
-                'title' => "Dective Admin List"
+                'title' => "Dective Admin List",
+                'pageData'=> $this->pageData
             ]);
         }
         if ($request->search) {
@@ -36,19 +51,45 @@ trait SuperAdmin
             $this->datas = $model::whereHas('user', function ($users) {
                 $users->where('login_id', 'LIKE', "%{$this->data}%")
                     ->orWhere('name', 'LIKE', "%{$this->data}%");
-            })->paginate(10);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->pageData);
 
-            return view('superAdmin.' . $role . '.list', [
+            return view($this->authUser.'.'. $role . '.list', [
                 'datas' => $this->datas,
-                'title' => "Admin Search Result List"
+                'title' => "Admin Search Result List",
+                'pageData'=> $this->pageData
             ]);
         }
-        $this->datas = $model::with('user')->paginate(10);
-        return view('superAdmin.' . $role . '.list', [
-            'datas' => $this->datas
+        $this->datas = $model::with('user')
+        ->orderBy('created_at', 'desc')
+        ->paginate($this->pageData);
+        return view($this->authUser.'.'. $role . '.list', [
+            'datas' => $this->datas,
+            'pageData'=> $this->pageData
         ]);
     }
-    public function StoreUser($model, $request, $tableName, $idLetter){
+    public function ShowUser($model, $role, $id)
+    {
+        try {
+            $this->data = $model::with('user')->findOrFail($id);
+            return view($this->authUser.'.'. $role . '.show', [
+                'data' => $this->data,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return view('exception.userNotFound', [
+                "title" => "User Not Found",
+                "description" => "User Not Found",
+            ]);
+        } catch (\Exception $e) {
+            return view('exception.userNotFound', [
+                "title" => "Error",
+                "description" => "Something went wrong , plz connect with your devloper",
+            ]);
+        }
+    }
+    public function StoreUser($model, $request, $tableName)
+    {
         // validation
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -68,10 +109,12 @@ trait SuperAdmin
         $user->role_id = Role::where('name', $request->role)->first()->id;
         // user login id create
         $lastUser = User::where('role_id', $user->role_id)->orderBy('id', 'desc')->first();
-        $lastLoginId = ($lastUser === null) ? substr($idLetter . '0000', 1) : substr($lastUser->login_id, 1);
-        $nextLoginId = str_pad($lastLoginId + 1, 4, '0', STR_PAD_LEFT);
-        $nextLoginIdValue = $idLetter . $nextLoginId;
-        $user->login_id = $nextLoginIdValue; // created and now  store
+        if ($lastUser===null)$lastUser = 0;
+        else $lastUser = $lastUser->id;
+        $lastUser = $lastUser + 1;
+        $lastUser= strtoupper($user->role->name).strval($lastUser);
+
+        $user->login_id = $lastUser; // created and now  store
         $user->permission_id = 1;
         $user->status = 1;
         $user->created_by = Auth::user()->id;
@@ -98,11 +141,33 @@ trait SuperAdmin
         }
         if ($admin) { // // If the admin was successfully stored
             Enotifications('Create ' . $tableName, "new user created . user id is " . $user->id . ". login id is " . $user->login_id);
-            fmassage('Success', 'New ' . $tableName . ' Created Successfully', 'success');
+            fmassage('Success',
+            'New ' . $tableName . ' Created Successfully. Login Id is '.$user->login_id,
+             'success');
             return redirect()->back();
         }
     }
-    public function UpdateUser($model,$request,$tableName,$id){
+    public function EditUser($model, $role, $id)
+    {
+        try {
+            $this->data = $model::with('user')->findOrFail($id);
+            return view($this->authUser.'.'. $role . '.edit', [
+                'data' => $this->data,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return view('exception.userNotFound', [
+                "title" => "User Not Found",
+                "description" => "User Not Found",
+            ]);
+        } catch (\Exception $e) {
+            return view('exception.userNotFound', [
+                "title" => "Error",
+                "description" => "Something went wrong , plz connect with your devloper",
+            ]);
+        }
+    }
+    public function UpdateUser($model, $request, $tableName, $id)
+    {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => [
@@ -120,7 +185,19 @@ trait SuperAdmin
             'status' => 'required',
         ]);
         // Find the user by ID
-        $user = User::findOrFail($id);
+        try {
+            $user = User::findOrFail($id);
+        }catch (ModelNotFoundException $e) {
+            return view('exception.userNotFound', [
+                "title" => "User Not Found",
+                "description" => "User Not Found",
+            ]);
+        } catch (\Exception $e) {
+            return view('exception.userNotFound', [
+                "title" => "Error",
+                "description" => "Something went wrong , plz connect with your devloper",
+            ]);
+        }
         // Update user information
         $user->name = $request->name;
         $user->status = $request->status;
@@ -154,29 +231,29 @@ trait SuperAdmin
         }
 
         // Redirect back to the user's edit page
-        Enotifications('updated Admin',"updated user  . user id is ".$user->id.". login id is ".$user->login_id);
+        Enotifications('updated Admin', "updated user  . user id is " . $user->id . ". login id is " . $user->login_id);
         fmassage('Success', 'Admin information updated successfully', 'success');
         return redirect()->back();
-
     }
-    public function UpdateStatus($id){
+    public function UpdateStatus($id)
+    {
         $user = User::findOrFail($id);
         $user->status = !$user->status;
         $user->save();
         fmassage('Success', 'Admin Status updated successfully', 'success');
         return redirect()->back();
     }
-    public function DeleteUser($model,$role,$id){
-        $this->data = $model::find($id);
+    public function DeleteUser($model, $role, $id)
+    {
+        $this->data = $model::findOrFail($id);
         $user_id = $this->data->user_id;
         $this->data->delete();
-        $this->data = User::find($user_id);
+        $this->data = User::findOrFail($user_id);
         $imageName = $this->data->image;
         $this->data->delete();
         $imagePath = public_path('/users/images/');
         unlink($imagePath . $imageName);
         fmassage('Success', 'Admin deleted successfully', 'success');
-        return redirect()->route('superAdmin.'.$role.'.index');
+        return redirect()->route('superAdmin.' . $role . '.index');
     }
-
 }

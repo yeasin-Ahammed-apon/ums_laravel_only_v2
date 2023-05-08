@@ -12,6 +12,7 @@ class SuperAdminHodController extends Controller
     use SuperAdmin;
     private $data;
     private $datas;
+    private $authUser = 'superAdmin';
     public function index(Request $request)
     {
         return $this->showUserList(Hod::class, $request, 'hod');
@@ -22,21 +23,15 @@ class SuperAdminHodController extends Controller
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Hod::class,$request,'hods','H');
+        return $this->StoreUser(Hod::class,$request,'hods');
     }
     public function show($id)
     {
-        $this->data = Hod::with('user')->findOrFail($id);
-        return view('superAdmin.hod.show',[
-            'data'=>$this->data
-        ]);
+        return $this->ShowUser(Hod::class,'hod',$id);
     }
     public function edit($id)
     {
-        $this->data = Hod::with('user')->find($id);
-        return view('superAdmin.hod.edit', [
-            'data' => $this->data,
-        ]);
+        return $this->EditUser(Hod::class,'hod',$id);
     }
     public function update(Request $request, $id)
     {

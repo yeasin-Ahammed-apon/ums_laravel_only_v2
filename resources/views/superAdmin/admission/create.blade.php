@@ -103,8 +103,8 @@
                     {!! validationError('image', $errors) !!}
                 </div>
             </div>
-            <div class="card-footer">
-                <button type="submit" class="btn  btn-primary">Submit</button>
+            <div class="card-footer" onclick="disableButton(this)">
+                <button type="submit" class="btn  btn-primary">Create</button>
             </div>
         </form>
     </div>

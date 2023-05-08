@@ -109,9 +109,7 @@
                         <div class="custom-file">
                             <input type="file" name="image"
                                 class="custom-file-input @error('image') is-invalid @enderror"
-                                accept="image/png, image/jpeg, image/jpg"
-                                onchange="previewImage(event)"
-                                >
+                                accept="image/png, image/jpeg, image/jpg" onchange="previewImage(event)">
                             <label class="custom-file-label">Choose Image</label>
                         </div>
                     </div>
@@ -123,7 +121,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" onclick="disableButton(this)">
                     Update
                 </button>
                 <a href="{{ route('superAdmin.cod.show', $data->id) }}" class="btn btn-success">View</a>

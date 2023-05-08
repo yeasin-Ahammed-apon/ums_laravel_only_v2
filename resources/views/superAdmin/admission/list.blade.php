@@ -34,12 +34,14 @@
                 <form action="{{ route('superAdmin.admission.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
+                        @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.admission.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('superAdmin.admission.create') }}"class="btn btn-primary  ml-2">+ Add
+                                Admins</a>
                             <a href="{{ route('superAdmin.admission.index') }}"class="btn btn-default  ml-2">All Admins</a>
                             <a
                                 href="{{ route('superAdmin.admission.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
@@ -70,33 +72,33 @@
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                        <td width="10%">
-                                <img src="{{ asset('users/images/'.$data->user->image) }}" class="img-fluid mx-auto d-block"  alt="Image">
-                        </td>
-                        <td>{{ $data->user->name }}</td>
-                        <td>{{ $data->first_name }} {{ $data->last_name }}</td>
-                        <td>{{ $data->user->login_id }}</td>
-                        <td>{{ $data->phone }}</td>
-                        <td>
-                            @if ($data->user->status === 1)
-                                <a href="{{ route('superAdmin.admission.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
-                            @else
-                                <a href="{{ route('superAdmin.admission.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ route('superAdmin.admission.show', $data->id) }}" class="btn btn-success">View</a>
-                            <a href="{{ route('superAdmin.admission.edit', $data->id) }}" class="btn btn-primary edit"
-                                onclick="Mute(event)"
-                                >Edit</a>
-                            <form action="{{ route('superAdmin.admission.destroy', $data->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger delete"
-                                onclick="Mute(event)"
-                                >Delete</button>
-                            </form>
-                        </td>
+                    <td width="10%">
+                        <img src="{{ asset('users/images/' . $data->user->image) }}" class="img-fluid mx-auto d-block"
+                            alt="Image">
+                    </td>
+                    <td>{{ $data->user->name }}</td>
+                    <td>{{ $data->first_name }} {{ $data->last_name }}</td>
+                    <td>{{ $data->user->login_id }}</td>
+                    <td>{{ $data->phone }}</td>
+                    <td>
+                        @if ($data->user->status === 1)
+                            <a href="{{ route('superAdmin.admission.status', $data->user->id) }}" onclick="disableButton(this)"
+                                class="btn btn-outline-success">Active</a>
+                        @else
+                            <a href="{{ route('superAdmin.admission.status', $data->user->id) }}" onclick="disableButton(this)"
+                                class="btn btn-outline-warning">Deactive</a>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('superAdmin.admission.show', $data->id) }}" class="btn btn-success">View</a>
+                        <a href="{{ route('superAdmin.admission.edit', $data->id) }}" class="btn btn-primary edit">Edit</a>
+                        <form action="{{ route('superAdmin.admission.destroy', $data->id) }}" method="POST"
+                            class="d-inline">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="btn btn-danger delete"
+                                onclick="disableButton(this)">Delete</button>
+                        </form>
+                    </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -116,4 +118,7 @@
     </div>
 
     @include('parts.title_end')
+@endsection
+@section('scripts')
+    @include('parts.page_number_set_js', ['page_number_url' => 'superAdmin.admission.index'])
 @endsection

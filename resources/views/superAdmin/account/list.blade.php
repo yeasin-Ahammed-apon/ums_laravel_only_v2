@@ -34,6 +34,7 @@
                 <form action="{{ route('superAdmin.account.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
+                        @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
@@ -79,21 +80,20 @@
                         <td>{{ $data->phone }}</td>
                         <td>
                             @if ($data->user->status === 1)
-                                <a href="{{ route('superAdmin.account.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
+                                <a href="{{ route('superAdmin.account.status', $data->user->id) }}" onclick="disableButton(this)" class="btn btn-outline-success">Active</a>
                             @else
-                                <a href="{{ route('superAdmin.account.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
+                                <a href="{{ route('superAdmin.account.status', $data->user->id) }}" onclick="disableButton(this)" class="btn btn-outline-warning">Deactive</a>
                             @endif
                         </td>
                         <td class="text-center">
                             <a href="{{ route('superAdmin.account.show', $data->id) }}" class="btn btn-success">View</a>
                             <a href="{{ route('superAdmin.account.edit', $data->id) }}" class="btn btn-primary edit"
-                                onclick="Mute(event)"
                                 >Edit</a>
                             <form action="{{ route('superAdmin.account.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="btn btn-danger delete"
-                                onclick="Mute(event)"
+                                onclick="disableButton(this)"
                                 >Delete</button>
                             </form>
                         </td>
@@ -116,4 +116,7 @@
     </div>
 
     @include('parts.title_end')
+@endsection
+@section('scripts')
+    @include('parts.page_number_set_js', ['page_number_url' => 'superAdmin.account.index'])
 @endsection

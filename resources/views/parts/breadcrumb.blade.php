@@ -1,11 +1,10 @@
-<!-- Content Header (Page header) -->
-{{-- superAdmin / admin /list  here is structure given --}}
+
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
+        <div class="row">
+            {{-- <div class="col-sm-6">
                 <h1>{{ $page_title ?? Auth::user()->role->name.' Pages' }}</h1>
-            </div>
+            </div> --}}
             @isset($links)
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -21,5 +20,5 @@
             @endisset
 
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>

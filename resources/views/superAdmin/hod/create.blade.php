@@ -34,7 +34,7 @@
             @csrf
             <div class="card-body row">
                 {{-- role --}}
-                <input type="hidden" name="role" value="cod" class="form-control" placeholder="Enter name">
+                <input type="hidden" name="role" value="hod" class="form-control" placeholder="Enter name">
                 {{-- name --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>name</label>
@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn  btn-primary">Submit</button>
+                <button type="submit" class="btn  btn-primary" onclick="disableButton(this)">Create</button>
             </div>
         </form>
     </div>

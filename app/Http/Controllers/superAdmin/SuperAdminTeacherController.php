@@ -17,6 +17,7 @@ class SuperAdminTeacherController extends Controller
     use SuperAdmin;
     private $data;
     private $datas;
+    private $authUser = 'superAdmin';
     public function index(Request $request)
     {
         return $this->showUserList(Teacher::class, $request, 'teacher');
@@ -27,21 +28,15 @@ class SuperAdminTeacherController extends Controller
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Teacher::class,$request,'teachers','T');
+        return $this->StoreUser(Teacher::class,$request,'teachers');
     }
     public function show($id)
     {
-        $this->data = Teacher::with('user')->findOrFail($id);
-        return view('superAdmin.teacher.show',[
-            'data'=>$this->data
-        ]);
+        return $this->ShowUser(Teacher::class,'teacher',$id);
     }
     public function edit($id)
     {
-        $this->data = Teacher::with('user')->find($id);
-        return view('superAdmin.teacher.edit', [
-            'data' => $this->data,
-        ]);
+        return $this->EditUser(Teacher::class,'teacher',$id);
     }
     public function update(Request $request, $id)
     {
@@ -64,10 +59,11 @@ class SuperAdminTeacherController extends Controller
          $user->role_id = Role::where('name', 'cod')->first()->id;
          // user login id create
          $lastUser = User::where('role_id', $user->role_id)->orderBy('id', 'desc')->first();
-         $lastLoginId = ($lastUser === null) ? substr('C0000', 1) : substr($lastUser->login_id, 1);
-         $nextLoginId = str_pad($lastLoginId + 1, 4, '0', STR_PAD_LEFT);
-         $nextLoginIdValue = 'C' . $nextLoginId;
-         $user->login_id = $nextLoginIdValue; // created and stored
+        if ($lastUser===null)$lastUser = 0;
+        else $lastUser = $lastUser->id;
+        $lastUser = $lastUser + 1;
+        $lastUser= strtoupper($user->role->name).strval($lastUser);
+         $user->login_id = $lastUser; // created and stored
          $user->permission_id = 1;
          $user->status = 1;
          $user->created_by = Auth::user()->id;
@@ -98,10 +94,11 @@ class SuperAdminTeacherController extends Controller
          $user->role_id = Role::where('name', 'hod')->first()->id;
          // user login id create
          $lastUser = User::where('role_id', $user->role_id)->orderBy('id', 'desc')->first();
-         $lastLoginId = ($lastUser === null) ? substr('H0000', 1) : substr($lastUser->login_id, 1);
-         $nextLoginId = str_pad($lastLoginId + 1, 4, '0', STR_PAD_LEFT);
-         $nextLoginIdValue = 'H' . $nextLoginId;
-         $user->login_id = $nextLoginIdValue; // created and stored
+        if ($lastUser===null)$lastUser = 0;
+        else $lastUser = $lastUser->id;
+        $lastUser = $lastUser + 1;
+        $lastUser= strtoupper($user->role->name).strval($lastUser);
+         $user->login_id = $lastUser; // created and stored
          $user->permission_id = 1;
          $user->status = 1;
          $user->created_by = Auth::user()->id;

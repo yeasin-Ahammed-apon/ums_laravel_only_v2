@@ -34,6 +34,7 @@
                 <form action="{{ route('superAdmin.teacher.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
+                        @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
@@ -123,4 +124,7 @@
     </div>
 
     @include('parts.title_end')
+@endsection
+@section('scripts')
+    @include('parts.page_number_set_js', ['page_number_url' => 'superAdmin.teacher.index'])
 @endsection

@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" onclick="disableButton(this)">
                     Update
                 </button>
                 <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-success">View</a>

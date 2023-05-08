@@ -91,20 +91,19 @@
                         <div class="custom-file">
                             <input type="file" name="image"
                                 class="custom-file-input @error('image') is-invalid @enderror"
-                                accept="image/png, image/jpeg, image/jpg"
-                                onchange="previewImage(event)"
-                                >
+                                accept="image/png, image/jpeg, image/jpg" onchange="previewImage(event)">
                             <label class="custom-file-label">Choose Image</label>
                         </div>
                     </div>
                     <div class="mt-2">
-                        <img id="image-preview" src="" alt="Image Preview" style="max-width: 200px; max-height: 200px;">
+                        <img id="image-preview" src="" alt="Image Preview"
+                            style="max-width: 200px; max-height: 200px;">
                     </div>
                     {!! validationError('image', $errors) !!}
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn  btn-primary">Submit</button>
+                <button type="submit" class="btn  btn-primary" onclick="disableButton(this)">create</button>
             </div>
         </form>
     </div>
@@ -113,16 +112,17 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-<script>
-    document.getElementById('image-preview').style.display = 'none';
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('image-preview');
-            output.style.display = 'block'
-            output.src = reader.result;
+    <script>
+        document.getElementById('image-preview').style.display = 'none';
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('image-preview');
+                output.style.display = 'block'
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
         }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
+    </script>
 @endsection

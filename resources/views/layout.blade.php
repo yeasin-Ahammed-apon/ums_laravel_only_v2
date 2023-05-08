@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,8 @@
     <title>@yield('meta-tag') || UMS</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     {{-- sweet alert --}}
     <link rel="stylesheet" href="{{ asset('assets/admin_lte/plugins/sweetalert2/sweetalert2.min.css') }}">
     <!-- Font Awesome -->
@@ -19,6 +21,7 @@
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
 
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -33,6 +36,7 @@
                 <div class="row">
                     <div class="col-12">
                         <!-- Default box -->
+                        
                         @yield('content')
                         <!-- /.card -->
                     </div>
@@ -64,10 +68,13 @@
     <!-- AdminLTE App -->
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
     <script>
-        const  selector = ($param)=> document.querySelector($param)
-        const disableButton = (button)=> {
-            button.disabled = true;
-            button.style.color = 'gray'
+        const selector = ($param) => document.querySelector($param)
+        const disableButton = (button) => {
+            setTimeout(() => {
+                button.disabled = true;
+            }, 1);
+            button.style.color = 'white'
+            button.style.background = 'gray'
         }
     </script>
     @if (session('alert'))
@@ -82,4 +89,5 @@
     @endif
     @yield('scripts')
 </body>
+
 </html>
