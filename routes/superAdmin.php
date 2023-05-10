@@ -7,6 +7,7 @@ use App\Http\Controllers\superAdmin\SuperAdminCodController;
 use App\Http\Controllers\superAdmin\SuperAdminController;
 use App\Http\Controllers\superAdmin\SuperAdminHodController;
 use App\Http\Controllers\superAdmin\SuperAdminNotificationController;
+use App\Http\Controllers\superAdmin\SuperAdminPageSettingController;
 use App\Http\Controllers\superAdmin\SuperAdminTeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,9 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
     Route::prefix('/superAdmin')->group(function () {
         //superAdmin
         Route::get('/dashboard', [SuperAdminController::class, "dashboard"])->name('superAdmin.dashboard');
+        //user page setting
+        Route::get('/user/page/settings/{id}', [SuperAdminPageSettingController::class, "user_page_settings"])->name('superAdmin.page.settings');
+        Route::post('/user/page/settings', [SuperAdminPageSettingController::class, "user_page_settings_update"])->name('superAdmin.page.settings.update');
         // admin
         Route::get('/admin/status/{id}', [SuperAdminAdminController::class, "status"])->name('superAdmin.admin.status');
         Route::resource('/admin', SuperAdminAdminController::class)->names('superAdmin.admin');

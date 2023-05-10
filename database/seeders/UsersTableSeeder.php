@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -24,16 +25,23 @@ class UsersTableSeeder extends Seeder
             else $lastUser = $lastUser->id;
             $lastUser = $lastUser + 1;
             $lastUser = strtoupper('superAdmin') . strval($lastUser);
-            User::create([
-                'name' => 'superAdmin',
-                'password' => Hash::make('123456'),
-                'role_id' => Role::where('name', 'superAdmin')->first()->id,
-                'login_id' => $lastUser,
-                'image' => '1683221846-pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png',
-                'permission_id' => 1,
-                'status' => 1,
-                'created_by' => 0
-            ]);
+            $user = new User();
+                $user->name = 'superAdmin';
+                $user->password = Hash::make('123456');
+                $user->role_id = Role::where('name', 'superAdmin')->first()->id;
+                $user->login_id = $lastUser;
+                $user->image = '1683221846-pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png';
+                $user->status = 1;
+                $user->created_by = 1;
+                $user->save();
+                if ($user) {
+                    $permission=new Permission();
+                    $permission->user_id = $user->id;
+                    $permission->sidebar = superAdminSidebarOption();
+                    $permission->save();
+                    $user->permission_id = $permission->id;
+                    $user->save();
+                }
         }
     }
 }

@@ -1,179 +1,180 @@
 @php
     // $sidebar = \App\Models\Permission::where('user_id',Auth::user()->user_id)->first();
 
-    $sidebar = [
-        [
-            'title' => 'Dashboard',
-            'icon' => 'fas fa-th',
-            'route' => 'superAdmin.dashboard',
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Profile',
-            'icon' => 'fas fa-th',
-            'route' => 'superAdmin.profile',
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Notification',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'superAdmin',
-                    'route' => 'superAdmin.notification.superAdmin',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'admin',
-                    'route' => 'superAdmin.notification.admin',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'hod',
-                    'route' => 'superAdmin.notification.hod',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'cod',
-                    'route' => 'superAdmin.notification.cod',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'teacher',
-                    'route' => 'superAdmin.notification.teacher',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'account',
-                    'route' => 'superAdmin.notification.account',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'admission',
-                    'route' => 'superAdmin.notification.admission',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Admin',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Admin List',
-                    'route' => 'superAdmin.admin.index',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'Admin Create',
-                    'route' => 'superAdmin.admin.create',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Teacher',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Teacher List',
-                    'route' => 'superAdmin.teacher.index',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'Add Teacher',
-                    'route' => 'superAdmin.teacher.create',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Hod',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Hod List',
-                    'route' => 'superAdmin.hod.index',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'Add Hod',
-                    'route' => 'superAdmin.hod.create',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Cod',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Cod List',
-                    'route' => 'superAdmin.cod.index',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'Add Cod',
-                    'route' => 'superAdmin.cod.create',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Account',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Account List',
-                    'route' => 'superAdmin.account.index',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'Add Account',
-                    'route' => 'superAdmin.account.create',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Admission',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Admission List',
-                    'route' => 'superAdmin.admission.index',
-                    'enabled' => true,
-                ],
-                [
-                    'title' => 'Add Admission',
-                    'route' => 'superAdmin.admission.create',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
-        [
-            'title' => 'Student',
-            'icon' => 'fas fa-tachometer-alt',
-            'sub_menu' => [
-                [
-                    'title' => 'Student List',
-                    'route' => 'superAdmin.student.list',
-                    'enabled' => true,
-                ],
-            ],
-            'enabled' => true,
-        ],
+    // $sidebar = [
+    //     [
+    //         'title' => 'Dashboard',
+    //         'icon' => 'fas fa-th',
+    //         'route' => 'superAdmin.dashboard',
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Profile',
+    //         'icon' => 'fas fa-th',
+    //         'route' => 'superAdmin.profile',
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Notification',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'superAdmin',
+    //                 'route' => 'superAdmin.notification.superAdmin',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'admin',
+    //                 'route' => 'superAdmin.notification.admin',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'hod',
+    //                 'route' => 'superAdmin.notification.hod',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'cod',
+    //                 'route' => 'superAdmin.notification.cod',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'teacher',
+    //                 'route' => 'superAdmin.notification.teacher',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'account',
+    //                 'route' => 'superAdmin.notification.account',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'admission',
+    //                 'route' => 'superAdmin.notification.admission',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Admin',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Admin List',
+    //                 'route' => 'superAdmin.admin.index',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'Admin Create',
+    //                 'route' => 'superAdmin.admin.create',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Teacher',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Teacher List',
+    //                 'route' => 'superAdmin.teacher.index',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'Add Teacher',
+    //                 'route' => 'superAdmin.teacher.create',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Hod',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Hod List',
+    //                 'route' => 'superAdmin.hod.index',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'Add Hod',
+    //                 'route' => 'superAdmin.hod.create',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Cod',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Cod List',
+    //                 'route' => 'superAdmin.cod.index',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'Add Cod',
+    //                 'route' => 'superAdmin.cod.create',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Account',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Account List',
+    //                 'route' => 'superAdmin.account.index',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'Add Account',
+    //                 'route' => 'superAdmin.account.create',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Admission',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Admission List',
+    //                 'route' => 'superAdmin.admission.index',
+    //                 'enabled' => true,
+    //             ],
+    //             [
+    //                 'title' => 'Add Admission',
+    //                 'route' => 'superAdmin.admission.create',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
+    //     [
+    //         'title' => 'Student',
+    //         'icon' => 'fas fa-tachometer-alt',
+    //         'sub_menu' => [
+    //             [
+    //                 'title' => 'Student List',
+    //                 'route' => 'superAdmin.student.list',
+    //                 'enabled' => true,
+    //             ],
+    //         ],
+    //         'enabled' => true,
+    //     ],
 
-    ];
-    $sidebar = json_encode($sidebar);
-    $sidebar = json_decode($sidebar, true);
+    // ];
+    // $sidebar = json_encode($sidebar);
+
+    $sidebar = json_decode(\App\Models\Permission::where('user_id',auth()->user()->id)->first()->sidebar, true);
 
 @endphp
 {{-- {{ dd($sidebar) }} --}}
@@ -221,7 +222,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 @foreach ($sidebar as $item)
-                    @if ($item['enabled'])
+                    @if (isset($item['enabled']))
                         <li class="nav-item">
                             @if (!isset($item['route']))
                                 <a href="#" class="nav-link">
@@ -243,7 +244,7 @@
                             @if (isset($item['sub_menu']))
                                 <ul class="nav nav-treeview">
                                     @foreach ($item['sub_menu'] as $sub_item)
-                                        @if ($sub_item['enabled'])
+                                        @if (isset($sub_item['enabled']))
                                             <li class="nav-item">
                                                 <a href="{{ Route::has($sub_item['route']) ? route($sub_item['route']) : '#' }}"
                                                     class="nav-link">

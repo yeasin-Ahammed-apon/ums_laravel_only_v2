@@ -2,6 +2,8 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Admin;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
@@ -21,29 +23,29 @@ trait SuperAdmin
     }
     public function showUserList($model, $request, $role)
     {
-         $this->pageDataCheck($request);
+        $this->pageDataCheck($request);
         if ($request->status === '1') {
             $this->datas = $model::whereHas('user', function ($users) {
                 $users->where('status', 1);
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->pageData);
-            return view($this->authUser.'.' . $role . '.list', [
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
+            return view($this->authUser . '.' . $role . '.list', [
                 'datas' => $this->datas,
                 'title' => "Active Admin List",
-                'pageData'=> $this->pageData
+                'pageData' => $this->pageData
             ]);
         }
         if ($request->status === '0') {
             $this->datas = $model::whereHas('user', function ($users) {
                 $users->where('status', 0);
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->pageData);
-            return view($this->authUser.'.'. $role . '.list', [
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
+            return view($this->authUser . '.' . $role . '.list', [
                 'datas' => $this->datas,
                 'title' => "Dective Admin List",
-                'pageData'=> $this->pageData
+                'pageData' => $this->pageData
             ]);
         }
         if ($request->search) {
@@ -52,28 +54,28 @@ trait SuperAdmin
                 $users->where('login_id', 'LIKE', "%{$this->data}%")
                     ->orWhere('name', 'LIKE', "%{$this->data}%");
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->pageData);
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
 
-            return view($this->authUser.'.'. $role . '.list', [
+            return view($this->authUser . '.' . $role . '.list', [
                 'datas' => $this->datas,
                 'title' => "Admin Search Result List",
-                'pageData'=> $this->pageData
+                'pageData' => $this->pageData
             ]);
         }
         $this->datas = $model::with('user')
-        ->orderBy('created_at', 'desc')
-        ->paginate($this->pageData);
-        return view($this->authUser.'.'. $role . '.list', [
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->pageData);
+        return view($this->authUser . '.' . $role . '.list', [
             'datas' => $this->datas,
-            'pageData'=> $this->pageData
+            'pageData' => $this->pageData
         ]);
     }
     public function ShowUser($model, $role, $id)
     {
         try {
             $this->data = $model::with('user')->findOrFail($id);
-            return view($this->authUser.'.'. $role . '.show', [
+            return view($this->authUser . '.' . $role . '.show', [
                 'data' => $this->data,
             ]);
         } catch (ModelNotFoundException $e) {
@@ -109,10 +111,10 @@ trait SuperAdmin
         $user->role_id = Role::where('name', $request->role)->first()->id;
         // user login id create
         $lastUser = User::where('role_id', $user->role_id)->orderBy('id', 'desc')->first();
-        if ($lastUser===null)$lastUser = 0;
+        if ($lastUser === null) $lastUser = 0;
         else $lastUser = $lastUser->id;
         $lastUser = $lastUser + 1;
-        $lastUser= strtoupper($user->role->name).strval($lastUser);
+        $lastUser = strtoupper($user->role->name) . strval($lastUser);
 
         $user->login_id = $lastUser; // created and now  store
         $user->permission_id = 1;
@@ -127,6 +129,14 @@ trait SuperAdmin
         if ($image) { // If the image was successfully stored, update the $user model's image property
             $user->image = $imageName;
             $user->save();
+            if ($user && $model === Admin::class) {
+                $permission = new Permission();
+                $permission->user_id = $user->id;
+                $permission->sidebar = adminSidebarOption();
+                $permission->save();
+                $user->permission_id = $permission->id;
+                $user->save();
+            }
         }
         // create admin
         if ($user) { // If the user was successfully stored
@@ -141,9 +151,11 @@ trait SuperAdmin
         }
         if ($admin) { // // If the admin was successfully stored
             Enotifications('Create ' . $tableName, "new user created . user id is " . $user->id . ". login id is " . $user->login_id);
-            fmassage('Success',
-            'New ' . $tableName . ' Created Successfully. Login Id is '.$user->login_id,
-             'success');
+            fmassage(
+                'Success',
+                'New ' . $tableName . ' Created Successfully. Login Id is ' . $user->login_id,
+                'success'
+            );
             return redirect()->back();
         }
     }
@@ -151,7 +163,7 @@ trait SuperAdmin
     {
         try {
             $this->data = $model::with('user')->findOrFail($id);
-            return view($this->authUser.'.'. $role . '.edit', [
+            return view($this->authUser . '.' . $role . '.edit', [
                 'data' => $this->data,
             ]);
         } catch (ModelNotFoundException $e) {
@@ -187,7 +199,7 @@ trait SuperAdmin
         // Find the user by ID
         try {
             $user = User::findOrFail($id);
-        }catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return view('exception.userNotFound', [
                 "title" => "User Not Found",
                 "description" => "User Not Found",
@@ -198,17 +210,13 @@ trait SuperAdmin
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);
         }
-        // Update user information
         $user->name = $request->name;
         $user->status = $request->status;
-        // $user->updated_at = Carbon::now();
         $user->role_id = Role::where('name', $request->role)->first()->id;
-        // Update password if a new password is provided
-        if (!empty($request->password)) {
+        if (!empty($request->password)) { // Update password if a new password is provided
             $validatedData = $request->validate(['password' => 'min:6|max:255']);
             $user->password = Hash::make($request->password);
         }
-        // Update user image
         $image = $request->file('image');
         if ($image) {
             $imageName = time() . '-' . $image->getClientOriginalName();
@@ -216,10 +224,8 @@ trait SuperAdmin
             $image->move($imagePath, $imageName);
             $user->image = $imageName;
         }
-        // Save user changes
         $user->save();
-        // Find the associated admin and update their information
-        $admin = $model::where('user_id', $user->id)->first();
+        $admin = $model::where('user_id', $user->id)->first(); // Find the associated admin and update their information
         if ($admin) {
             $admin->first_name = $request->first_name;
             $admin->last_name = $request->last_name;
@@ -229,8 +235,6 @@ trait SuperAdmin
             $admin->updated_at = Carbon::now();
             $admin->save();
         }
-
-        // Redirect back to the user's edit page
         Enotifications('updated Admin', "updated user  . user id is " . $user->id . ". login id is " . $user->login_id);
         fmassage('Success', 'Admin information updated successfully', 'success');
         return redirect()->back();

@@ -36,7 +36,7 @@
                 <form action="{{ route('admin.notification.admin') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
-                        @include('parts.card_tool_option_per_page',['pageData'=>$pageData])
+                        @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
@@ -44,8 +44,7 @@
                             </button>
                             <a href="{{ route('admin.notification.admin') }}"class="btn btn-default  ml-2">All
                                 Notification</a>
-                            <a
-                                href="{{ route('admin.notification.admin', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
+                            <a href="{{ route('admin.notification.admin', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
                                 Unseen Notification</a>
                             <a onclick="disableButton(this)"
                                 href="{{ route('admin.notification.admin', ['seen' => 1]) }}"class="btn btn-secondary  ml-2">All
@@ -65,7 +64,7 @@
                     <th>
                         <input type="checkbox" id="selectAll">
                     </th>
-                    <th>By </th>
+                    <th>Action By</th>
                     <th>Action</th>
                     <th>Description</th>
                     <th>Seen</th>
@@ -74,8 +73,9 @@
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                    @include('parts.table_checkinput',$data)
-                    <td>{{ $data->user->name }}</td>
+                    @include('parts.table_checkinput', $data)
+                    <td>{{ $data->user->name }} ({{ $data->user->role->name }})
+                    </td>
                     <td>{{ $data->action }}</td>
                     <td>{{ $data->description }}</td>
                     <td>
@@ -116,6 +116,6 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.multiple_check_js',['multiple_check_url'=>'admin.notification.admin'])
-    @include('parts.page_number_set_js',['page_number_url'=>'admin.notification.admin'])
+    @include('parts.multiple_check_js', ['multiple_check_url' => 'admin.notification.admin'])
+    @include('parts.page_number_set_js', ['page_number_url' => 'admin.notification.admin'])
 @endsection

@@ -65,7 +65,7 @@
                     <th>
                         <input type="checkbox" id="selectAll">
                     </th>
-                    <th>By </th>
+                    <th>Action By</th>
                     <th>Action</th>
                     <th>Description</th>
                     <th>Seen</th>
@@ -75,7 +75,8 @@
             <tbody>
                 @foreach ($datas as $data)
                     @include('parts.table_checkinput',$data)
-                    <td>{{ $data->user->name }}</td>
+                    <td>{{ $data->user->name }} ({{ $data->user->role->name }})
+</td>
                     <td>{{ $data->action }}</td>
                     <td>{{ $data->description }}</td>
                     <td>
