@@ -23,6 +23,7 @@ class CreateTeachersTable extends Migration
             $table->string('email')->unique();
             $table->integer('cod')->default(0);
             $table->integer('hod')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

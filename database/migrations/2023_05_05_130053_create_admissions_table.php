@@ -21,6 +21,7 @@ class CreateAdmissionsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('email')->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

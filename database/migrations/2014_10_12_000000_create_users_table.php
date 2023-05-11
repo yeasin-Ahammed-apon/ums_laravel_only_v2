@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('created_by');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

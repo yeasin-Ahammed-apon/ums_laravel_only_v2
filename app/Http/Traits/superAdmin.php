@@ -254,11 +254,11 @@ trait SuperAdmin
         $this->data = $model::findOrFail($id);
         $user_id = $this->data->user_id;
         $this->data->delete();
-        $this->data = User::findOrFail($user_id);
-        $imageName = $this->data->image;
-        $this->data->delete();
-        $imagePath = public_path('/users/images/');
-        unlink($imagePath . $imageName);
+        // $this->data = User::findOrFail($user_id);
+        // $imageName = $this->data->image;
+        // $this->data->delete();
+        // $imagePath = public_path('/users/images/');
+        // unlink($imagePath . $imageName);
         fmassage('Success', 'Admin deleted successfully', 'success');
         return redirect()->route('superAdmin.' . $role . '.index');
     }

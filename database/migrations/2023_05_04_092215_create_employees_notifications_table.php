@@ -22,6 +22,7 @@ class CreateEmployeesNotificationsTable extends Migration
             $table->string('role');
             $table->boolean('seen')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -25,6 +25,9 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
         Route::post('/user/page/settings', [SuperAdminPageSettingController::class, "user_page_settings_update"])->name('superAdmin.page.settings.update');
         // admin
         Route::get('/admin/status/{id}', [SuperAdminAdminController::class, "status"])->name('superAdmin.admin.status');
+        Route::get('/admin/trash', [SuperAdminAdminController::class, "trash"])->name('superAdmin.admin.trash');
+        Route::get('/admin/restore/{id}', [SuperAdminAdminController::class, "restore"])->name('superAdmin.admin.restore');
+        Route::get('/admin/forcedelete/{id}', [SuperAdminAdminController::class, "forcedelete"])->name('superAdmin.admin.forcedelete');
         Route::resource('/admin', SuperAdminAdminController::class)->names('superAdmin.admin');
         // admission
         Route::get('/admission/status/{id}', [SuperAdminAdmissionController::class, "status"])->name('superAdmin.admission.status');

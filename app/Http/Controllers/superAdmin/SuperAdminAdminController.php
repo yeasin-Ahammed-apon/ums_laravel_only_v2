@@ -39,4 +39,16 @@ class SuperAdminAdminController extends Controller
     public function destroy($id){
         return $this->DeleteUser(Admin::class,'admin',$id);
     }
+    public function trash(){
+        $this->datas = Admin::onlyTrashed()->paginate(10);
+        return view('superAdmin.admin.trash',[
+            'datas'=>$this->datas,
+            'pageData'=>10
+        ]);
+    }
+    public function restore($id){
+        $this->datas = Admin::onlyTrashed()->find($id)->restore();
+        return redirect()->back() ;
+    }
+
 }

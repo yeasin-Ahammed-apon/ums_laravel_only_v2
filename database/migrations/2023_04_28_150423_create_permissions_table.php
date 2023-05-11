@@ -19,6 +19,7 @@ class CreatePermissionsTable extends Migration
             $table->json('navbar')->nullable();
             $table->json('sidebar')->nullable();
             $table->json('footer')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

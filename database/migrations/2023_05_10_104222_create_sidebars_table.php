@@ -18,6 +18,7 @@ class CreateSidebarsTable extends Migration
             $table->integer('role_id');
             $table->json('options')->nullable();
             $table->boolean('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

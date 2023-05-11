@@ -22,6 +22,7 @@ class CreateCodsTable extends Migration
             $table->string('address')->nullable();
             $table->string('email')->unique();
             $table->integer('hod')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

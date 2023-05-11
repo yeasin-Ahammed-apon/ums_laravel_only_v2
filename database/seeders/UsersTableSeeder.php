@@ -26,11 +26,11 @@ class UsersTableSeeder extends Seeder
             $lastUser = $lastUser + 1;
             $lastUser = strtoupper('superAdmin') . strval($lastUser);
             $user = new User();
-                $user->name = 'superAdmin';
+                $user->name = 'Yeasin Ahammed Apon';
                 $user->password = Hash::make('123456');
                 $user->role_id = Role::where('name', 'superAdmin')->first()->id;
                 $user->login_id = $lastUser;
-                $user->image = '1683221846-pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png';
+                $user->image = 'superAdmin.png';
                 $user->status = 1;
                 $user->created_by = 1;
                 $user->save();
