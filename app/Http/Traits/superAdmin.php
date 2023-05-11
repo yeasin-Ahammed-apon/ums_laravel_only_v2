@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 
@@ -78,7 +79,8 @@ trait SuperAdmin
             return view($this->authUser . '.' . $role . '.show', [
                 'data' => $this->data,
             ]);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $ex) {
+            Log::error('Found Exception [Script: ' . __CLASS__ . '@' . __FUNCTION__ . '] [Origin: ' . $ex->getFile() . '-' . $ex->getLine() . ']' . $ex->getMessage());
             return view('exception.userNotFound', [
                 "title" => "User Not Found",
                 "description" => "User Not Found",

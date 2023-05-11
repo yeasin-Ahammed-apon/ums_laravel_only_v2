@@ -19,7 +19,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
-
+    @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col-12">
                         <!-- Default box -->
-                        
+
                         @yield('content')
                         <!-- /.card -->
                     </div>

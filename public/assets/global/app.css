@@ -1,5 +1,9 @@
 
     .sidebar-dark-primary{
-        background: rgb(17, 11, 71);
+        background: rgb(7, 3, 51);
+    }
+    [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-treeview {
+
+        background: rgb(9, 3, 83);
     }
 
