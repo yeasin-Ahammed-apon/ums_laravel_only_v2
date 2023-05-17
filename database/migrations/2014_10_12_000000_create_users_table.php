@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image');
             $table->integer('role_id');
+            $table->integer('department_id')->default(0);
             $table->integer('permission_id')->nullable();
             $table->boolean('status')->default(1);//1 mean active , 0 mean deactive
             $table->bigInteger('created_by');

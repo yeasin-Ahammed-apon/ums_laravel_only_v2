@@ -3,20 +3,22 @@
 
 use App\Models\EmployeesNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
-
-if (! function_exists('random_rgb_color')) {
-    function random_rgb_color() {
+if (!function_exists('random_rgb_color')) {
+    function random_rgb_color()
+    {
         $r = rand(0, 255);
         $g = rand(0, 255);
         $b = rand(0, 255);
         return "rgb($r, $g, $b)";
-      }
+    }
 }
 
-if (! function_exists('fmassage')) {
-    function fmassage($title = '',$text = '',$icon =''){
-        return session()->flash('alert',[
+if (!function_exists('fmassage')) {
+    function fmassage($title = '', $text = '', $icon = '')
+    {
+        return session()->flash('alert', [
             'title' => $title,
             'text' => $text,
             'icon' => $icon,
@@ -24,8 +26,9 @@ if (! function_exists('fmassage')) {
     }
 }
 // blade form validation error message showing
-if (! function_exists('validationError')) {
-    function validationError($name,$message){
+if (!function_exists('validationError')) {
+    function validationError($name, $message)
+    {
         if ($message->has($name)) {
             return '
             <div class="text-danger">' . $message->first($name) . '</div>';
@@ -34,30 +37,47 @@ if (! function_exists('validationError')) {
     }
 }
 //employees notifications notification
-if (! function_exists('Enotifications')) {
+if (!function_exists('Enotifications')) {
     // dd(Auth::user()->role->name);
-    function Enotifications($action,$description){
+    function Enotifications($action, $description)
+    {
         $notification = new EmployeesNotification();
         $notification->user_id = Auth::user()->id;
         $notification->role = Auth::user()->role->name;
         $notification->action = $action;
         $notification->description = $description;
         $notification->save();
-
     }
 }
-if (! function_exists('dataEncode')) {
-    function dataEncode($data){
+if (!function_exists('dataEncode')) {
+    function dataEncode($data)
+    {
         return json_encode($data);
     }
 }
-if (! function_exists('dataDecode')) {
-    function dataDecode($data){
-        return json_decode($data , true);
+if (!function_exists('dataDecode')) {
+    function dataDecode($data)
+    {
+        return json_decode($data, true);
     }
 }
-if (! function_exists('superAdminSidebarOption')) {
-    function superAdminSidebarOption(){
+if (!function_exists('pageDataCheck')) {
+    function pageDataCheck($request)
+    {
+        if ($request->pageData) $pageData = intval($request->pageData);
+        else $pageData = 10;
+    }
+}
+if (!function_exists('LogError')) {
+    function LogError($ex)
+    {
+        Log::error('Found Exception [Script: ' . __CLASS__ . '@' . __FUNCTION__ . '] [Origin: ' . $ex->getFile() . '-' . $ex->getLine() . ']' . $ex->getMessage());
+    }
+}
+
+if (!function_exists('superAdminSidebarOption')) {
+    function superAdminSidebarOption()
+    {
         $superAdminSidebarOption = [
             [
                 'title' => 'Dashboard',
@@ -223,6 +243,60 @@ if (! function_exists('superAdminSidebarOption')) {
                 'enabled' => "1",
             ],
             [
+                'title' => 'Faculty',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'faculty*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Faculty List',
+                        'route' => 'faculty.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Faculty',
+                        'route' => 'faculty.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'program',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'program*',
+                'sub_menu' => [
+                    [
+                        'title' => 'program List',
+                        'route' => 'program.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add program',
+                        'route' => 'program.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'department',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'department*',
+                'sub_menu' => [
+                    [
+                        'title' => 'department List',
+                        'route' => 'department.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add department',
+                        'route' => 'department.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
                 'title' => 'Student',
                 'icon' => 'fas fa-tachometer-alt',
                 'sub_active_route' => 'superAdmin.student',
@@ -240,8 +314,9 @@ if (! function_exists('superAdminSidebarOption')) {
         return json_encode($superAdminSidebarOption);
     }
 }
-if (! function_exists('adminSidebarOption')) {
-    function adminSidebarOption(){
+if (!function_exists('adminSidebarOption')) {
+    function adminSidebarOption()
+    {
         $adminSidebarOption = [
             [
                 'title' => 'Dashboard',
@@ -401,5 +476,3 @@ if (! function_exists('adminSidebarOption')) {
         return json_encode($adminSidebarOption);
     }
 }
-
-

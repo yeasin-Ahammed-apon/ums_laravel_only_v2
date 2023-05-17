@@ -1,5 +1,9 @@
 @php
-    $sidebar = json_decode(\App\Models\Permission::where('user_id', auth()->user()->id)->first()->sidebar, true);
+    // $sidebar = json_decode(\App\Models\Permission::where('user_id', auth()->user()->id)->first()->sidebar, true);
+    if (Auth::user()->role->name === 'superAdmin') {
+        $sidebar = json_decode(superAdminSidebarOption(), true);
+    }
+
 @endphp
 {{-- {{ dd($sidebar) }} --}}
 
@@ -10,7 +14,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
+    <a href="{{ route('login') }}" class="brand-link">
         <img src="https://smuct.ac.bd/wp-content/uploads/2020/10/SMUCT-Logo-1-Converted.png" alt="AdminLTE Logo"
             class="brand-image img-rounded elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">SMUCT</span>
@@ -48,10 +52,10 @@
                 data-accordion="false">
                 @foreach ($sidebar as $item)
                     @if (isset($item['enabled']))
-
                         @if (!isset($item['route']))
-                            <li class="nav-item {{ Route::is($item['sub_active_route'])?'menu-open': '' }}">
-                                <a href="#" class="nav-link {{ Route::is($item['sub_active_route'])?'active': '' }}">
+                            <li class="nav-item {{ Route::is($item['sub_active_route']) ? 'menu-open' : '' }}">
+                                <a href="#"
+                                    class="nav-link {{ Route::is($item['sub_active_route']) ? 'active' : '' }}">
                                     <i class="{{ $item['icon'] }}"></i>
                                     <p>
                                         {{ $item['title'] }}
@@ -60,24 +64,24 @@
                                         @endif
                                     </p>
                                 </a>
-                                    <ul class="nav nav-treeview">
-                                        @foreach ($item['sub_menu'] as $sub_item)
-                                            @if (isset($sub_item['enabled']))
-                                                <li class="nav-item">
-                                                    <a href="{{ Route::has($sub_item['route']) ? route($sub_item['route']) : '#' }}"
-                                                        class="nav-link {{ Route::is($sub_item['route'])?'active': '' }}">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                        <p>{{ $sub_item['title'] }}</p>
-                                                    </a>
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
+                                <ul class="nav nav-treeview">
+                                    @foreach ($item['sub_menu'] as $sub_item)
+                                        @if (isset($sub_item['enabled']))
+                                            <li class="nav-item">
+                                                <a href="{{ Route::has($sub_item['route']) ? route($sub_item['route']) : '#' }}"
+                                                    class="nav-link {{ Route::is($sub_item['route']) ? 'active' : '' }}">
+                                                    <i class="fa  nav-icon {{ Route::is($sub_item['route']) ? 'fa-dot-circle text-black-50' : 'fa-circle' }}"></i>
+                                                    <p>{{ $sub_item['title'] }}</p>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
                             </li>
                         @else
                             <li class="nav-item">
                                 <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
-                                    class="nav-link {{ Route::is($item['route'])?'active': '' }}">
+                                    class="nav-link {{ Route::is($item['route']) ? 'active' : '' }}">
                                     <i class="{{ $item['icon'] }}"></i>
                                     {{ $item['title'] }}
                                 </a>

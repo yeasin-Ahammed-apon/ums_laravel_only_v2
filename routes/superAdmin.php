@@ -18,9 +18,10 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
     Route::prefix('/superAdmin')->group(function () {
         //superAdmin
         Route::get('/dashboard', [SuperAdminController::class, "dashboard"])->name('superAdmin.dashboard');
+        Route::get('/profile', [SuperAdminController::class, "profile"])->name('superAdmin.profile');
         //table for user type was sildebar
         Route::resource('/sidebar', SuperAdminSidebarController::class)->names('superAdmin.sidebar');
-        //user page setting
+        //user page settings
         Route::get('/user/page/settings/{id}', [SuperAdminPageSettingController::class, "user_page_settings"])->name('superAdmin.page.settings');
         Route::post('/user/page/settings', [SuperAdminPageSettingController::class, "user_page_settings_update"])->name('superAdmin.page.settings.update');
         // admin

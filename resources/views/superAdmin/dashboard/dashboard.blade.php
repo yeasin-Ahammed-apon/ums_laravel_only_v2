@@ -237,7 +237,7 @@
         </div>
     </div>
     @include('parts.title_end')
-    <div class="card-footer m-auto shadow" style="background: rgb(87, 87, 87);color:white">
+    <div class="card-footer m-auto shadow mb-5" style="background: rgb(87, 87, 87);color:white">
         <div class="row">
             <div class="col-sm-3 col-12">
                 <div class="description-block border-right">

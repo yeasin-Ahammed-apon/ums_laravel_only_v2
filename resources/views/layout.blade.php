@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://smuct.ac.bd/wp-content/uploads/2021/05/cropped-icon-32x32.png" sizes="32x32">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('meta-tag') || UMS</title>
 
@@ -47,11 +48,6 @@
         </div>
         <!-- /.content-wrapper -->
         @include('parts.footer')
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
     {{-- sweet alert --}}

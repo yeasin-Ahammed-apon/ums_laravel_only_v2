@@ -17,14 +17,9 @@ use Illuminate\Validation\Rule;
 trait SuperAdmin
 {
     private $pageData;
-    public function pageDataCheck($request)
-    {
-        if ($request->pageData) $this->pageData = intval($request->pageData);
-        else $this->pageData = 10;
-    }
     public function showUserList($model, $request, $role)
     {
-        $this->pageDataCheck($request);
+        $this->pageData=pageDataCheck($request);
         if ($request->status === '1') {
             $this->datas = $model::whereHas('user', function ($users) {
                 $users->where('status', 1);
@@ -80,13 +75,12 @@ trait SuperAdmin
                 'data' => $this->data,
             ]);
         } catch (ModelNotFoundException $ex) {
-            Log::error('Found Exception [Script: ' . __CLASS__ . '@' . __FUNCTION__ . '] [Origin: ' . $ex->getFile() . '-' . $ex->getLine() . ']' . $ex->getMessage());
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "User Not Found",
                 "description" => "User Not Found",
             ]);
         } catch (\Exception $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);
@@ -169,12 +163,12 @@ trait SuperAdmin
                 'data' => $this->data,
             ]);
         } catch (ModelNotFoundException $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "User Not Found",
                 "description" => "User Not Found",
             ]);
         } catch (\Exception $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);
@@ -202,12 +196,12 @@ trait SuperAdmin
         try {
             $user = User::findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "User Not Found",
                 "description" => "User Not Found",
             ]);
         } catch (\Exception $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);

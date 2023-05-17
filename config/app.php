@@ -161,7 +161,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class, // debugger package .. implemented by apon
+        Arcanedev\LogViewer\LogViewerServiceProvider::class, // log-viewer package .. implemented by apon
 
         /*
          * Package Service Providers...

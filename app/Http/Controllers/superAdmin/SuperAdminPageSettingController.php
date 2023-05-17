@@ -24,12 +24,12 @@ class SuperAdminPageSettingController extends Controller
                 'sidebar' => $sidebar
             ]);
         } catch (ModelNotFoundException $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "User Not Found",
                 "description" => "User Not Found",
             ]);
         } catch (\Exception $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);

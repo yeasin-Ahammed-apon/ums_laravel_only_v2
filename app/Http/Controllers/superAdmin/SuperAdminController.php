@@ -21,6 +21,8 @@ class SuperAdminController extends Controller
         // $sidebar = json_decode($sidebar, "1");
         return view('superAdmin.dashboard.dashboard');
     }
-
+    public function profile(){
+        return view('superAdmin.profile.profile');
+    }
 
 }

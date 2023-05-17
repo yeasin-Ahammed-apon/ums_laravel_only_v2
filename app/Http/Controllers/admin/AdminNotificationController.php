@@ -34,12 +34,12 @@ class AdminNotificationController extends Controller
                 return response()->json(['status' => 'success']);
             }
         } catch (ModelNotFoundException $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Notification Not Found",
                 "description" => "Notification Not Found",
             ]);
         } catch (\Exception $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);
@@ -58,12 +58,12 @@ class AdminNotificationController extends Controller
                 return redirect()->back();
             }
         } catch (ModelNotFoundException $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Notification Not Found",
                 "description" => "Notification Not Found",
             ]);
         } catch (\Exception $e) {
-            return view('exception.userNotFound', [
+            return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);
