@@ -561,6 +561,11 @@ if (!function_exists('hodSidebarOption')) {
                         'route' => 'hod.notification.cod',
                         'enabled' => "1",
                     ],
+                    [
+                        'title' => 'teacher',
+                        'route' => 'hod.notification.teacher',
+                        'enabled' => "1",
+                    ],
                 ],
                 'enabled' => "1",
             ],

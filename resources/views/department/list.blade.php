@@ -62,7 +62,6 @@
                 <tr>
 
                     <th>Name</th>
-                    <th>code </th>
                     <th>program</th>
                     <th>faculty</th>
                     <th>Status</th>
@@ -73,7 +72,6 @@
                 @foreach ($datas as $data)
 
                         <td>{{ $data->name }}</td>
-                        <td>{{ $data->code }}</td>
                         <td>{{ $data->faculty->name }}</td>
                         <td>{{ $data->program->name }}</td>
                         <td>

@@ -5,12 +5,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.cod.dashboard',
+                'route' => 'hod.cod.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.cod.index',
+                'route' => 'hod.cod.index',
                 'enable' => false,
             ],
         ],
@@ -30,7 +30,7 @@
     ])
     <!-- general form elements -->
     <div class="card">
-        <form action="{{ route('superAdmin.cod.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('hod.cod.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body row">
                 {{-- role --}}

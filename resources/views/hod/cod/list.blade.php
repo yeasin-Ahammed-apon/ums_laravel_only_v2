@@ -8,12 +8,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'superAdmin.cod.dashboard',
+                'route' => 'hod.cod.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'superAdmin.cod.index',
+                'route' => 'hod.cod.index',
                 'enable' => false,
             ],
         ],
@@ -31,7 +31,7 @@
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('superAdmin.cod.index') }}" method="GET">
+                <form action="{{ route('hod.cod.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
@@ -40,11 +40,11 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.cod.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('superAdmin.cod.index') }}"class="btn btn-default  ml-2">All Admins</a>
-                            <a href="{{ route('superAdmin.cod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                            <a href="{{ route('hod.cod.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('hod.cod.index') }}"class="btn btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('hod.cod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
                                 Admins</a>
-                            <a href="{{ route('superAdmin.cod.index', ['status' => 0]) }}" class="btn btn-warning">Deactive
+                            <a href="{{ route('hod.cod.index', ['status' => 0]) }}" class="btn btn-warning">Deactive
                                 Admins</a>
                         </div>
 
@@ -79,17 +79,17 @@
                     <td>{{ $data->phone }}</td>
                     <td>
                         @if ($data->user->status === 1)
-                            <a href="{{ route('superAdmin.cod.status', $data->user->id) }}" onclick="disableButton(this)"
+                            <a href="{{ route('hod.cod.status', $data->user->id) }}" onclick="disableButton(this)"
                                 class="btn btn-outline-success">Active</a>
                         @else
-                            <a href="{{ route('superAdmin.cod.status', $data->user->id) }}" onclick="disableButton(this)"
+                            <a href="{{ route('hod.cod.status', $data->user->id) }}" onclick="disableButton(this)"
                                 class="btn btn-outline-warning">Deactive</a>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('superAdmin.cod.show', $data->id) }}" class="btn btn-success">View</a>
-                        <a href="{{ route('superAdmin.cod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('superAdmin.cod.destroy', $data->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('hod.cod.show', $data->id) }}" class="btn btn-success">View</a>
+                        <a href="{{ route('hod.cod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('hod.cod.destroy', $data->id) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="disableButton(this)">Delete</button>
                         </form>
@@ -115,5 +115,5 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.page_number_set_js', ['page_number_url' => 'superAdmin.cod.index'])
+    @include('parts.page_number_set_js', ['page_number_url' => 'hod.cod.index'])
 @endsection

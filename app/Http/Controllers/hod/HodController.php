@@ -10,4 +10,7 @@ class HodController extends Controller
     public function dashboard(){
         return view('hod.dashboard.dashboard');
     }//
+    public function profile(){
+        return view('hod.profile.profile');
+    }
 }

@@ -40,13 +40,6 @@
                         class="form-control @error('name') is-invalid @enderror" placeholder="Enter name">
                     {!! validationError('name', $errors) !!}
                 </div>
-                {{--  code  --}}
-                <div class="form-group col-12 col-sm-6">
-                    <label>code</label>
-                    <input type="text" value="{{ old('code') }}" name="code"
-                        class="form-control @error('code') is-invalid @enderror" placeholder="Enter code">
-                    {!! validationError('code', $errors) !!}
-                </div>
                 {{-- faculty_id --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>Faculty</label>

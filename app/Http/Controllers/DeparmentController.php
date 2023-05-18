@@ -60,13 +60,11 @@ class DeparmentController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
             'faculty_id'=> 'required',
             'program_id'=> 'required',
         ]);
         $this->data = new Deparment();
         $this->data->name = $request->name;
-        $this->data->code = $request->code;
         $this->data->faculty_id = $request->faculty_id;
         $this->data->program_id = $request->program_id;
         $this->data->save();
@@ -91,13 +89,11 @@ class DeparmentController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
             'faculty_id'=> 'required',
             'program_id'=> 'required',
         ]);
         $this->data = $department;
         $this->data->name = $request->name;
-        $this->data->code = $request->code;
         $this->data->faculty_id = $request->faculty_id;
         $this->data->program_id = $request->program_id;
         $this->data->status = $request->status;

@@ -16,7 +16,6 @@ class CreateDeparmentsTable extends Migration
         Schema::create('deparments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
             $table->integer('faculty_id');
             $table->integer('program_id');
             $table->boolean('status')->default(1);
