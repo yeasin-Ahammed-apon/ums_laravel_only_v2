@@ -18,15 +18,21 @@ class CheckRole
     public function handle(Request $request, Closure $next,$role)
     {
 
+        if ($role==='superAdmin&admin') {
+            if (auth()->check()) {
+                if (auth()->user()->role->name === 'superAdmin' || auth()->user()->role->name === 'admin') {
+                        return $next($request);
+                }
+                abort(404);
+            }
+        }
         if (auth()->check()) {
             if (auth()->user()->role->name === $role) {
-                        return $next($request);
+                    return $next($request);
             }
             abort(404);
-        }else{
-            return redirect('/login');
         }
         // Redirect the user to the appropriate page based on their role
-            return redirect('/login');
+        return redirect('/login');
     }
 }

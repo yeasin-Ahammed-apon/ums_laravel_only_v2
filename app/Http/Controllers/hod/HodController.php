@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class HodController extends Controller
 {
     public function dashboard(){
-        return view('csd');
+        return view('hod.dashboard.dashboard');
     }//
 }

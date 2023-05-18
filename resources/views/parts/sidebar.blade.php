@@ -2,6 +2,14 @@
     // $sidebar = json_decode(\App\Models\Permission::where('user_id', auth()->user()->id)->first()->sidebar, true);
     if (Auth::user()->role->name === 'superAdmin') {
         $sidebar = json_decode(superAdminSidebarOption(), true);
+    }elseif (Auth::user()->role->name === 'admin') {
+        $sidebar = json_decode(adminSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'hod') {
+        $sidebar = json_decode(hodSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'cod') {
+        $sidebar = json_decode(codSidebarOption(), true);
     }
 
 @endphp

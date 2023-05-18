@@ -18,7 +18,7 @@
     .bottombar-menu li {
         flex: 1;
         text-align: center;
-        padding: 10px 0;
+        padding: 8px 0;
     }
 
     .bottombar-menu li a {
@@ -41,7 +41,7 @@
     .bottomBarOptionActive{
         color: #10043b;
         background: #10043b;
-        padding-top: 10px;
+        border-bottom: 10px solid rgb(6, 238, 255);
     }
 
     /* Media query for screens smaller than 700px */

@@ -27,8 +27,10 @@ Route::post('/login',[AuthController::class,'authenticate'])->name('authenticate
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 // multiple user check (superAdmin and admin)
-Route::middleware(['auth', 'CheckRole:superAdmin,admin'])->group(function () {
+Route::middleware(['auth', 'CheckRole:superAdmin&admin'])->group(function () {
     Route::resource('/auth/faculty', FacultyController::class)->names('faculty');
-    Route::resource('/auth/department', DeparmentController::class)->names('department');
     Route::resource('/auth/program', ProgramController::class)->names('program');
+    Route::get('/auth/department/status/{department}', [DeparmentController::class, "status"])->name('department.status');
+    Route::resource('/auth/department', DeparmentController::class)->names('department');
 });
+

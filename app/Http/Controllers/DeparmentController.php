@@ -7,82 +7,117 @@ use Illuminate\Http\Request;
 
 class DeparmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     private $data;
     private $datas;
     private $pageData;
     public function index(Request $request)
     {
-        //
-    }
+        $this->pageData=pageDataCheck($request);
+        if ($request->status === '1') {
+            $this->datas = Deparment::where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
+            return view('department.list', [
+                'datas' => $this->datas,
+                'title' => "Active department List",
+                'pageData' => $this->pageData
+            ]);
+        }
+        if ($request->status === '0') {
+            $this->datas = Deparment::where('status', 0)
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
+            return view('department.list', [
+                'datas' => $this->datas,
+                'title' => "Dective department List",
+                'pageData' => $this->pageData
+            ]);
+        }
+        if ($request->search) {
+            $this->data = $request->search;
+            $this->datas = Deparment::where('name', 'LIKE', "%{$this->data}%")
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->pageData);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+            return view('department.list', [
+                'datas' => $this->datas,
+                'title' => "department Search Result List",
+                'pageData' => $this->pageData
+            ]);
+        }
+        $this->datas = Deparment::orderBy('created_at', 'desc')
+            ->paginate($this->pageData);
+        return view('department.list', [
+            'datas' => $this->datas,
+            'pageData' => $this->pageData
+        ]);
+    }
     public function create()
     {
-        //
+        return view('department.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
+            'faculty_id'=> 'required',
+            'program_id'=> 'required',
+        ]);
+        $this->data = new Deparment();
+        $this->data->name = $request->name;
+        $this->data->code = $request->code;
+        $this->data->faculty_id = $request->faculty_id;
+        $this->data->program_id = $request->program_id;
+        $this->data->save();
+        if ($this->data) {
+            fmassage('success','department created successfully');
+            return redirect()->back();
+        }
+
+    }
+    public function show(Deparment $department)
+    {
+        return redirect()->back();
+        // return view('department.show', [
+        //     'data' => $department,
+        // ]);
+    }
+    public function edit(Deparment $department)
+    {
+        return view('department.edit',['data'=>$department]);
+    }
+    public function update(Request $request, Deparment $department)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
+            'faculty_id'=> 'required',
+            'program_id'=> 'required',
+        ]);
+        $this->data = $department;
+        $this->data->name = $request->name;
+        $this->data->code = $request->code;
+        $this->data->faculty_id = $request->faculty_id;
+        $this->data->program_id = $request->program_id;
+        $this->data->status = $request->status;
+        $this->data->save();
+        if ($this->data) {
+            fmassage('success','department update successfully');
+            return redirect()->back();
+        }
+    }
+    public function status(Deparment $department){
+        $user = $department;
+        $user->status = !$user->status;
+        $user->save();
+        fmassage('Success', 'department Status updated successfully', 'success');
+        return redirect()->back();
+    }
+    public function destroy(Deparment $department)
+    {
+        $department->delete();
+        return redirect()->route('department.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Deparment  $deparment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Deparment $deparment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Deparment  $deparment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Deparment $deparment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deparment  $deparment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Deparment $deparment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Deparment  $deparment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Deparment $deparment)
-    {
-        //
-    }
 }

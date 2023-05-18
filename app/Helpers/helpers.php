@@ -64,14 +64,14 @@ if (!function_exists('dataDecode')) {
 if (!function_exists('pageDataCheck')) {
     function pageDataCheck($request)
     {
-        if ($request->pageData) $pageData = intval($request->pageData);
-        else $pageData = 10;
+        if ($request->pageData) return $pageData = intval($request->pageData);
+        else return $pageData = 10;
     }
 }
 if (!function_exists('LogError')) {
     function LogError($ex)
     {
-        Log::error('Found Exception [Script: ' . __CLASS__ . '@' . __FUNCTION__ . '] [Origin: ' . $ex->getFile() . '-' . $ex->getLine() . ']' . $ex->getMessage());
+        return Log::error('Found Exception [Script: ' . __CLASS__ . '@' . __FUNCTION__ . '] [Origin: ' . $ex->getFile() . '-' . $ex->getLine() . ']' . $ex->getMessage());
     }
 }
 
@@ -459,6 +459,60 @@ if (!function_exists('adminSidebarOption')) {
                 'enabled' => "1",
             ],
             [
+                'title' => 'Faculty',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'faculty*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Faculty List',
+                        'route' => 'faculty.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Faculty',
+                        'route' => 'faculty.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'program',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'program*',
+                'sub_menu' => [
+                    [
+                        'title' => 'program List',
+                        'route' => 'program.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add program',
+                        'route' => 'program.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'department',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'department*',
+                'sub_menu' => [
+                    [
+                        'title' => 'department List',
+                        'route' => 'department.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add department',
+                        'route' => 'department.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
                 'title' => 'Student',
                 'icon' => 'fas fa-tachometer-alt',
                 'sub_active_route' => 'admin.student*',
@@ -474,5 +528,80 @@ if (!function_exists('adminSidebarOption')) {
 
         ];
         return json_encode($adminSidebarOption);
+    }
+}
+if (!function_exists('hodSidebarOption')) {
+    function hodSidebarOption()
+    {
+        $hodSidebarOption = [
+            [
+                'title' => 'Dashboard',
+                'icon' => 'fas fa-th',
+                'route' => 'hod.dashboard',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Profile',
+                'icon' => 'fas fa-th',
+                'route' => 'hod.profile',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Notification',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'hod.notification*',
+                'sub_menu' => [
+                    [
+                        'title' => 'hod',
+                        'route' => 'hod.notification.hod',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'cod',
+                        'route' => 'hod.notification.cod',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Teacher',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'hod.teacher*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Teacher List',
+                        'route' => 'hod.teacher.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Teacher',
+                        'route' => 'hod.teacher.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Cod',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'hod.cod*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Cod List',
+                        'route' => 'hod.cod.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Cod',
+                        'route' => 'hod.cod.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+
+        ];
+        return json_encode($hodSidebarOption);
     }
 }

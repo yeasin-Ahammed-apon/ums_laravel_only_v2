@@ -8,12 +8,12 @@
         'links' => [
             [
                 'title' => 'dashboard',
-                'route' => 'department.dashboard',
+                'route' => 'superAdmin.sidebar.dashboard',
                 'enable' => true,
             ],
             [
                 'title' => 'Admin List',
-                'route' => 'department.index',
+                'route' => 'superAdmin.sidebar.index',
                 'enable' => false,
             ],
         ],
@@ -31,7 +31,7 @@
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('department.index') }}" method="GET">
+                <form action="{{ route('superAdmin.sidebar.index') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
@@ -40,13 +40,11 @@
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('department.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('department.index') }}"class="btn btn-default  ml-2">All Admins</a>
-                            <a
-                                href="{{ route('department.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                            <a href="{{ route('superAdmin.sidebar.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('superAdmin.sidebar.index') }}"class="btn btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('superAdmin.sidebar.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
                                 Admins</a>
-                            <a href="{{ route('department.index', ['status' => 0]) }}"
-                                class="btn btn-warning">Deactive
+                            <a href="{{ route('superAdmin.sidebar.index', ['status' => 0]) }}" class="btn btn-warning">Deactive
                                 Admins</a>
                         </div>
 
@@ -60,41 +58,33 @@
         <table class="table  table-bordered border-top">
             <thead>
                 <tr>
-
-                    <th>Name</th>
-                    <th>code </th>
-                    <th>program</th>
-                    <th>faculty</th>
+                    <th>Role</th>
+                    <th>Data</th>
                     <th>Status</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-
-                        <td>{{ $data->name }}</td>
-                        <td>{{ $data->code }}</td>
-                        <td>{{ $data->faculty->name }}</td>
-                        <td>{{ $data->program->name }}</td>
-                        <td>
-                            @if ($data->status === 1)
-                                <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-outline-success">Active</a>
-                            @else
-                                <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-outline-warning">Deactive</a>
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            {{-- <a href="{{ route('department.show', $data->id) }}" class="btn btn-success">View</a> --}}
-                            <a href="{{ route('department.edit', $data->id) }}" class="btn btn-primary edit"
-                                >Edit</a>
-                            <form action="{{ route('department.destroy', $data->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger delete"
-                                onclick="disableButton(this)"
-                                >Delete</button>
-                            </form>
-                        </td>
+                    <td>{{ $data->role->name }}</td>
+                    <td>{{ $data->data }}</td>
+                    <td>
+                        @if ($data->status === 1)
+                            <a href="{{ route('superAdmin.sidebar.index', ['status'=>$data->id]) }}" onclick="disableButton(this)"
+                                class="btn btn-outline-success">Active</a>
+                        @else
+                            <a href="{{ route('superAdmin.sidebar.index', ['status'=>$data->id]) }}" onclick="disableButton(this)"
+                                class="btn btn-outline-warning">Deactive</a>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('superAdmin.sidebar.show', $data->id) }}" class="btn btn-success">View</a>
+                        <a href="{{ route('superAdmin.sidebar.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('superAdmin.sidebar.destroy', $data->id) }}" method="POST" class="d-inline">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="disableButton(this)">Delete</button>
+                        </form>
+                    </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -116,5 +106,5 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.page_number_set_js', ['page_number_url' => 'department.index'])
+    @include('parts.page_number_set_js', ['page_number_url' => 'superAdmin.sidebar.index'])
 @endsection
