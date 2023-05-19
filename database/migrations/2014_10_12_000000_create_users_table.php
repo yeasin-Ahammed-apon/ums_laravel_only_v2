@@ -18,9 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('login_id')->unique();
             $table->string('password');
+            $table->string('gender_id');
             $table->string('image');
             $table->integer('role_id');
-            $table->integer('department_id')->default(0);
+            $table->integer('department_id')->default(0);// mean admin,account,admission
             $table->integer('permission_id')->nullable();
             $table->boolean('status')->default(1);//1 mean active , 0 mean deactive
             $table->bigInteger('created_by');

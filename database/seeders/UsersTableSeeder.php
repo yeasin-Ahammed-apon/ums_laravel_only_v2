@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
                 $user->name = 'Yeasin Ahammed Apon';
                 $user->password = Hash::make('123456');
                 $user->role_id = Role::where('name', 'superAdmin')->first()->id;
+                $user->gender_id = 1;
                 $user->login_id = $lastUser;
                 $user->image = 'superAdmin.png';
                 $user->status = 1;

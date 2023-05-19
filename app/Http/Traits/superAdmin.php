@@ -2,7 +2,9 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Account;
 use App\Models\Admin;
+use App\Models\Admission;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -16,53 +18,23 @@ use Illuminate\Validation\Rule;
 trait SuperAdmin
 {
     private $pageData;
+    private $request;
     public function showUserList($model, $request, $role)
     {
-        $this->pageData=pageDataCheck($request);
-        if ($request->status === '1') {
-            $this->datas = $model::whereHas('user', function ($users) {
-                $users->where('status', 1);
-            })
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->pageData);
-            return view($this->authUser . '.' . $role . '.list', [
-                'datas' => $this->datas,
-                'title' => "Active Admin List",
-                'pageData' => $this->pageData
-            ]);
-        }
-        if ($request->status === '0') {
-            $this->datas = $model::whereHas('user', function ($users) {
-                $users->where('status', 0);
-            })
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->pageData);
-            return view($this->authUser . '.' . $role . '.list', [
-                'datas' => $this->datas,
-                'title' => "Dective Admin List",
-                'pageData' => $this->pageData
-            ]);
-        }
-        if ($request->search) {
-            $this->data = $request->search;
-            $this->datas = $model::whereHas('user', function ($users) {
-                $users->where('login_id', 'LIKE', "%{$this->data}%")
-                    ->orWhere('name', 'LIKE', "%{$this->data}%");
-            })
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->pageData);
-
-            return view($this->authUser . '.' . $role . '.list', [
-                'datas' => $this->datas,
-                'title' => "Admin Search Result List",
-                'pageData' => $this->pageData
-            ]);
-        }
-        $this->datas = $model::with('user')
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->pageData);
+        $this->request = $request;
+        $this->pageData = pageDataCheck($request); // make paginate data default
+        $query = $model::with('user');
+        $query->whereHas('user',function ($user) {
+            if ($this->request->status === '1') $user->where('status', 1);
+            elseif ($this->request->status === '0') $user->where('status', 0);
+            elseif ($this->request->search) {
+                $user->where('login_id', 'LIKE', "%{$this->request->search}%")
+                    ->orWhere('name', 'LIKE', "%{$this->request->search}%");
+            }
+        });
+        $datas = $query->orderBy('created_at', 'desc')->paginate($this->pageData);
         return view($this->authUser . '.' . $role . '.list', [
-            'datas' => $this->datas,
+            'datas' => $datas,
             'pageData' => $this->pageData
         ]);
     }
@@ -72,11 +44,6 @@ trait SuperAdmin
             $this->data = $model::with('user')->findOrFail($id);
             return view($this->authUser . '.' . $role . '.show', [
                 'data' => $this->data,
-            ]);
-        } catch (ModelNotFoundException $ex) {
-            return view('exception.index', [
-                "title" => "User Not Found",
-                "description" => "User Not Found",
             ]);
         } catch (\Exception $e) {
             return view('exception.index', [
@@ -88,8 +55,11 @@ trait SuperAdmin
     public function StoreUser($model, $request, $tableName)
     {
         // validation
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'gender_id' => 'required',
+            // 'department_id' => 'required',
             'email' => 'required|email|unique:' . $tableName . '|max:255',
             'password' => 'required|string|min:6|max:255',
             'role' => 'required|string',
@@ -102,6 +72,9 @@ trait SuperAdmin
         // create user
         $user  =  new User();
         $user->name = $request->name;
+        $user->gender_id = $request->gender_id;
+        ($model===Admin::class||$model===Account::class || $model===Admission::class) ?
+        $user->department_id = 0 : $user->department_id = $request->department_id ;
         $user->password = Hash::make($request->password);
         $user->role_id = Role::where('name', $request->role)->first()->id;
         // user login id create
@@ -177,6 +150,8 @@ trait SuperAdmin
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'gender_id' => 'required',
+            // 'department_id' => 'required',
             'email' => [
                 'required',
                 'email',
@@ -194,18 +169,16 @@ trait SuperAdmin
         // Find the user by ID
         try {
             $user = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return view('exception.index', [
-                "title" => "User Not Found",
-                "description" => "User Not Found",
-            ]);
         } catch (\Exception $e) {
             return view('exception.index', [
                 "title" => "Error",
                 "description" => "Something went wrong , plz connect with your devloper",
             ]);
         }
+
         $user->name = $request->name;
+        $user->gender_id = $request->gender_id;
+        $user->department_id = $request->department_id;
         $user->status = $request->status;
         $user->role_id = Role::where('name', $request->role)->first()->id;
         if (!empty($request->password)) { // Update password if a new password is provided

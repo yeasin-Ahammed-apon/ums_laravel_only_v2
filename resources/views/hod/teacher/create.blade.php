@@ -49,6 +49,16 @@
                         class="form-control @error('first_name') is-invalid @enderror" placeholder="Enter first_name">
                     {!! validationError('first_name', $errors) !!}
                 </div>
+                {{-- gender_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>gender</label>
+                    <select name="gender_id" class="form-control @error('gender_id') is-invalid @enderror">
+                        @foreach (\App\Models\Gender::all() as $program)
+                            <option value="{{ $program->id }}">{{ $program->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! validationError('gender_id', $errors) !!}
+                </div>
                 {{-- last_name --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>last_name</label>
@@ -84,6 +94,16 @@
                         class="form-control @error('email') is-invalid @enderror" placeholder="Enter email">
                     {!! validationError('email', $errors) !!}
                 </div>
+                {{-- department_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>deparment</label>
+                    <select name="department_id" class="form-control @error('department_id') is-invalid @enderror">
+                        @foreach (\App\Models\Deparment::all() as $deparment)
+                            <option value="{{ $deparment->id }}">{{ $deparment->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! validationError('department_id', $errors) !!}
+                </div>
                 {{-- image --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>image</label>
@@ -91,14 +111,13 @@
                         <div class="custom-file">
                             <input type="file" name="image"
                                 class="custom-file-input @error('image') is-invalid @enderror"
-                                accept="image/png, image/jpeg, image/jpg"
-                                onchange="previewImage(event)"
-                                >
+                                accept="image/png, image/jpeg, image/jpg" onchange="previewImage(event)">
                             <label class="custom-file-label">Choose Image</label>
                         </div>
                     </div>
                     <div class="mt-2">
-                        <img id="image-preview" src="" alt="Image Preview" style="max-width: 200px; max-height: 200px;">
+                        <img id="image-preview" src="" alt="Image Preview"
+                            style="max-width: 200px; max-height: 200px;">
                     </div>
                     {!! validationError('image', $errors) !!}
                 </div>
@@ -113,16 +132,17 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-<script>
-    document.getElementById('image-preview').style.display = 'none';
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('image-preview');
-            output.style.display = 'block'
-            output.src = reader.result;
+    <script>
+        document.getElementById('image-preview').style.display = 'none';
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('image-preview');
+                output.style.display = 'block'
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
         }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
+    </script>
 @endsection

@@ -49,6 +49,16 @@
                         class="form-control @error('first_name') is-invalid @enderror" placeholder="Enter first_name">
                     {!! validationError('first_name', $errors) !!}
                 </div>
+                {{-- gender_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>gender</label>
+                    <select name="gender_id" class="form-control @error('gender_id') is-invalid @enderror">
+                        @foreach (\App\Models\Gender::all() as $program)
+                            <option value="{{ $program->id }}">{{ $program->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! validationError('gender_id', $errors) !!}
+                </div>
                 {{-- last_name --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>last_name</label>
@@ -83,6 +93,16 @@
                     <input type="email" value="{{ old('email') }}" name="email"
                         class="form-control @error('email') is-invalid @enderror" placeholder="Enter email">
                     {!! validationError('email', $errors) !!}
+                </div>
+                {{-- department_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>deparment</label>
+                    <select name="department_id" class="form-control @error('department_id') is-invalid @enderror">
+                        @foreach (\App\Models\Deparment::all() as $deparment)
+                            <option value="{{ $deparment->id }}">{{ $deparment->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! validationError('department_id', $errors) !!}
                 </div>
                 {{-- image --}}
                 <div class="form-group col-12 col-sm-6">

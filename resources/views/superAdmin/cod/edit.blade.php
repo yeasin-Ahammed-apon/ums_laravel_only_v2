@@ -57,6 +57,17 @@
                         class="form-control @error('last_name') is-invalid @enderror" placeholder="Enter last_name">
                     {!! validationError('last_name', $errors) !!}
                 </div>
+                {{-- gender_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>gender</label>
+                    <select name="gender_id" class="form-control @error('gender_id') is-invalid @enderror">
+                        @foreach (\App\Models\Gender::all() as $gender)
+                            <option value="{{ $gender->id }}" {{ $data->gender_id == $gender->id ? 'selected' : '' }}>
+                                {{ $gender->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! validationError('gender_id', $errors) !!}
+                </div>
                 {{-- phone --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>phone</label>
@@ -101,6 +112,18 @@
                     <input type="email" value="{{ $data->email }}" name="email"
                         class="form-control @error('email') is-invalid @enderror" placeholder="Enter email">
                     {!! validationError('email', $errors) !!}
+                </div>
+                {{-- department_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>department</label>
+                    <select name="department_id" class="form-control @error('department_id') is-invalid @enderror">
+                        @foreach (\App\Models\Deparment::all() as $department)
+                            <option value="{{ $department->id }}"
+                                {{ $data->department_id == $department->id ? 'selected' : '' }}>{{ $department->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    {!! validationError('department_id', $errors) !!}
                 </div>
                 {{-- image --}}
                 <div class="form-group col-12 col-sm-6">

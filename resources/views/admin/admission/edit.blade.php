@@ -57,6 +57,17 @@
                         class="form-control @error('last_name') is-invalid @enderror" placeholder="Enter last_name">
                     {!! validationError('last_name', $errors) !!}
                 </div>
+                {{-- gender_id --}}
+                <div class="form-group col-12 col-sm-6">
+                    <label>gender</label>
+                    <select name="gender_id" class="form-control @error('gender_id') is-invalid @enderror">
+                        @foreach (\App\Models\Gender::all() as $gender)
+                            <option value="{{ $gender->id }}" {{ $data->gender_id == $gender->id ? 'selected' : '' }}>
+                                {{ $gender->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! validationError('gender_id', $errors) !!}
+                </div>
                 {{-- phone --}}
                 <div class="form-group col-12 col-sm-6">
                     <label>phone</label>
@@ -109,9 +120,7 @@
                         <div class="custom-file">
                             <input type="file" name="image"
                                 class="custom-file-input @error('image') is-invalid @enderror"
-                                accept="image/png, image/jpeg, image/jpg"
-                                onchange="previewImage(event)"
-                                >
+                                accept="image/png, image/jpeg, image/jpg" onchange="previewImage(event)">
                             <label class="custom-file-label">Choose Image</label>
                         </div>
                     </div>
