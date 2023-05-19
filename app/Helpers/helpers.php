@@ -80,6 +80,24 @@ if (!function_exists('superAdminSidebarOption')) {
     {
         $superAdminSidebarOption = [
             [
+                'title' => 'Hod Department Assign',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'hod.department.assign*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Hod List',
+                        'route' => 'hod.department.assign.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Hod',
+                        'route' => 'hod.department.assign.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
                 'title' => 'Dashboard',
                 'icon' => 'fas fa-th',
                 'route' => 'superAdmin.dashboard',

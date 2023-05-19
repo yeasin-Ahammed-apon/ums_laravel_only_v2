@@ -4,6 +4,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DeparmentController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\HodDepartmentAssignController;
 use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,11 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 // multiple user check (superAdmin and admin)
 Route::middleware(['auth', 'CheckRole:superAdmin&admin'])->group(function () {
     Route::resource('/auth/faculty', FacultyController::class)->names('faculty');
+    //remember to work on gender crud (-mcrs is already created)
     Route::resource('/auth/program', ProgramController::class)->names('program');
     Route::get('/auth/department/status/{department}', [DeparmentController::class, "status"])->name('department.status');
     Route::resource('/auth/department', DeparmentController::class)->names('department');
+    Route::get('/auth/hod_department_assign/status/{hodDepartmentAssign}', [HodDepartmentAssignController::class, "status"])->name('hod.department.assign.status');
+    Route::resource('/auth/hod_department_assign', HodDepartmentAssignController::class)->names('hod.department.assign');
 });
 

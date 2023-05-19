@@ -24,7 +24,7 @@ trait SuperAdmin
         $this->request = $request;
         $this->pageData = pageDataCheck($request); // make paginate data default
         $query = $model::with('user');
-        $query->whereHas('user',function ($user) {
+        $query->whereHas('user', function ($user) {
             if ($this->request->status === '1') $user->where('status', 1);
             elseif ($this->request->status === '0') $user->where('status', 0);
             elseif ($this->request->search) {
@@ -73,8 +73,8 @@ trait SuperAdmin
         $user  =  new User();
         $user->name = $request->name;
         $user->gender_id = $request->gender_id;
-        ($model===Admin::class||$model===Account::class || $model===Admission::class) ?
-        $user->department_id = 0 : $user->department_id = $request->department_id ;
+        ($model === Admin::class || $model === Account::class || $model === Admission::class) ?
+            $user->department_id = 0 : $user->department_id = $request->department_id;
         $user->password = Hash::make($request->password);
         $user->role_id = Role::where('name', $request->role)->first()->id;
         // user login id create
@@ -83,7 +83,6 @@ trait SuperAdmin
         else $lastUser = $lastUser->id;
         $lastUser = $lastUser + 1;
         $lastUser = strtoupper($user->role->name) . strval($lastUser);
-
         $user->login_id = $lastUser; // created and now  store
         $user->permission_id = 1;
         $user->status = 1;
@@ -178,7 +177,8 @@ trait SuperAdmin
 
         $user->name = $request->name;
         $user->gender_id = $request->gender_id;
-        $user->department_id = $request->department_id;
+        ($model === Admin::class || $model === Account::class || $model === Admission::class) ?
+            $user->department_id = 0 : $user->department_id = $request->department_id;
         $user->status = $request->status;
         $user->role_id = Role::where('name', $request->role)->first()->id;
         if (!empty($request->password)) { // Update password if a new password is provided
