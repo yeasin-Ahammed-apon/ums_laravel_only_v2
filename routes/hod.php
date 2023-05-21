@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\hod\HodCodController;
 use App\Http\Controllers\hod\HodController;
+use App\Http\Controllers\hod\HodDepartment;
 use App\Http\Controllers\hod\HodNotificationController;
 use App\Http\Controllers\hod\HodTeacherController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\Route;
 // hod routes
 Route::middleware(['auth', 'CheckRole:hod'])->group(function () {
     Route::prefix('/hod')->group(function () {
+        // assigned department
+
+        Route::get('/department', [HodDepartment::class, "department"])->name('hod.department');
+        Route::middleware(['HodDepartmentCheck'])->group(function () {
+            Route::get('/department/{department}/batch', [HodDepartment::class, "batch"])->name('hod.batch');
+        });
         //superAdmin
         Route::get('/dashboard', [HodController::class, "dashboard"])->name('hod.dashboard');
         Route::get('/profile', [HodController::class, "profile"])->name('hod.profile');

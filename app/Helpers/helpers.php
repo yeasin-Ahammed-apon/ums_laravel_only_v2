@@ -85,12 +85,12 @@ if (!function_exists('superAdminSidebarOption')) {
                 'sub_active_route' => 'hod.department.assign*',
                 'sub_menu' => [
                     [
-                        'title' => 'Hod List',
+                        'title' => 'Hod Department List',
                         'route' => 'hod.department.assign.index',
                         'enabled' => "1",
                     ],
                     [
-                        'title' => 'Add Hod',
+                        'title' => 'Assign Hod > Department',
                         'route' => 'hod.department.assign.create',
                         'enabled' => "1",
                     ],
@@ -552,6 +552,24 @@ if (!function_exists('hodSidebarOption')) {
     function hodSidebarOption()
     {
         $hodSidebarOption = [
+            [
+                'title' => 'Departments',
+                'icon' => 'fas fa-tachometer-alt',
+                'sub_active_route' => 'hod.department*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Departments List',
+                        'route' => 'hod.department',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Teacher',
+                        'route' => 'hod.teacher.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
             [
                 'title' => 'Dashboard',
                 'icon' => 'fas fa-th',

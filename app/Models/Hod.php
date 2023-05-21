@@ -12,4 +12,8 @@ class Hod extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function hodDepartmentAssign()
+    {
+        return $this->hasMany(HodDepartmentAssign::class);
+    }
 }

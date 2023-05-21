@@ -30,50 +30,32 @@
     ])
     <!-- general form elements -->
     <div class="card">
-        <form action="{{ route('department.update',$data->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('hod.department.assign.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body row">
-                <input type="hidden" value="{{ $data->id }}" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name">
-                {{-- name --}}
+                {{-- hod_id --}}
                 <div class="form-group col-12 col-sm-6">
-                    <label>name</label>
-                    <input type="text" value="{{ $data->name }}" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name">
-                    {!! validationError('name', $errors) !!}
-                </div>
-                {{-- faculty_id --}}
-                <div class="form-group col-12 col-sm-6">
-                    <label>Faculty</label>
-                    <select name="faculty_id" class="form-control @error('faculty_id') is-invalid @enderror">
-                        @foreach (\App\Models\Faculty::all() as $faculty)
-                            <option value="{{ $faculty->id }}" {{ $data->faculty_id == $faculty->id ? 'selected' : '' }}>{{ $faculty->name }}</option>
+                    <label>Hod</label>
+                    <select name="hod_id" class="form-control @error('hod_id') is-invalid @enderror">
+                        @foreach (\App\Models\Hod::all() as $hod)
+                            <option value="{{ $hod->id }}" {{ $hod->id === $data->hod_id ? 'selected' : '' }}>
+                                {{ $hod->user->name }} ({{ $hod->user->login_id }})</option>
                         @endforeach
                     </select>
-                    {!! validationError('faculty_id', $errors) !!}
+                    {!! validationError('hod_id', $errors) !!}
                 </div>
-                {{-- program_id --}}
+                {{-- department_id --}}
                 <div class="form-group col-12 col-sm-6">
-                    <label>Program</label>
-                    <select name="program_id" class="form-control @error('program_id') is-invalid @enderror">
-                        @foreach (\App\Models\Program::all() as $program)
-                            <option value="{{ $program->id }}" {{ $data->program_id == $program->id ? 'selected' : '' }}>{{ $program->name }}</option>
+                    <label>Department</label>
+                    <select name="department_id" class="form-control @error('department_id') is-invalid @enderror">
+                        @foreach (\App\Models\Deparment::all() as $department)
+                            <option value="{{ $department->id }}"
+                                {{ $department->id === $data->department_id ? 'selected' : '' }}>{{ $department->name }}
+                            </option>
                         @endforeach
                     </select>
-                    {!! validationError('program_id', $errors) !!}
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <label>Status</label>
-                    <select name="status" class="form-control select2 @error('status') is-invalid @enderror">
-                        @if ($data->status === 1)
-                            <option value="{{ $data->status }}" selected="selected">Active</option>
-                            <option value="0">Deactive</option>
-                        @endif
-                        @if ($data->status === 0)
-                            <option value="{{ $data->status }}" selected="selected">Deactive</option>
-                            <option value="1">Active</option>
-                        @endif
-                    </select>
-                    {!! validationError('address', $errors) !!}
+                    {!! validationError('department_id', $errors) !!}
                 </div>
             </div>
             <div class="card-footer">

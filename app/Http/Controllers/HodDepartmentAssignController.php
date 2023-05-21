@@ -77,7 +77,7 @@ class HodDepartmentAssignController extends Controller
      */
     public function show(HodDepartmentAssign $hodDepartmentAssign)
     {
-        //
+        return redirect()->route('hod.department.assign.index');
     }
 
     /**
@@ -88,7 +88,7 @@ class HodDepartmentAssignController extends Controller
      */
     public function edit(HodDepartmentAssign $hodDepartmentAssign)
     {
-        //
+        return view('hodDepartmentAssign.edit',['data'=>$hodDepartmentAssign]);
     }
 
     /**
@@ -100,7 +100,16 @@ class HodDepartmentAssignController extends Controller
      */
     public function update(Request $request, HodDepartmentAssign $hodDepartmentAssign)
     {
-        //
+        $validatedData = $request->validate([
+            'department_id' => 'required',
+            'hod_id' => 'required',
+        ]);
+        // dd($request->all());
+        $this->data = $hodDepartmentAssign;
+        $this->data->department_id = $request->department_id;
+        $this->data->hod_id = $request->hod_id;
+        $this->data->save();
+        return redirect()->back();
     }
     public function status(HodDepartmentAssign $hodDepartmentAssign){
         $this->data = $hodDepartmentAssign;
@@ -117,6 +126,7 @@ class HodDepartmentAssignController extends Controller
      */
     public function destroy(HodDepartmentAssign $hodDepartmentAssign)
     {
-        //
+        $hodDepartmentAssign->delete();
+        return redirect()->route('hod.department.assign.index');
     }
 }

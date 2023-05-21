@@ -14,4 +14,8 @@ class Deparment extends Model
     public function program(){
         return $this->belongsTo(Program::class);
     }
+    public function hodDepartmentAssign()
+    {
+        return $this->hasMany(HodDepartmentAssign::class);
+    }
 }
