@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\hod\HodCodController;
 use App\Http\Controllers\hod\HodController;
-use App\Http\Controllers\hod\HodDepartment;
+use App\Http\Controllers\hod\HodDepartmentController;
 use App\Http\Controllers\hod\HodNotificationController;
 use App\Http\Controllers\hod\HodTeacherController;
 use Illuminate\Support\Facades\Route;
@@ -13,9 +13,11 @@ Route::middleware(['auth', 'CheckRole:hod'])->group(function () {
     Route::prefix('/hod')->group(function () {
         // assigned department
 
-        Route::get('/department', [HodDepartment::class, "department"])->name('hod.department');
+        Route::get('/department', [HodDepartmentController::class, "department"])->name('hod.department');
         Route::middleware(['HodDepartmentCheck'])->group(function () {
-            Route::get('/department/{department}/batch', [HodDepartment::class, "batch"])->name('hod.batch');
+            Route::get('/department/{department_id}/batch/list', [HodDepartmentController::class, "batch"])->name('hod.batch.list');
+            Route::get('/department/{department_id}/batch/create', [HodDepartmentController::class, "create"])->name('hod.batch.create');
+            Route::post('/department/{department_id}/batch/store', [HodDepartmentController::class, "store"])->name('hod.batch.store');
         });
         //superAdmin
         Route::get('/dashboard', [HodController::class, "dashboard"])->name('hod.dashboard');

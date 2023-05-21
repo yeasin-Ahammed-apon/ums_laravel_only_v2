@@ -19,7 +19,7 @@ class HodDepartmentCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
         $hod_id = Auth::user()->hod->id;
-        $department_id = $request->department;
+        $department_id = $request->department_id;
         $userExists = HodDepartmentAssign::where('hod_id', $hod_id)->where('department_id',$department_id)->exists();
         if ($userExists) return $next($request);
         else return abort('404');

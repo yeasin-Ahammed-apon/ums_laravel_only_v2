@@ -69,6 +69,7 @@ trait SuperAdmin
             'address' => 'required|string',
             'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
+        
         // create user
         $user  =  new User();
         $user->name = $request->name;
