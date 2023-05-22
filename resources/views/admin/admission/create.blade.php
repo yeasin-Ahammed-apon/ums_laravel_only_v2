@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="card-footer" onclick="disableButton(this)">
-                <button type="submit" class="btn  btn-primary">Create</button>
+                <button type="submit" class="btn btn-sm mt-1 mb-1  btn-primary">Create</button>
             </div>
         </form>
     </div>

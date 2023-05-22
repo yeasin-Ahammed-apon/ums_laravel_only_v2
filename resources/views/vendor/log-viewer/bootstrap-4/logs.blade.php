@@ -42,13 +42,13 @@
                             </td>
                         @endforeach
                         <td class="text-right">
-                            <a href="{{ route('log-viewer::logs.show', [$date]) }}" class="btn btn-sm btn-info">
+                            <a href="{{ route('log-viewer::logs.show', [$date]) }}" class="btn btn-sm mt-1 mb-1 btn-sm btn-info">
                                 <i class="fa fa-search"></i>
                             </a>
-                            <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-sm btn-success">
+                            <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-sm mt-1 mb-1 btn-sm btn-success">
                                 <i class="fa fa-download"></i>
                             </a>
-                            <a href="#delete-log-modal" class="btn btn-sm btn-danger" data-log-date="{{ $date }}">
+                            <a href="#delete-log-modal" class="btn btn-sm mt-1 mb-1 btn-sm btn-danger" data-log-date="{{ $date }}">
                                 <i class="fa fa-trash-o"></i>
                             </a>
                         </td>
@@ -86,8 +86,8 @@
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">@lang('Cancel')</button>
-                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="@lang('Loading')&hellip;">@lang('Delete')</button>
+                        <button type="button" class="btn btn-sm mt-1 mb-1 btn-sm btn-secondary mr-auto" data-dismiss="modal">@lang('Cancel')</button>
+                        <button type="submit" class="btn btn-sm mt-1 mb-1 btn-sm btn-danger" data-loading-text="@lang('Loading')&hellip;">@lang('Delete')</button>
                     </div>
                 </div>
             </form>

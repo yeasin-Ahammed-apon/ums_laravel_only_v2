@@ -54,11 +54,11 @@
           </div>
           <div class="card-footer">
             <div class="text-right">
-                <a href="{{ route('hod.cod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('hod.cod.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
                 <form action="{{ route('hod.cod.destroy', $data->id) }}" method="POST"
                     class="d-inline">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="disableButton(this)">Delete</button>
+                    <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger" onclick="disableButton(this)">Delete</button>
                 </form>
             </div>
           </div>

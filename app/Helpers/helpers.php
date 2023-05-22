@@ -2,9 +2,16 @@
 //flash massage
 
 use App\Models\EmployeesNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+if (!function_exists('dateFormat')) {
+    function dateFormat($date)
+    {
+        return Carbon::parse($date)->format('M d, Y');
+    }
+}
 if (!function_exists('random_rgb_color')) {
     function random_rgb_color()
     {

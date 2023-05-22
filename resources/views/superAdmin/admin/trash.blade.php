@@ -37,7 +37,7 @@
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
@@ -73,14 +73,14 @@
                     <td>{{ $data->phone }}</td>
                     <td >
                         @if ($data->user->status === 1)
-                            <button class="btn btn-outline-success" disabled>Active</button>
+                            <button class="btn btn-sm mt-1 mb-1 btn-outline-success" disabled>Active</button>
                         @else
-                            <button  class="btn btn-outline-warning" disabled>Deactive</button>
+                            <button  class="btn btn-sm mt-1 mb-1 btn-outline-warning" disabled>Deactive</button>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('superAdmin.admin.restore', $data->id) }}" class="btn btn-primary">Restore</a>
-                        <a href="{{ route('superAdmin.admin.forcedelete', $data->id) }}" class="btn btn-danger">Force Delete</a>
+                        <a href="{{ route('superAdmin.admin.restore', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Restore</a>
+                        <a href="{{ route('superAdmin.admin.forcedelete', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-danger">Force Delete</a>
                     </td>
                     </tr>
                 @endforeach

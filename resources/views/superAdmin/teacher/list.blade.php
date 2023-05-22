@@ -37,16 +37,16 @@
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.teacher.create') }}"class="btn btn-primary  ml-2">+ Add Teacher</a>
-                            <a href="{{ route('superAdmin.teacher.index') }}"class="btn btn-default  ml-2">All Teacher</a>
+                            <a href="{{ route('superAdmin.teacher.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Teacher</a>
+                            <a href="{{ route('superAdmin.teacher.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Teacher</a>
                             <a
-                                href="{{ route('superAdmin.teacher.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                                href="{{ route('superAdmin.teacher.index', ['status' => 1]) }}"class="btn btn-sm mt-1 mb-1 btn-success mr-2 ml-2">Active
                                 Teacher</a>
                             <a href="{{ route('superAdmin.teacher.index', ['status' => 0]) }}"
-                                class="btn btn-warning">Deactive
+                                class="btn btn-sm mt-1 mb-1 btn-warning">Deactive
                                 Teacher</a>
                         </div>
 
@@ -91,18 +91,18 @@
                         </td>
                         <td>
                             @if ($data->user->status === 1)
-                                <a href="{{ route('superAdmin.teacher.status', $data->user->id) }}" class="btn btn-outline-success">Active</a>
+                                <a href="{{ route('superAdmin.teacher.status', $data->user->id) }}" class="btn btn-sm mt-1 mb-1 btn-outline-success">Active</a>
                             @else
-                                <a href="{{ route('superAdmin.teacher.status', $data->user->id) }}" class="btn btn-outline-warning">Deactive</a>
+                                <a href="{{ route('superAdmin.teacher.status', $data->user->id) }}" class="btn btn-sm mt-1 mb-1 btn-outline-warning">Deactive</a>
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('superAdmin.teacher.show', $data->id) }}" class="btn btn-success">View</a>
-                            <a href="{{ route('superAdmin.teacher.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('superAdmin.teacher.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
+                            <a href="{{ route('superAdmin.teacher.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
                             <form action="{{ route('superAdmin.teacher.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>

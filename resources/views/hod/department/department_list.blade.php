@@ -23,6 +23,7 @@
     @include('parts.breadcrumb')
 @endsection
 @section('content')
+
     @include('parts.title_start', [
         'title' => $title ?? 'Admin list table',
         'color' => 'card-primary',
@@ -45,7 +46,7 @@
                 @foreach ($datas as $data)
                     <td>{{ $data->department->name }}</td>
                     <td class="text-center">
-                        <a href="{{ route('hod.batch.list', $data->department->id) }}" class="btn btn-success">Batches</a>
+                        <a href="{{ route('hod.batch.active.list', $data->department->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">Batches</a>
                     </td>
                     </tr>
                 @endforeach

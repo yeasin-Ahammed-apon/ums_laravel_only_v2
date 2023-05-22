@@ -54,12 +54,12 @@
           </div>
           <div class="card-footer">
             <div class="text-right">
-                <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-primary">Edit</a>
-                <a href="{{ route('superAdmin.page.settings', $data->user_id) }}" class="btn btn-primary">User Page Settings</a>
+                <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
+                <a href="{{ route('superAdmin.page.settings', $data->user_id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">User Page Settings</a>
                 <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST"
                     class="d-inline">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="disableButton(this)">Delete</button>
+                    <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger" onclick="disableButton(this)">Delete</button>
                 </form>
             </div>
           </div>

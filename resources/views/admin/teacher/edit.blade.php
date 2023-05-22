@@ -144,10 +144,10 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-sm mt-1 mb-1 btn-primary">
                     Update
                 </button>
-                <a href="{{ route('admin.teacher.show', $data->id) }}" class="btn btn-success">View</a>
+                <a href="{{ route('admin.teacher.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
             </div>
         </form>
     </div>

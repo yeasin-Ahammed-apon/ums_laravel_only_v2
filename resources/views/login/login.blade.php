@@ -53,17 +53,17 @@
           </div> --}}
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary  btn-block">Sign In</button>
+            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-primary  btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
       {{-- <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
+        <a href="#" class="btn btn-sm mt-1 mb-1 btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
         </a>
-        <a href="#" class="btn btn-block btn-danger">
+        <a href="#" class="btn btn-sm mt-1 mb-1 btn-block btn-danger">
           <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
         </a>
       </div> --}}

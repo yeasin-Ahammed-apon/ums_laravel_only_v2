@@ -95,7 +95,7 @@
                 </div>
             </div>
         @endforeach
-        <button type="submit" class="btn btn-primary" onclick="disableButton(this)">Update SideBar</button>
+        <button type="submit" class="btn btn-sm mt-1 mb-1 btn-primary" onclick="disableButton(this)">Update SideBar</button>
     </form>
 
 

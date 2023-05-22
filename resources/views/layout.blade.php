@@ -33,7 +33,7 @@
             <!-- Content Header (Page header) -->
             @yield('breadcrumb')
             <!-- Main content -->
-            <section class="content ">
+            <section class="content">
                 <div class="row">
                     <div class="col-12">
                         <!-- Default box -->

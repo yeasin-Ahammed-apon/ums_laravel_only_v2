@@ -1,5 +1,5 @@
 <div class="input-group-append" id="actionOption" style="display: none">
-    <span class="btn btn-secondary  mr-2" onclick="read()">Make <span class="totalCheck"></span>
+    <span class="btn btn-sm mt-1 mb-1 btn-secondary  mr-2" onclick="read()">Make <span class="totalCheck"></span>
         Seen</span>
 </div>
 <div class="input-group-append p-0 m-0 mr-2">

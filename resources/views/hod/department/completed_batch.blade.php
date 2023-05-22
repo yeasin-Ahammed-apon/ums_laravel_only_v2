@@ -24,21 +24,15 @@
 @endsection
 
 @section('content')
-<div class="mt-5 mb-5 card p-2">
-    <div>
-        <a href="{{ route('hod.batch.create',$department_id) }}" class="btn btn-primary">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            create
-        </a>
-    </div>
-</div>
+@include('parts.hod_batch_options')
     @include('parts.title_start', [
-        'title' => 'Active Batch',
-        'color' => 'card-warning',
+        'title' => 'completed Batch',
+        'color' => 'card-secondary',
     ])
     <div class="card shadow ">
         <div class="card-header">
-            <h3 class="card-title">Active Batch List for {{ \App\Models\Deparment::find($department_id)->name }}</h3>
+            <h3 class="card-title text-sm">completed Batch List for
+                {{ \App\Models\Deparment::find($department_id)->name }}</h3>
         </div>
     </div>
     <!-- /.card-header -->
@@ -47,26 +41,32 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Admission start</th>
+                    <th>Admission end</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($datas as $data)
-                    <td>{{ $data->batch_number }} batch</td>
+                @foreach ($completed_batch as $data)
+                <tr>
+                    <td >{{ $data->batch_number }} batch</td>
+                    <td>{{ dateFormat($data->admission_start) }}</td>
+                    <td>{{ dateFormat($data->admission_end) }}</td>
                     <td class="text-center">
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-success">View</a>
-                        {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-success">View</a>
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-success">View</a> --}}
+                        {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a> --}}
+                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a>
+                        {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
+                    <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a> --}}
                     </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        @if ($datas->isEmpty())
+        @if ($completed_batch->isEmpty())
             <h1 class="text-center text-black-50">No Data Found</h1>
         @endif
     </div>
-    </div>
 
     @include('parts.title_end')
+
 @endsection

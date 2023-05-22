@@ -39,16 +39,16 @@
                         @include('parts.card_tool_option_per_page',['pageData'=>$pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('admin.notification.hod') }}"class="btn btn-default  ml-2">All
+                            <a href="{{ route('admin.notification.hod') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All
                                 Notification</a>
                             <a
-                                href="{{ route('admin.notification.hod', ['seen' => 0]) }}"class="btn btn-success  ml-2">All
+                                href="{{ route('admin.notification.hod', ['seen' => 0]) }}"class="btn btn-sm mt-1 mb-1 btn-success  ml-2">All
                                 Unseen Notification</a>
                             <a onclick="disableButton(this)"
-                                href="{{ route('admin.notification.hod', ['seen' => 1]) }}"class="btn btn-secondary  ml-2">All
+                                href="{{ route('admin.notification.hod', ['seen' => 1]) }}"class="btn btn-sm mt-1 mb-1 btn-secondary  ml-2">All
                                 Seen Notification</a>
                         </div>
 
@@ -81,13 +81,13 @@
                     <td>{{ $data->description }}</td>
                     <td>
                         @if ($data->seen)
-                            <span class="btn btn-secondary">Unread</span>
+                            <span class="btn btn-sm mt-1 mb-1 btn-secondary">Unread</span>
                         @else
                             <a href="{{ route('admin.notification.hod', [
                                 'id' => $data->id,
                                 'type' => 'read',
                             ]) }}"
-                                class="btn btn-success">Read</a>
+                                class="btn btn-sm mt-1 mb-1 btn-success">Read</a>
                         @endif
                     </td>
                     <td>

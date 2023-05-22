@@ -55,17 +55,17 @@
           <div class="card-footer">
             <div class="text-left">
                             @if (!$data->hod)
-                                <a href="{{ route('superAdmin.teacher.hod', $data->id) }}" class="btn btn-success">Make Hod</a>
+                                <a href="{{ route('superAdmin.teacher.hod', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">Make Hod</a>
                             @endif
                             @if (!$data->cod)
-                                <a href="{{ route('superAdmin.teacher.cod', $data->id) }}" class="btn btn-info">Make Cod</a>
+                                <a href="{{ route('superAdmin.teacher.cod', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">Make Cod</a>
                             @endif
 
-                <a href="{{ route('superAdmin.teacher.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('superAdmin.teacher.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
                 <form action="{{ route('superAdmin.teacher.destroy', $data->id) }}" method="POST"
                     class="d-inline">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger">Delete</button>
                 </form>
             </div>
           </div>

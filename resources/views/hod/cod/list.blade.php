@@ -37,14 +37,14 @@
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('hod.cod.create') }}"class="btn btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('hod.cod.index') }}"class="btn btn-default  ml-2">All Admins</a>
-                            <a href="{{ route('hod.cod.index', ['status' => 1]) }}"class="btn btn-success mr-2 ml-2">Active
+                            <a href="{{ route('hod.cod.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('hod.cod.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('hod.cod.index', ['status' => 1]) }}"class="btn btn-sm mt-1 mb-1 btn-success mr-2 ml-2">Active
                                 Admins</a>
-                            <a href="{{ route('hod.cod.index', ['status' => 0]) }}" class="btn btn-warning">Deactive
+                            <a href="{{ route('hod.cod.index', ['status' => 0]) }}" class="btn btn-sm mt-1 mb-1 btn-warning">Deactive
                                 Admins</a>
                         </div>
 
@@ -80,18 +80,18 @@
                     <td>
                         @if ($data->user->status === 1)
                             <a href="{{ route('hod.cod.status', $data->user->id) }}" onclick="disableButton(this)"
-                                class="btn btn-outline-success">Active</a>
+                                class="btn btn-sm mt-1 mb-1 btn-outline-success">Active</a>
                         @else
                             <a href="{{ route('hod.cod.status', $data->user->id) }}" onclick="disableButton(this)"
-                                class="btn btn-outline-warning">Deactive</a>
+                                class="btn btn-sm mt-1 mb-1 btn-outline-warning">Deactive</a>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('hod.cod.show', $data->id) }}" class="btn btn-success">View</a>
-                        <a href="{{ route('hod.cod.edit', $data->id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('hod.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
+                        <a href="{{ route('hod.cod.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
                         <form action="{{ route('hod.cod.destroy', $data->id) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="disableButton(this)">Delete</button>
+                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger" onclick="disableButton(this)">Delete</button>
                         </form>
                     </td>
                     </tr>

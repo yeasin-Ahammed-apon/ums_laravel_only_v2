@@ -45,10 +45,10 @@
                     @lang('Log info') :
 
                     <div class="group-btns pull-right">
-                        <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-xs btn-success">
+                        <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-sm mt-1 mb-1 btn-xs btn-success">
                             <i class="fa fa-download"></i> @lang('Download')
                         </a>
-                        <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
+                        <a href="#delete-log-modal" class="btn btn-sm mt-1 mb-1 btn-xs btn-danger" data-toggle="modal">
                             <i class="fa fa-trash-o"></i> @lang('Delete')
                         </a>
                     </div>
@@ -91,11 +91,11 @@
                                 <input id="query" name="query" class="form-control" value="{{ $query }}" placeholder="@lang('Type here to search')">
                                 <span class="input-group-btn">
                                     @unless (is_null($query))
-                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" class="btn btn-default">
+                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" class="btn btn-sm mt-1 mb-1 btn-default">
                                             (@lang(':count results', ['count' => $entries->count()])) <span class="glyphicon glyphicon-remove"></span>
                                         </a>
                                     @endunless
-                                    <button id="search-btn" class="btn btn-primary">
+                                    <button id="search-btn" class="btn btn-sm mt-1 mb-1 btn-primary">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
@@ -148,14 +148,14 @@
                                     </td>
                                     <td class="text-right">
                                         @if ($entry->hasStack())
-                                        <a class="btn btn-xs btn-default" role="button" data-toggle="collapse"
+                                        <a class="btn btn-sm mt-1 mb-1 btn-xs btn-default" role="button" data-toggle="collapse"
                                            href="#log-stack-{{ $key }}" aria-expanded="false" aria-controls="log-stack-{{ $key }}">
                                             <i class="fa fa-toggle-on"></i> @lang('Stack')
                                         </a>
                                         @endif
 
                                         @if ($entry->hasContext())
-                                        <a class="btn btn-xs btn-default" role="button" data-toggle="collapse"
+                                        <a class="btn btn-sm mt-1 mb-1 btn-xs btn-default" role="button" data-toggle="collapse"
                                            href="#log-context-{{ $key }}" aria-expanded="false" aria-controls="log-context-{{ $key }}">
                                             <i class="fa fa-toggle-on"></i> @lang('Context')
                                         </a>
@@ -223,8 +223,8 @@
                         <p>@lang('Are you sure you want to delete this log file: :date ?', ['date' => $log->date])</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-default pull-left" data-dismiss="modal">@lang('Cancel')</button>
-                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="@lang('Loading')&hellip;">@lang('Delete')</button>
+                        <button type="button" class="btn btn-sm mt-1 mb-1 btn-sm btn-default pull-left" data-dismiss="modal">@lang('Cancel')</button>
+                        <button type="submit" class="btn btn-sm mt-1 mb-1 btn-sm btn-danger" data-loading-text="@lang('Loading')&hellip;">@lang('Delete')</button>
                     </div>
                 </div>
             </form>
