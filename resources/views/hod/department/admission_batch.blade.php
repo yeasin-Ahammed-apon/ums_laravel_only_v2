@@ -19,9 +19,7 @@
 @section('meta-tag')
     Active Batch || {{ auth()->user()->role->name }}
 @endsection
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
+
 
 @section('content')
 @include('parts.hod_batch_options')
@@ -41,6 +39,8 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Total Student</th>
+                    <th>Total Semester</th>
                     <th>Admission start</th>
                     <th>Admission end</th>
                     <th class="text-center">Action</th>
@@ -48,12 +48,19 @@
             </thead>
             <tbody>
                 @foreach ($admission_batch as $data)
-                    <td>{{ $data->batch_number }} batch</td>
+                    <td>{{ ordinalFormat($data->batch_number)}} batch</td>
+                    <td>{{ $data->total_student }}</td>
+                    <td>{{ $data->total_semester }}</td>
                     <td>{{ dateFormat($data->admission_start) }}</td>
+                    @if (Carbon\Carbon::parse($data->admission_end)->lessThan(Carbon\Carbon::now()))
+                    <td class="bg-danger">{{ dateFormat($data->admission_end) }}</td>
+                    @else
                     <td>{{ dateFormat($data->admission_end) }}</td>
+                    @endif
                     <td class="text-center">
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a> --}}
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a>
+                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">View Students</a>
+                        <a href="{{ route('hod.batch.active', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-success">Active</a>
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
                     <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a> --}}
                     </td>

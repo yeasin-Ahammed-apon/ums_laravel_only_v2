@@ -28,15 +28,27 @@ class HodDepartmentController extends Controller
     }
     public function active_list($department_id)
     {
-        $active_batch = Batch::where('department_id', $department_id)->where('status', 1)->get();
+        $active_batch = Batch::where('department_id', $department_id)
+        ->where('status', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('hod.department.active_batch', [
             'active_batch' => $active_batch,
             'department_id' => $department_id
         ]);
     }
+    public function active_batch($department_id, $batch){
+        $this->data = Batch::where('department_id',$department_id)->findOrFail($batch);
+        $this->data->status = 1;
+        $this->data->save();
+        return redirect()->route('hod.batch.active.list',$department_id);
+    }
     public function admission_list($department_id)
     {
-        $admission_batch = Batch::where('department_id', $department_id)->where('status', 0)->get();
+        $admission_batch = Batch::where('department_id', $department_id)
+        ->where('status', 0)
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('hod.department.admission_batch', [
             'admission_batch' => $admission_batch,
             'department_id' => $department_id
@@ -50,6 +62,13 @@ class HodDepartmentController extends Controller
             'department_id' => $department_id
         ]);
     }
+    public function completed_batch($department_id, $batch){
+        $this->data = Batch::where('department_id',$department_id)->findOrFail($batch);
+        $this->data->status = 2;
+        $this->data->save();
+        return redirect()->route('hod.batch.completed.list',$department_id);
+    }
+
     public function create($department_id)
     {
         return view('hod.department.batch_create', [
@@ -76,6 +95,6 @@ class HodDepartmentController extends Controller
         $this->data->save();
 
         fmassage('success', 'batch  created successfully', 'success');
-        return redirect()->route('hod.batch.list', $department_id);
+        return redirect()->route('hod.batch.admission.list', $department_id);
     }
 }

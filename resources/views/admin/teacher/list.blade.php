@@ -19,9 +19,7 @@
         ],
     ])
 @endsection --}}
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
+
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Teacher list table',
@@ -35,7 +33,7 @@
                     @csrf
                     <div class="input-group input-group-sm">
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
-                        <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                        <input type="text" name="search" class=" mt-1 mb-1 form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>

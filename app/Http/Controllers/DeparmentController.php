@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deparment;
+use App\Models\DepartmentCourseFeeInfo;
 use Illuminate\Http\Request;
+
 
 class DeparmentController extends Controller
 {
@@ -12,7 +14,7 @@ class DeparmentController extends Controller
     private $pageData;
     public function index(Request $request)
     {
-        $this->pageData=pageDataCheck($request);
+        $this->pageData = pageDataCheck($request);
         if ($request->status === '1') {
             $this->datas = Deparment::where('status', 1)
                 ->orderBy('created_at', 'desc')
@@ -58,52 +60,98 @@ class DeparmentController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'faculty_id'=> 'required',
-            'program_id'=> 'required',
+            'faculty_id' => 'required',
+            'program_id' => 'required',
+            'duration_year' => 'required',
+            'duration_semester' => 'required',
+            'credit' => 'required',
+            'admission_fee' => 'required',
+            'session_fee' => 'required',
+            'per_credit_fee' => 'required',
+            'total_fee' => 'required',
+
         ]);
-        $this->data = new Deparment();
-        $this->data->name = $request->name;
-        $this->data->faculty_id = $request->faculty_id;
-        $this->data->program_id = $request->program_id;
-        $this->data->save();
-        if ($this->data) {
-            fmassage('success','department created successfully');
+        $department = new Deparment();
+        $department->name = $request->name;
+        $department->faculty_id = $request->faculty_id;
+        $department->program_id = $request->program_id;
+        $department->save();
+
+        if ($department) {
+            $departmentCourseFeeInfo = new DepartmentCourseFeeInfo();
+            $departmentCourseFeeInfo->deparment_id = $department->id;
+            $departmentCourseFeeInfo->duration_year = intval($request->duration_year) ;
+            $departmentCourseFeeInfo->duration_semester = intval($request->duration_semester);
+            $departmentCourseFeeInfo->credit = intval($request->credit);
+            $departmentCourseFeeInfo->admission_fee = intval($request->admission_fee);
+            $departmentCourseFeeInfo->session_fee = intval($request->session_fee);
+            $departmentCourseFeeInfo->per_credit_fee = intval($request->per_credit_fee);
+            $departmentCourseFeeInfo->total_fee = intval($request->total_fee);
+            $departmentCourseFeeInfo->save();
+        }
+        if (!$departmentCourseFeeInfo) {
+            $department->delete();
+            fmassage('error', 'department update fail');
             return redirect()->back();
         }
-
+        fmassage('success', 'department updated successfully');
+        return redirect()->back();
     }
     public function show(Deparment $department)
     {
-        return redirect()->back();
-        // return view('department.show', [
-        //     'data' => $department,
-        // ]);
+        return view('department.show', [
+            'data' => $department,
+        ]);
     }
     public function edit(Deparment $department)
     {
-        return view('department.edit',['data'=>$department]);
+        return view('department.edit', ['data' => $department]);
     }
     public function update(Request $request, Deparment $department)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'faculty_id'=> 'required',
-            'program_id'=> 'required',
+            'faculty_id' => 'required',
+            'program_id' => 'required',
+            'duration_year' => 'required',
+            'duration_semester' => 'required',
+            'credit' => 'required',
+            'admission_fee' => 'required',
+            'session_fee' => 'required',
+            'per_credit_fee' => 'required',
+            'total_fee' => 'required',
         ]);
-        $this->data = $department;
-        $this->data->name = $request->name;
-        $this->data->faculty_id = $request->faculty_id;
-        $this->data->program_id = $request->program_id;
-        $this->data->status = $request->status;
-        $this->data->save();
-        if ($this->data) {
-            fmassage('success','department update successfully');
+        $department = $department;
+        $department->name = $request->name;
+        $department->faculty_id = $request->faculty_id;
+        $department->program_id = $request->program_id;
+        $department->status = $request->status;
+        $department->save();
+
+        if ($department) {
+            $departmentCourseFeeInfo = DepartmentCourseFeeInfo::where('deparment_id',$department->id)->first();
+            $departmentCourseFeeInfo->duration_year = intval($request->duration_year) ;
+            $departmentCourseFeeInfo->duration_semester = intval($request->duration_semester);
+            $departmentCourseFeeInfo->credit = intval($request->credit);
+            $departmentCourseFeeInfo->admission_fee = intval($request->admission_fee);
+            $departmentCourseFeeInfo->session_fee = intval($request->session_fee);
+            $departmentCourseFeeInfo->per_credit_fee = intval($request->per_credit_fee);
+            $departmentCourseFeeInfo->total_fee = intval($request->total_fee);
+            $departmentCourseFeeInfo->save();
+        }
+        if (!$departmentCourseFeeInfo) {
+            $department->delete();
+            fmassage('error', 'department create fail');
             return redirect()->back();
         }
+        fmassage('success', 'department created successfully');
+        return redirect()->back();
     }
-    public function status(Deparment $department){
+    public function status(Deparment $department)
+    {
         $user = $department;
         $user->status = !$user->status;
         $user->save();
@@ -112,8 +160,11 @@ class DeparmentController extends Controller
     }
     public function destroy(Deparment $department)
     {
+        $id =$department->id;
+        $departmentCourseFeeInfo =DepartmentCourseFeeInfo::where('deparment_id',$id)->first();
         $department->delete();
+        $departmentCourseFeeInfo->delete();
+        fmassage('Success', 'department deleted successfully', 'success');
         return redirect()->route('department.index');
     }
-
 }

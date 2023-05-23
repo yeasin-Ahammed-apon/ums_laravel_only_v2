@@ -19,9 +19,7 @@
         ],
     ])
 @endsection --}}
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
+
 @section('content')
 
     @include('parts.title_start', [

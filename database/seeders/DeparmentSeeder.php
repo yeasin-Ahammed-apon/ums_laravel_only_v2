@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Deparment;
+use App\Models\DepartmentCourseFeeInfo;
 use Illuminate\Database\Seeder;
 
 class DeparmentSeeder extends Seeder
@@ -37,6 +38,16 @@ class DeparmentSeeder extends Seeder
                 $deparment->faculty_id = 1;
                 $deparment->program_id = 1;
                 $deparment->save();
+                $departmentCourseFeeInfo = new DepartmentCourseFeeInfo();
+            $departmentCourseFeeInfo->deparment_id = $deparment->id;
+            $departmentCourseFeeInfo->duration_year = intval(4);
+            $departmentCourseFeeInfo->duration_semester = intval(8);
+            $departmentCourseFeeInfo->credit = intval(152);
+            $departmentCourseFeeInfo->admission_fee = intval(20000);
+            $departmentCourseFeeInfo->session_fee = intval(4500);
+            $departmentCourseFeeInfo->per_credit_fee = intval(2985);
+            $departmentCourseFeeInfo->total_fee = intval(509720);
+            $departmentCourseFeeInfo->save();
             }
         }
     }

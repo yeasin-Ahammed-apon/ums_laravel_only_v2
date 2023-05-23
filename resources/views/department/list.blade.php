@@ -2,26 +2,6 @@
 @section('meta-tag')
     Admin list || {{ auth()->user()->role->name }}
 @endsection
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'department.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'department.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Admin list table',
@@ -35,7 +15,7 @@
                     @csrf
                     <div class="input-group input-group-sm">
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
-                        <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                        <input type="text" name="search" class=" mt-1 mb-1 form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
@@ -71,9 +51,9 @@
             <tbody>
                 @foreach ($datas as $data)
 
-                        <td>{{ $data->name }}</td>
-                        <td>{{ $data->faculty->name }}</td>
-                        <td>{{ $data->program->name }}</td>
+                        <td class="text-sm">{{ $data->name }}</td>
+                        <td class="text-sm">{{ $data->faculty->name }}</td>
+                        <td class="text-sm">{{ $data->program->name }}</td>
                         <td>
                             @if ($data->status === 1)
                                 <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-sm mt-1 mb-1 btn-outline-success">Active</a>
@@ -83,14 +63,21 @@
                         </td>
                         <td class="text-center">
                             {{-- <a href="{{ route('department.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a> --}}
+                            <a href="{{ route('department.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info edit">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                Info</a>
                             <a href="{{ route('department.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary edit"
-                                >Edit</a>
+                                >
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                Edit</a>
                             <form action="{{ route('department.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger delete"
                                 onclick="disableButton(this)"
-                                >Delete</button>
+                                >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                Delete</button>
                             </form>
                         </td>
                     </tr>

@@ -6,6 +6,26 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+if (!function_exists('ordinalFormat')) {
+    function ordinalFormat($number) {
+        $suffix = 'th';
+        if (($number % 100 < 11) || ($number % 100 > 13)) {
+            switch ($number % 10) {
+                case 1:
+                    $suffix = 'st';
+                    break;
+                case 2:
+                    $suffix = 'nd';
+                    break;
+                case 3:
+                    $suffix = 'rd';
+                    break;
+            }
+        }
+        return $number . $suffix;
+    }
+
+}
 if (!function_exists('dateFormat')) {
     function dateFormat($date)
     {

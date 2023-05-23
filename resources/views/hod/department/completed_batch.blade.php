@@ -19,9 +19,7 @@
 @section('meta-tag')
     Active Batch || {{ auth()->user()->role->name }}
 @endsection
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
+
 
 @section('content')
 @include('parts.hod_batch_options')

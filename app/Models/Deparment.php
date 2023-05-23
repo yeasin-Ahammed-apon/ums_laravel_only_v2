@@ -18,4 +18,8 @@ class Deparment extends Model
     {
         return $this->hasMany(HodDepartmentAssign::class);
     }
+    public function departmentCourseFeeInfo()
+    {
+        return $this->hasOne(DepartmentCourseFeeInfo::class);
+    }
 }

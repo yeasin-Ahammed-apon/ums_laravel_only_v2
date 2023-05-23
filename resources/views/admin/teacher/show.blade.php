@@ -19,9 +19,7 @@
 @section('meta-tag')
     Show Teacher || {{ auth()->user()->role->name }}
 @endsection
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
+
 
 @section('content')
     @include('parts.title_start', [

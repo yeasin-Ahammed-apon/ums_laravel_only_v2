@@ -19,9 +19,7 @@
 @section('meta-tag')
     Edit Admin || {{ auth()->user()->role->name }}
 @endsection
-@section('breadcrumb')
-    @include('parts.breadcrumb')
-@endsection
+
 @section('css')
     <style>
         .box {
