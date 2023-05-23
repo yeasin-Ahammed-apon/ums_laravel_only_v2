@@ -15,6 +15,7 @@ Route::middleware(['auth', 'CheckRole:hod'])->group(function () {
 
         Route::get('/department', [HodDepartmentController::class, "department"])->name('hod.department');
         Route::middleware(['HodDepartmentCheck'])->group(function () {
+            Route::get('/department/{department_id}/batch/info/{batch}', [HodDepartmentController::class, "batch_info"])->name('hod.batch.info');
             Route::get('/department/{department_id}/batch/active/list', [HodDepartmentController::class, "active_list"])->name('hod.batch.active.list');
             Route::get('/department/{department_id}/batch/active/{batch}', [HodDepartmentController::class, "active_batch"])->name('hod.batch.active');
             Route::get('/department/{department_id}/batch/admission/list', [HodDepartmentController::class, "admission_list"])->name('hod.batch.admission.list');

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Batch extends Model
+class BatchPaymentInfo extends Model
 {
     use HasFactory;
-    public function batchPaymentInfo(){
-        return $this->hasOne(BatchPaymentInfo::class);
+    public function batch(){
+        return $this->belongsTo(Batch::class);
     }
 }

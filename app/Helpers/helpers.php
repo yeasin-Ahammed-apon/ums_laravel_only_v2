@@ -101,6 +101,28 @@ if (!function_exists('LogError')) {
         return Log::error('Found Exception [Script: ' . __CLASS__ . '@' . __FUNCTION__ . '] [Origin: ' . $ex->getFile() . '-' . $ex->getLine() . ']' . $ex->getMessage());
     }
 }
+if (!function_exists('footerOption')) {
+    function footerOption($role){
+            return $options = [
+                [
+                    'label' => 'Home',
+                    'route' => $role.'.dashboard',
+                    'icon' => 'fas fa-home', // Font Awesome icon class
+                ],
+                [
+                    'label' => 'Profile',
+                    'route' => $role.'.profile',
+                    'icon' => 'fas fa-info-circle', // Font Awesome icon class
+                ],
+                [
+                    'label' => 'Messages',
+                    'route' => 'message',
+                    'icon' => 'fas fa-star', // Font Awesome icon class
+                ],
+                // Add more options as needed
+            ];
+    }
+}
 
 if (!function_exists('superAdminSidebarOption')) {
     function superAdminSidebarOption()

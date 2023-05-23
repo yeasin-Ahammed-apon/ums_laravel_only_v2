@@ -49,22 +49,22 @@
                 @foreach ($active_batch as $data)
                     <td>{{ ordinalFormat($data->batch_number) }} batch</td>
 
-                    @if ($data->total_semester === $data->semester)
+                    @if ($data->batchPaymentInfo->duration_semester === $data->semester)
                         {{-- if semester complete  --}}
                         <td class="bg-warning">{{ ordinalFormat($data->semester) }}</td>
                     @else
                         <td>{{ ordinalFormat($data->semester) }}</td>
                     @endif
                     <td>{{ $data->total_student }}</td>
-                    <td>{{ $data->total_semester }}</td>
+                    <td>{{ $data->batchPaymentInfo->duration_semester }}</td>
                     <td class="text-center">
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a> --}}
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
+                        <a href="{{ route('hod.batch.info', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                             Batch Info</a>
                         <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View
                             Students</a>
-                        @if ($data->total_semester === $data->semester){{-- if semester complete  --}}
+                        @if ($data->batchPaymentInfo->duration_semester === $data->semester){{-- if semester complete  --}}
                         <a href="{{ route('hod.batch.completed', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-secondary">Make
                             it complete</a>
 

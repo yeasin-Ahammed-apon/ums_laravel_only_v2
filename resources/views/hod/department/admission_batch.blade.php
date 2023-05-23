@@ -50,7 +50,7 @@
                 @foreach ($admission_batch as $data)
                     <td>{{ ordinalFormat($data->batch_number)}} batch</td>
                     <td>{{ $data->total_student }}</td>
-                    <td>{{ $data->total_semester }}</td>
+                    <td>{{ $data->batchPaymentInfo->duration_semester }}</td>
                     <td>{{ dateFormat($data->admission_start) }}</td>
                     @if (Carbon\Carbon::parse($data->admission_end)->lessThan(Carbon\Carbon::now()))
                     <td class="bg-danger">{{ dateFormat($data->admission_end) }}</td>
