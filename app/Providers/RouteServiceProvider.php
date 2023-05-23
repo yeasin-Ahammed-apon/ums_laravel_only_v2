@@ -42,34 +42,15 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-            // superAdmin
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/superAdmin.php'));
-            // admin
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/admin.php'));
-            // teacher
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/teacher.php'));
-            // student
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/student.php'));
-            // hod
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/hod.php'));
-            // cod
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/cod.php'));
+                $route_files = [
+                    'web','superAdmin','admin','teacher','student',
+                    'hod','cod','account','admission'
+                ];
+                foreach ($route_files as  $route_file) {
+                    Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/'.$route_file.'.php'));
+                }
         });
     }
 

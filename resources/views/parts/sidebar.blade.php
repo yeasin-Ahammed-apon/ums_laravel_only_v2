@@ -11,6 +11,18 @@
     elseif (Auth::user()->role->name === 'cod') {
         $sidebar = json_decode(codSidebarOption(), true);
     }
+    elseif (Auth::user()->role->name === 'account') {
+        $sidebar = json_decode(accountSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'admission') {
+        $sidebar = json_decode(admissionSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'teacher') {
+        $sidebar = json_decode(codSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'student') {
+        $sidebar = json_decode(codSidebarOption(), true);
+    }
 
 @endphp
 {{-- {{ dd($sidebar) }} --}}

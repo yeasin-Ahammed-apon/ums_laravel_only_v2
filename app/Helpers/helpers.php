@@ -695,3 +695,44 @@ if (!function_exists('hodSidebarOption')) {
         return json_encode($hodSidebarOption);
     }
 }
+
+if (!function_exists('accountSidebarOption')) {
+    function accountSidebarOption()
+    {
+        $accountSidebarOption = [
+            [
+                'title' => 'Dashboard',
+                'icon' => 'fas fa-th',
+                'route' => 'account.dashboard',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Profile',
+                'icon' => 'fas fa-th',
+                'route' => 'account.profile',
+                'enabled' => "1",
+            ],
+        ];
+        return json_encode($accountSidebarOption);
+    }
+}
+if (!function_exists('admissionSidebarOption')) {
+    function admissionSidebarOption()
+    {
+        $admissionSidebarOption = [
+            [
+                'title' => 'Dashboard',
+                'icon' => 'fas fa-th',
+                'route' => 'admission.dashboard',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Profile',
+                'icon' => 'fas fa-th',
+                'route' => 'admission.profile',
+                'enabled' => "1",
+            ],
+        ];
+        return json_encode($admissionSidebarOption);
+    }
+}
