@@ -4,28 +4,6 @@
 @endsection
 
 @section('css')
-    <style>
-        .box {
-            color: black;
-            text-decoration: none;
-        }
-
-        .info-box:hover,
-        .info-box-text:hover {
-            color: white;
-            background: rgb(45, 45, 151);
-        }
-
-        .dashboard_icon_color {
-            color: rgb(255, 255, 255)
-        }
-
-        @media (max-width: 767.98px) {
-            .border-right {
-                border-right:none !important;
-            }
-        }
-    </style>
 @endsection
 @section('content')
     @include('parts.title_start', [
@@ -62,55 +40,55 @@
                 </div>
             </a>
         </div>
-        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Create User</h5>
-        <div class="row">
-            <a href="{{ route('hod.cod.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('cod') }} Create</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hod.teacher.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('teacher') }} Create</span>
-                    </div>
-                </div>
-            </a>
+    </div>
+    @include('parts.title_end')
+    {{------------------------------------------ Admission Open Batch ------------------------------------------------------------- --}}
+    @include('parts.title_start', [
+        'title' => $title ?? 'Admission Open Batch',
+        'color' => 'card-primary',
+    ])
+    <div class="card shadow ">
+        <div class="card-header">
+            <h3 class="card-title"> List</h3>
         </div>
-        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">User List</h5>
-        <div class="row">
-            <a href="{{ route('hod.cod.index') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
+        <!-- /.card-header -->
+        <div class="card-body table-responsive ">
+            <table class="table  table-bordered border-top">
+                <thead>
+                    <tr class=" text-sm">
+                        <th>Name</th>
+                        <th>Total admit</th>
+                        <th>Semester</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (\App\Models\Batch::where('status', 0)->count() !== 0)
+                        @foreach (\App\Models\Batch::where('status', 0)->get() as $data)
+                            <td class="text-sm text-bolder">{{ $data->department->name }}</td>
+                            <td>{{ $data->total_student }}</td>
+                            <td>{{ $data->total_semester }}</td>
+                            <td>{{ $data->admission_start }}</td>
+                            <td>{{ $data->admission_end }}</td>
+                            <td>
+                                <a href="{{ route('admission.batch.info', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">Batch Info</a>
+                            </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <h1 class="text-center text-black-50">No Data Found</h1>
+                    @endif
+                </tbody>
+            </table>
+            {{-- @if ($datas->isEmpty())
 
-                        <i class="fas fa-list dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('cod') }} List</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hod.teacher.index') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-list dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('teacher') }} List</span>
-                    </div>
-                </div>
-            </a>
+        @endif --}}
         </div>
     </div>
     @include('parts.title_end')
+
     <div class="card-footer m-auto shadow mb-5" style="background: rgb(87, 87, 87);color:white">
         <div class="row">
             <div class="col-sm-3 col-12">
@@ -166,4 +144,3 @@
         <!-- /.row -->
     </div>
 @endsection
-

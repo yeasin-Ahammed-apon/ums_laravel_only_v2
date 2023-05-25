@@ -52,13 +52,13 @@
           </div>
           <div class="card-footer">
             <div class="text-right">
-                <a href="{{ route('admin.account.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
+                <a href="{{ route('admin.account.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary"><i class="fa fa-cogs" aria-hidden="true"></i> Edit</a>
                 <form action="{{ route('admin.account.destroy', $data->id) }}" method="POST"
                     class="d-inline">
                     @csrf @method('DELETE')
                     <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger"
                     onclick="disableButton(this)"
-                    >Delete</button>
+                    ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                 </form>
             </div>
           </div>

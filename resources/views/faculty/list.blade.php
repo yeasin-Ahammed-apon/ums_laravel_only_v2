@@ -38,7 +38,7 @@
                             <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('faculty.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('faculty.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2"><i class="fa fa-plus" aria-hidden="true"></i> Add Admins</a>
                             <a href="{{ route('faculty.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Admins</a>
                         </div>
 
@@ -62,13 +62,13 @@
                         <td>{{ $data->name }}</td>
                         <td class="text-center">
                             <a href="{{ route('faculty.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary edit"
-                                >Edit</a>
+                                ><i class="fa fa-cogs" aria-hidden="true"></i> Edit</a>
                             <form action="{{ route('faculty.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger delete"
                                 onclick="disableButton(this)"
-                                >Delete</button>
+                                ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                             </form>
                         </td>
                     </tr>

@@ -145,7 +145,7 @@
                 <button type="submit" class="btn btn-sm mt-1 mb-1 btn-primary">
                     Update
                 </button>
-                <a href="{{ route('superAdmin.hod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
+                <a href="{{ route('superAdmin.hod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
             </div>
         </form>
     </div>

@@ -11,4 +11,8 @@ class Batch extends Model
     public function batchPaymentInfo(){
         return $this->hasOne(BatchPaymentInfo::class);
     }
+    public function department(){
+        return $this->hasOne(Deparment::class,'id','department_id');
+    }
+
 }

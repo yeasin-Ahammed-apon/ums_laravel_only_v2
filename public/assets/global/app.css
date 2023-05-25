@@ -1,19 +1,47 @@
+.sidebar-dark-primary {
+    background: rgb(7, 3, 51);
+}
 
-    .sidebar-dark-primary{
-        background: rgb(7, 3, 51);
-    }
-    [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-treeview {
+[class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-treeview {
 
-        background: rgb(18, 8, 129);
-    }
+    background: rgb(18, 8, 129);
+}
 
-    .table th{
-        background-color: rgb(214, 217, 240);
-        color: rgb(0, 0, 0);
-        padding: 0.7rem;
+.table th {
+    background-color: rgb(214, 217, 240);
+    color: rgb(0, 0, 0);
+    padding: 0.7rem;
+}
+
+.table td {
+    padding: 0.2rem;
+    padding-left: 0.8rem;
+    /* text-align: center; */
+}
+
+.sticky-top {
+
+    position: sticky;
+    top: 0;
+}
+
+.box {
+    color: black;
+    text-decoration: none;
+}
+
+.info-box:hover,
+.info-box-text:hover {
+    color: white;
+    background: rgb(45, 45, 151);
+}
+
+.dashboard_icon_color {
+    color: rgb(255, 255, 255)
+}
+
+@media (max-width: 767.98px) {
+    .border-right {
+        border-right: none !important;
     }
-    .table td  {
-             padding: 0.2rem;
-             padding-left: 0.8rem;
-             /* text-align: center; */
-    }
+}

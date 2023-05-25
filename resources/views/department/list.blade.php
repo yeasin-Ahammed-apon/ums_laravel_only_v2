@@ -56,13 +56,13 @@
                         <td class="text-sm">{{ $data->program->name }}</td>
                         <td>
                             @if ($data->status === 1)
-                                <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-sm mt-1 mb-1 btn-outline-success">Active</a>
+                                <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-sm mt-1 mb-1 btn-outline-success"><i class="fa fa-circle" aria-hidden="true"></i>  Active</a>
                             @else
-                                <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-sm mt-1 mb-1 btn-outline-warning">Deactive</a>
+                                <a href="{{ route('department.status', $data->id) }}" onclick="disableButton(this)" class="btn btn-sm mt-1 mb-1 btn-outline-secondary"><i class="fa fa-circle" aria-hidden="true"></i> Deactive</a>
                             @endif
                         </td>
                         <td class="text-center">
-                            {{-- <a href="{{ route('department.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a> --}}
+                            {{-- <a href="{{ route('department.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a> --}}
                             <a href="{{ route('department.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info edit">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                 Info</a>

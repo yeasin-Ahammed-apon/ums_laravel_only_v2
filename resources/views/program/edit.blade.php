@@ -49,7 +49,7 @@
                 >
                     Update
                 </button>
-                <a href="{{ route('admin.account.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
+                <a href="{{ route('admin.account.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
             </div>
         </form>
     </div>

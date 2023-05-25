@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admission;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use Illuminate\Http\Request;
 
 class AdmissionController extends Controller
@@ -12,6 +13,9 @@ class AdmissionController extends Controller
     }
     public function profile(){
         return view('admission.profile.profile');
+    }
+    public function batch_info(Batch $batch){
+        return view('admission.batch.batch_info',['data'=>$batch]);
     }
     /**
      * Display a listing of the resource.

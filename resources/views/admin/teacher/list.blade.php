@@ -38,7 +38,7 @@
                             <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('admin.teacher.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Teacher</a>
+                            <a href="{{ route('admin.teacher.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2"><i class="fa fa-plus" aria-hidden="true"></i> Add Teacher</a>
                             <a href="{{ route('admin.teacher.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Teacher</a>
                             <a
                                 href="{{ route('admin.teacher.index', ['status' => 1]) }}"class="btn btn-sm mt-1 mb-1 btn-success mr-2 ml-2">Active
@@ -89,18 +89,18 @@
                         </td>
                         <td>
                             @if ($data->user->status === 1)
-                                <a href="{{ route('admin.teacher.status', $data->user->id) }}" class="btn btn-sm mt-1 mb-1 btn-outline-success">Active</a>
+                                <a href="{{ route('admin.teacher.status', $data->user->id) }}" class="btn btn-sm mt-1 mb-1 btn-outline-success"><i class="fa fa-circle" aria-hidden="true"></i>  Active</a>
                             @else
-                                <a href="{{ route('admin.teacher.status', $data->user->id) }}" class="btn btn-sm mt-1 mb-1 btn-outline-warning">Deactive</a>
+                                <a href="{{ route('admin.teacher.status', $data->user->id) }}" class="btn btn-sm mt-1 mb-1 btn-outline-secondary"><i class="fa fa-circle" aria-hidden="true"></i> Deactive</a>
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('admin.teacher.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
-                            <a href="{{ route('admin.teacher.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">Edit</a>
+                            <a href="{{ route('admin.teacher.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                            <a href="{{ route('admin.teacher.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary"><i class="fa fa-cogs" aria-hidden="true"></i> Edit</a>
                             <form action="{{ route('admin.teacher.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                             </form>
                         </td>
                     </tr>

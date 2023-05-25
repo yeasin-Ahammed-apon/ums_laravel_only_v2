@@ -1,18 +1,18 @@
 @extends('layout')
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
+Batch Information || {{ auth()->user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Edit Form',
-        'color' => 'card-warning',
+        'title' => $title ?? 'Batch Information',
+        'color' => 'card-info',
     ])
     <div class="col-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">
         <div class="card bg-light d-flex flex-fill">
           <div class="card-body pt-0">
             <div class="row">
               <div class="col-12 col-sm-10  pt-5 pb-5 ">
-                  <h2 class="lead"><b>{{\App\Models\Deparment::findOrFail($department_id)->name }}</b></h2>
+                  <h2 class="lead"><b>{{$data->department->name }}</b></h2>
                   <h2 class="lead"><b>{{ ordinalFormat($data->batch_number) }} batch</b></h2>
                 <ul class="ml-4 mb-0 fa-ul text-muted">
                     <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> duration_year: {{ $data->batchPaymentInfo->duration_year}}</li>

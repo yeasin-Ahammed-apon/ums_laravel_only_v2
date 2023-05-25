@@ -38,7 +38,7 @@
                             <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('superAdmin.admin.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Admins</a>
+                            <a href="{{ route('superAdmin.admin.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2"><i class="fa fa-plus" aria-hidden="true"></i> Add Admins</a>
                             <a href="{{ route('superAdmin.admin.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Admins</a>
                             <a
                                 href="{{ route('superAdmin.admin.index', ['status' => 1]) }}"class="btn btn-sm mt-1 mb-1 btn-success mr-2 ml-2">Active
@@ -80,19 +80,19 @@
                     <td>
                         @if ($data->user->status === 1)
                             <a href="{{ route('superAdmin.admin.status', $data->user->id) }}"onclick="disableButton(this)"
-                                class="btn btn-sm mt-1 mb-1 btn-outline-success">Active</a>
+                                class="btn btn-sm mt-1 mb-1 btn-outline-success"><i class="fa fa-circle" aria-hidden="true"></i>  Active</a>
                         @else
                             <a href="{{ route('superAdmin.admin.status', $data->user->id) }}" onclick="disableButton(this)"
-                                class="btn btn-sm mt-1 mb-1 btn-outline-warning">Deactive</a>
+                                class="btn btn-sm mt-1 mb-1 btn-outline-secondary"><i class="fa fa-circle" aria-hidden="true"></i> Deactive</a>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View</a>
+                        <a href="{{ route('superAdmin.admin.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                         <a href="{{ route('superAdmin.admin.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary edit"
-                            >Edit</a>
+                            ><i class="fa fa-cogs" aria-hidden="true"></i> Edit</a>
                         <form action="{{ route('superAdmin.admin.destroy', $data->id) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger delete" onclick="disableButton(this)" >Delete</button>
+                            <button type="submit" class="btn btn-sm mt-1 mb-1 btn-danger delete" onclick="disableButton(this)" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                         </form>
                     </td>
                     </tr>
