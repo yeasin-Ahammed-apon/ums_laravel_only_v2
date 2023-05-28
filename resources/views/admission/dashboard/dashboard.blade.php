@@ -57,34 +57,37 @@
                 <thead>
                     <tr class=" text-sm">
                         <th>Name</th>
-                        <th>Total admit</th>
-                        <th>Semester</th>
+                        <th>Batch</th>
+                        <th class="text-xs">Admit</th>
+                        <th class="text-xs">Semester</th>
                         <th>Start</th>
                         <th>End</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (\App\Models\Batch::where('status', 0)->count() !== 0)
-                        @foreach (\App\Models\Batch::where('status', 0)->get() as $data)
+
+                        @foreach ($datas as $data)
                             <td class="text-sm text-bolder">{{ $data->department->name }}</td>
+                            <td>{{ ordinalFormat($data->batch_number) }}</td>
                             <td>{{ $data->total_student }}</td>
                             <td>{{ $data->total_semester }}</td>
-                            <td>{{ $data->admission_start }}</td>
+                            <td >{{ $data->admission_start }}</td>
                             <td>{{ $data->admission_end }}</td>
                             <td>
-                                <a href="{{ route('admission.batch.info', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">Batch Info</a>
+                                <a href="{{ route('admission.batch.info', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
+                                   <i class="fa fa-info-circle" aria-hidden="true"></i> Batch Info</a>
+                                <a href="{{ route('admission.batch.temporary.add.student', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add</a>
                             </td>
                             </tr>
                         @endforeach
-                    @else
-                        <h1 class="text-center text-black-50">No Data Found</h1>
-                    @endif
+
                 </tbody>
             </table>
-            {{-- @if ($datas->isEmpty())
-
-        @endif --}}
+            @if ($datas->isEmpty())
+            <h1 class="text-center text-black-50">No Data Found</h1>
+        @endif
         </div>
     </div>
     @include('parts.title_end')

@@ -14,5 +14,8 @@ class Batch extends Model
     public function department(){
         return $this->hasOne(Deparment::class,'id','department_id');
     }
+    public function batch_waiver(){
+        return $this->hasOne(BatchWaiver::class);
+    }
 
 }

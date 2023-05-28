@@ -69,8 +69,9 @@
             setTimeout(() => {
                 button.disabled = true;
             }, 1);
-            button.style.color = 'white'
-            button.style.background = 'gray'
+            setTimeout(() => {
+                button.disabled = false;
+            }, 10000);
         }
     </script>
     @if (session('alert'))
