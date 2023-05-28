@@ -11,6 +11,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdmissionController extends Controller
 {
+    private $pageData;
+
     public function dashboard()
     {
         $datas = Batch::where('status', 0)->orderBy('created_at', 'desc')->get();
@@ -27,6 +29,14 @@ class AdmissionController extends Controller
     public function temporary_add_student(Batch $batch)
     {
         return view('admission.batch.temporary_add', ['data' => $batch]);
+    }
+    public function temporary_list_student(Request $request){
+        $this->pageData=pageDataCheck($request);
+        $datas = TemporaryStudent::where('status',1)->paginate($this->pageData);
+        return view('admission.batch.temporary_list',[
+            "datas"=>$datas,
+            'pageData'=> $this->pageData
+        ]);
     }
     public function temporary_store_student(Request $request, Batch $batch)
     {
@@ -59,10 +69,15 @@ class AdmissionController extends Controller
         }
 
     }
-    public function temporary_student(Batch $batch,TemporaryStudent $temporaryStudent){
-        $pdf = Pdf::loadView('invoiceLayout');
-        return $pdf->stream('invoice.pdf');
-        // return view('admission.batch.temporary_payment_id');
+    public function temporary_student_view(TemporaryStudent $temporaryStudent){
+        return view('admission.batch.temporary_payment_view',[
+             'temporaryStudent' =>$temporaryStudent
+        ]);
 
+    }
+    public function temporary_student_view_print(TemporaryStudent $temporaryStudent){
+        $data = ["name"=>$temporaryStudent->name];
+        $pdf = Pdf::loadView('admission.batch.temporary_payment_view_print',$data);
+        return $pdf->stream('invoice.pdf');
     }
 }

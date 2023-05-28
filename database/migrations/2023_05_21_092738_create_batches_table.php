@@ -23,6 +23,7 @@ class CreateBatchesTable extends Migration
             // batch_waiver_id ->another file
             $table->date('admission_start');
             $table->date('admission_end');
+            // admission_close ->another file // close for admission user
             $table->integer('status')->default(0);// 0 admission open, 1  active , 2 completed
             $table->timestamps();
         });

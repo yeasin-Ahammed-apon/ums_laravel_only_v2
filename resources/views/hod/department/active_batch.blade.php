@@ -1,26 +1,7 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
     Active Batch || {{ auth()->user()->role->name }}
 @endsection
-
-
 @section('content')
     @include('parts.hod_batch_options')
     @include('parts.title_start', [
@@ -59,6 +40,12 @@
                     <td>{{ $data->batchPaymentInfo->duration_semester }}</td>
                     <td class="text-center">
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a> --}}
+                        @if (!$data->admission_close)
+                        <a href="{{ route('hod.batch.admission_close', [$department_id, $data->id]) }}" class="text-sm btn btn-sm mt-1 mb-1 btn-info"> Admission
+                            Open</a>
+                        @else
+                        <a class="text-sm disabled btn btn-sm mt-1 mb-1 btn-secondary">Closed</a>
+                        @endif
                         <a href="{{ route('hod.batch.info', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                             Batch Info</a>
@@ -67,7 +54,6 @@
                         @if ($data->batchPaymentInfo->duration_semester === $data->semester){{-- if semester complete  --}}
                         <a href="{{ route('hod.batch.completed', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-secondary">Make
                             it complete</a>
-
                         @else
                         <a  class="btn btn-sm mt-1 mb-1 btn-secondary disabled " >Make
                             it complete</a>

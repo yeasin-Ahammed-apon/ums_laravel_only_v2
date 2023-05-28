@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TemporaryStudent extends Model
 {
     use HasFactory;
-    // public function batch(){
-    //     return $this->hasOne(Batch::class);
-    // }
+    public function batch(){
+        return $this->belongsTo(Batch::class);
+    }
 }

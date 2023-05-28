@@ -73,6 +73,12 @@ class HodDepartmentController extends Controller
             'department_id' => $department_id
         ]);
     }
+    public function admission_close_batch($department_id,Batch $batch){
+        $batch->admission_close = !$batch->admission_close;
+        $batch->save();
+        fmassage('success','admission status updated','success');
+        return redirect()->back();
+    }
     public function completed_batch($department_id, $batch){
         $this->data = Batch::where('department_id',$department_id)->findOrFail($batch);
         $this->data->status = 2;
