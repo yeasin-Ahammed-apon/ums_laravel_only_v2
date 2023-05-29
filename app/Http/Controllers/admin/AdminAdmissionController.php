@@ -19,7 +19,7 @@ class AdminAdmissionController extends Controller
     }
     public function create()
     {
-        return view('superAdmin.admin.create');
+        return view('admin.admission.create');
     }
     public function store(Request $request)
     {

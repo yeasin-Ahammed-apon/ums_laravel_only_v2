@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Deparment;
 use App\Models\DepartmentCourseFeeInfo;
+use App\Models\DepartmentWaiver;
 use Illuminate\Database\Seeder;
 
 class DeparmentSeeder extends Seeder
@@ -38,6 +39,17 @@ class DeparmentSeeder extends Seeder
                 $deparment->faculty_id = 1;
                 $deparment->program_id = 1;
                 $deparment->save();
+                $educationInfos = [
+                    [
+                        'department_id' => $deparment->id,
+                        'level1' => 10,
+                        'level2' => 20,
+                        'level3' => 30,
+                        'level4' => 50,
+                        'level5' => 100,
+                    ],
+                ];
+                DepartmentWaiver::insert($educationInfos);
                 $departmentCourseFeeInfo = new DepartmentCourseFeeInfo();
             $departmentCourseFeeInfo->deparment_id = $deparment->id;
             $departmentCourseFeeInfo->duration_year = intval(4);

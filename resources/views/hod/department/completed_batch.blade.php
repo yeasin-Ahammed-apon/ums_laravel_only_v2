@@ -1,26 +1,7 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Active Batch || {{ auth()->user()->role->name }}
+    Completed Batch List || {{ auth()->user()->role->name }}
 @endsection
-
-
 @section('content')
 @include('parts.hod_batch_options')
     @include('parts.title_start', [
@@ -52,7 +33,7 @@
                     <td>{{ dateFormat($data->admission_end) }}</td>
                     <td class="text-center">
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a> --}}
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a>
+                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fas fa-eye    "></i> Students</a>
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                     <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a> --}}
                     </td>

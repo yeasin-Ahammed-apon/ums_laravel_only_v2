@@ -2,7 +2,6 @@
 @section('meta-tag')
     Edit Admin || {{ auth()->user()->role->name }}
 @endsection
-
 @section('css')
 @endsection
 @section('content')
@@ -11,30 +10,29 @@
         'color' => 'card-primary',
     ])
     <div>
-        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Notifications</h5>
         <div class="row">
-            <a href="{{ route('hod.notification.cod', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
+            <a href="{{ route('admission.batch.open.list') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
                     <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('cod') }} Notification</span>
+                        <span class="info-box-text text-xs"> Admission Open Batches</span>
                         <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'cod')->get()) }}
+                            {{ count(App\Models\Batch::where('status', 0)->get()) }}
                         </span>
                     </div>
                 </div>
             </a>
-            <a href="{{ route('hod.notification.teacher', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
+            <a href="{{ route('admission.batch.temporary.list.student') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
                     <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('teacher') }} Notification</span>
+                        <span class="info-box-text text-xs">Unactive Temporary student</span>
                         <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'teacher')->get()) }}
+                            {{ count(App\Models\TemporaryStudent::where('status',1)->get()) }}
                         </span>
                     </div>
                 </div>

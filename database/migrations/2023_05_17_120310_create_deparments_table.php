@@ -18,7 +18,6 @@ class CreateDeparmentsTable extends Migration
             $table->string('name');
             $table->integer('faculty_id');
             $table->integer('program_id');
-            //department_waiver_id in another file
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

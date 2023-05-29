@@ -1,48 +1,6 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'hod.admin.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'hod.admin.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
-@endsection
-
-@section('css')
-    <style>
-        .box {
-            color: black;
-            text-decoration: none;
-        }
-
-        .info-box:hover,
-        .info-box-text:hover {
-            color: white;
-            background: rgb(45, 45, 151);
-        }
-
-        .dashboard_icon_color {
-            color: rgb(255, 255, 255)
-        }
-
-        @media (max-width: 767.98px) {
-            .border-right {
-                border-right:none !important;
-            }
-        }
-    </style>
+    HOD DASHBOARD || {{ auth()->user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [
@@ -54,7 +12,7 @@
         <div class="row">
             <a href="{{ route('hod.notification.cod', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
+                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
@@ -67,7 +25,7 @@
             </a>
             <a href="{{ route('hod.notification.teacher', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
+                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
@@ -79,6 +37,67 @@
                 </div>
             </a>
         </div>
+
+
+
+        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Admission Open Batch List</h5>
+        <div class="row">
+            @foreach (\App\Models\HodDepartmentAssign::where('hod_id', Auth::user()->hod->id)->where('status', 1)->get() as $data)
+                <a href="{{ route('hod.batch.admission.list', $data->department->id) }}"
+                    class=" col-12 col-sm-6 col-md-3 box">
+                    <div class="info-box ">
+                        <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
+                            <i class="fas fa-users-cog   dashboard_icon_color "></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{ $data->department->name }}</span>
+                            <span class="info-box-number">
+                                {{ count(App\Models\Batch::where('department_id', $data->department->id)->where('status', 0)->get()) }}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Active Batch List</h5>
+        <div class="row">
+            @foreach (\App\Models\HodDepartmentAssign::where('hod_id', Auth::user()->hod->id)->where('status', 1)->get() as $data)
+                <a href="{{ route('hod.batch.active.list', $data->department->id) }}"
+                    class=" col-12 col-sm-6 col-md-3 box">
+                    <div class="info-box ">
+                        <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
+                            <i class="fas fa-users-cog   dashboard_icon_color "></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{ $data->department->name }}</span>
+                            <span class="info-box-number">
+                                {{ count(App\Models\Batch::where('department_id', $data->department->id)->where('status', 1)->get()) }}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Completed Batch List</h5>
+        <div class="row">
+            @foreach (\App\Models\HodDepartmentAssign::where('hod_id', Auth::user()->hod->id)->where('status', 1)->get() as $data)
+                <a href="{{ route('hod.batch.completed.list', $data->department->id) }}"
+                    class=" col-12 col-sm-6 col-md-3 box">
+                    <div class="info-box ">
+                        <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
+                            <i class="fas fa-users-cog   dashboard_icon_color "></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{ $data->department->name }}</span>
+                            <span class="info-box-number">
+                                {{ count(App\Models\Batch::where('department_id', $data->department->id)->where('status', 2)->get()) }}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+
         <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Create User</h5>
         <div class="row">
             <a href="{{ route('hod.cod.create') }}" class=" col-12 col-sm-6 col-md-3 box">
@@ -130,24 +149,24 @@
     @include('parts.title_end')
     <div class="card-footer m-auto shadow mb-5" style="background: rgb(87, 87, 87);color:white">
         <div class="row">
-            <div class="col-sm-3 col-12">
+            <div class="col-sm-4 col-12">
                 <div class="description-block border-right">
                     {{-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> --}}
-                    <h5 class="description-header"> {{ App\Models\User::count() }} </h5>
-                    <span class="description-text">Total User</span>
+                    <h5 class="description-header"> {{ App\Models\User::where('role_id', App\Models\Role::where('name', 'student')->first()->id)->count() }} </h5>
+                    <span class="description-text">Total Teacher</span>
                 </div>
                 <!-- /.description-block -->
             </div>
-            <div class="col-sm-3 col-12">
+            <div class="col-sm-4 col-12">
                 <div class="description-block border-right">
                     {{-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> --}}
-                    <h5 class="description-header"> {{ App\Models\User::where('status', 1)->count() }} </h5>
-                    <span class="description-text">Total Active User</span>
+                    <h5 class="description-header"> {{ App\Models\User::where('role_id', App\Models\Role::where('name', 'teacher')->first()->id)->where('status', 1)->count() }}</h5>
+                    <span class="description-text">Total Active Teacher</span>
                 </div>
                 <!-- /.description-block -->
             </div>
-            <div class="col-sm-3 col-12">
-                <div class="description-block border-right">
+            <div class="col-sm-4 col-12">
+                <div class="description-block ">
                     {{-- <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span> --}}
                     <h5 class="description-header">
                         {{ App\Models\User::where('role_id', App\Models\Role::where('name', 'student')->first()->id)->where('status', 1)->count() }}
@@ -157,7 +176,7 @@
                 <!-- /.description-block -->
             </div>
             <!-- /.col -->
-            @php
+            {{-- @php
                 // Get the current year
                 $currentYear = Carbon\Carbon::now()->year;
                 // Set the start and end dates of the year
@@ -168,19 +187,15 @@
                     ->where('role_id', App\Models\Role::where('name', 'student')->first()->id)
                     ->count();
             @endphp
-            <div class="col-sm-3 col-12">
+            <div class="col-sm-4 col-12">
                 <div class="description-block ">
-                    {{-- <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span> --}}
                     <h5 class="description-header">
                         {{ $userCount }}
                     </h5>
                     <span class="description-text">This year total admitted student </span>
                 </div>
-                <!-- /.description-block -->
-            </div>
-            <!-- /.col -->
+            </div> --}}
         </div>
         <!-- /.row -->
     </div>
 @endsection
-

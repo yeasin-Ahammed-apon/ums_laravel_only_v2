@@ -1,26 +1,7 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'hod.cod.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'hod.cod.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
     Edit Admin || {{ auth()->user()->role->name }}
 @endsection
-
-
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Admin Edit Form',

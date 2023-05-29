@@ -17,13 +17,12 @@ class CreateBatchesTable extends Migration
             $table->id();
             $table->integer('department_id');
             $table->integer('batch_number');
-            $table->integer('semester')->default(0);//delete -> already in another file
-            // total_admit -> in other file
-            // total_semester -> in other file
-            // batch_waiver_id ->another file
+            $table->integer('batch_payment_info_id')->default(0);
+            $table->integer('total_student')->default(0);
+            $table->integer('total_semester')->default(12);
             $table->date('admission_start');
             $table->date('admission_end');
-            // admission_close ->another file // close for admission user
+            $table->boolean('admission_close')->default(0);
             $table->integer('status')->default(0);// 0 admission open, 1  active , 2 completed
             $table->timestamps();
         });

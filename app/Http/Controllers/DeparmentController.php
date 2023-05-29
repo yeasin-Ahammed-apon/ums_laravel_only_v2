@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Deparment;
 use App\Models\DepartmentCourseFeeInfo;
+use App\Models\DepartmentWaiver;
 use Illuminate\Http\Request;
 
 
@@ -166,5 +167,20 @@ class DeparmentController extends Controller
         $departmentCourseFeeInfo->delete();
         fmassage('Success', 'department deleted successfully', 'success');
         return redirect()->route('department.index');
+    }
+    public function waiver_edit(DepartmentWaiver $waiver){
+        return view('department.update_waiver',[
+            'data'=>$waiver
+        ]);
+    }
+    public function waiver_update(Request $request,DepartmentWaiver $waiver){
+        $waiver->level1 =$request->level1;
+        $waiver->level2 =$request->level2;
+        $waiver->level3 =$request->level3;
+        $waiver->level4 =$request->level4;
+        $waiver->level5 =$request->level5;
+        $waiver->save();
+        fmassage('success','updated','success');
+        return redirect()->back();
     }
 }

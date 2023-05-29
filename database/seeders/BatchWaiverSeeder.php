@@ -17,7 +17,7 @@ class BatchWaiverSeeder extends Seeder
         if (BatchWaiver::count() === 0) {
             $educationInfos = [
                 [
-                    'batch_id' => 1,
+                    'batch_id' => 13,
                     'level1' => 10,
                     'level2' => 20,
                     'level3' => 30,

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\hod;
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
 use App\Models\BatchPaymentInfo;
+use App\Models\BatchWaiver;
 use App\Models\Deparment;
+use App\Models\DepartmentWaiver;
 use App\Models\HodDepartmentAssign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -110,6 +112,20 @@ class HodDepartmentController extends Controller
         $batch->admission_start = $request->admission_start;
         $batch->admission_end = $request->admission_end;
         $batch->save();
+        if($batch){
+            $waiver = DepartmentWaiver::where('department_id',$department_id)->first();
+            $batchWaiver =  new BatchWaiver();
+            $batchWaiver->batch_id = $batch->id;
+            $batchWaiver->level1 = $waiver->level1;
+            $batchWaiver->level2 = $waiver->level2;
+            $batchWaiver->level3 = $waiver->level3;
+            $batchWaiver->level4 = $waiver->level4;
+            $batchWaiver->level5 = $waiver->level5;
+            $batchWaiver->save();
+        }else {
+                fmassage('Fail', 'batch  create fail', 'error');
+                return redirect()->route('hod.batch.admission.list', $department_id);
+        }
         if ($batch) {
                 $department = Deparment::findOrFail($department_id);
                 $batch_payment_info = new BatchPaymentInfo();

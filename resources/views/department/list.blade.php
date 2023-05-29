@@ -70,6 +70,10 @@
                                 >
                                 <i class="fa fa-cog" aria-hidden="true"></i>
                                 Edit</a>
+                                <a href="{{ route('department.waiver.edit', $data->departmentWaiver->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary edit"
+                                    >
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    Waiver</a>
                             <form action="{{ route('department.destroy', $data->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf @method('DELETE')

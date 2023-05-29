@@ -1,48 +1,6 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'superAdmin.admin.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'superAdmin.admin.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
-@endsection
-
-@section('css')
-    <style>
-        .box {
-            color: black;
-            text-decoration: none;
-        }
-
-        .info-box:hover,
-        .info-box-text:hover {
-            color: white;
-            background: rgb(45, 45, 151);
-        }
-
-        .dashboard_icon_color {
-            color: rgb(255, 255, 255)
-        }
-
-        @media (max-width: 767.98px) {
-            .border-right {
-                border-right:none !important;
-            }
-        }
-    </style>
+    Dashboard || {{ auth()->user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [

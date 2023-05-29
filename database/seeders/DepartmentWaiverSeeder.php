@@ -19,7 +19,7 @@ class DepartmentWaiverSeeder extends Seeder
         if (DepartmentWaiver::count() === 0) {
             $educationInfos = [
                 [
-                    'department_id' => 1,
+                    'department_id' => 19,
                     'level1' => 10,
                     'level2' => 20,
                     'level3' => 30,

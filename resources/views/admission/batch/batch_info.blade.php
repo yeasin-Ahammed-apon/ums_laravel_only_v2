@@ -79,6 +79,7 @@
             const goldenCheckbox = document.getElementById('goldenCheckbox').checked;
             const gpa = (sscValue + hscValue) / 2;
             let value = JSON.parse(checkWaiverBtn.dataset.id)
+            console.log(value);
             checkGPA(gpa);
             function checkGPA(gpa) {
                 if (gpa >= 3.50 && gpa < 3.99) waiverValue.value = value.level1

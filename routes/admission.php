@@ -9,6 +9,7 @@ Route::middleware(['auth', 'CheckRole:admission'])->group(function () {
     Route::prefix('/admission')->group(function () {
         Route::get('/dashboard', [AdmissionController::class, "dashboard"])->name('admission.dashboard');
         Route::get('/profile', [AdmissionController::class, "profile"])->name('admission.profile');
+        Route::get('/batch/admission/open/list', [AdmissionController::class, "admission_open_list"])->name('admission.batch.open.list');
         Route::get('/batch/temporary/student/list', [AdmissionController::class, "temporary_list_student"])->name('admission.batch.temporary.list.student');
         Route::get('/batch/temporary/student/{temporaryStudent}/view', [AdmissionController::class, "temporary_student_view"])->name('admission.batch.temporary.view.student');
         Route::get('/batch/temporary/student/{temporaryStudent}/view/print', [AdmissionController::class, "temporary_student_view_print"])->name('admission.batch.temporary.view.student.print');

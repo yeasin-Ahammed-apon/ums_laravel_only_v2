@@ -41,21 +41,27 @@
                     <td class="text-center">
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View Students</a> --}}
                         @if (!$data->admission_close)
-                        <a href="{{ route('hod.batch.admission_close', [$department_id, $data->id]) }}" class="text-sm btn btn-sm mt-1 mb-1 btn-info"> Admission
+                        <a href="{{ route('hod.batch.admission_close', [$department_id, $data->id]) }}" class="text-sm btn btn-sm mt-1 mb-1 btn-info">
+                            <i class="fas fa-lightbulb    "></i>
                             Open</a>
                         @else
                         <a class="text-sm disabled btn btn-sm mt-1 mb-1 btn-secondary">Closed</a>
                         @endif
                         <a href="{{ route('hod.batch.info', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            Batch Info</a>
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">View
+                             Info</a>
+                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">
+                            <i class="fas fa-eye    "></i>
                             Students</a>
                         @if ($data->batchPaymentInfo->duration_semester === $data->semester){{-- if semester complete  --}}
-                        <a href="{{ route('hod.batch.completed', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-secondary">Make
+                        <a href="{{ route('hod.batch.completed', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-secondary">
+                            <i class="fas fa-check-circle    "></i>
+                            Make
                             it complete</a>
                         @else
-                        <a  class="btn btn-sm mt-1 mb-1 btn-secondary disabled " >Make
+                        <a  class="btn btn-sm mt-1 mb-1 btn-secondary disabled " >
+                            <i class="fas fa-check-circle    "></i>
+                            Make
                             it complete</a>
                         @endif
                         {{-- <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>

@@ -18,6 +18,14 @@ class AdmissionController extends Controller
         $datas = Batch::where('status', 0)->orderBy('created_at', 'desc')->get();
         return view('admission.dashboard.dashboard', ['datas' => $datas]);
     }
+    public function admission_open_list(Request $request){
+        $this->pageData = pageDataCheck($request); // make paginate data default
+        $datas = Batch::where('status', 0)->orderBy('created_at', 'desc')->paginate($this->pageData);
+        return view('admission.batch.batch_admission_open_list',[
+            'datas' =>$datas,
+            "pageData"=>$this->pageData
+        ]);
+    }
     public function profile()
     {
         return view('admission.profile.profile');
@@ -55,7 +63,7 @@ class AdmissionController extends Controller
         } else {
             $last_created_temporary_student = 0;
         }
-        $temporary_id = $batch->department_id . $batch->id . $last_created_temporary_student + 1;
+        $temporary_id = ($batch->department_id . $batch->id . $last_created_temporary_student) + 1;
         $data = new TemporaryStudent();
         $data->name = $student_name;
         $data->temporary_id = $temporary_id;
@@ -65,7 +73,7 @@ class AdmissionController extends Controller
         $data->admission_fee = $student_admission_fee;
         $data->save();
         if($data){
-            return redirect()->route("admission.batch.temporary.student",[$batch->id,$data->id]);
+            return redirect()->route("admission.batch.temporary.view.student",$data->id);
         }
 
     }

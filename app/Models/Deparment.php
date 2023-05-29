@@ -22,4 +22,8 @@ class Deparment extends Model
     {
         return $this->hasOne(DepartmentCourseFeeInfo::class);
     }
+    public function departmentWaiver()
+    {
+        return $this->hasOne(DepartmentWaiver::class,'department_id','id');
+    }
 }
