@@ -35,8 +35,8 @@ Route::middleware(['auth', 'CheckRole:superAdmin&admin'])->group(function () {
     Route::get('/auth/department/status/{department}', [DeparmentController::class, "status"])->name('department.status');
     Route::get('/auth/department/{waiver}/edit', [DeparmentController::class, "waiver_edit"])->name('department.waiver.edit');
     Route::post('/auth/department/{waiver}/update', [DeparmentController::class, "waiver_update"])->name('department.waiver.update');
-    Route::resource('/auth/department', DeparmentController::class)->names('department');
     Route::get('/auth/hod_department_assign/status/{hodDepartmentAssign}', [HodDepartmentAssignController::class, "status"])->name('hod.department.assign.status');
+    Route::resource('/auth/department', DeparmentController::class)->names('department');
     Route::resource('/auth/hod_department_assign', HodDepartmentAssignController::class)->names('hod.department.assign');
 });
 

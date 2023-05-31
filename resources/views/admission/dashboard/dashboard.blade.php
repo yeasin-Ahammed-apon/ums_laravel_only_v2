@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
+    Dashboard || {{ auth()->user()->role->name }}
 @endsection
 @section('css')
 @endsection
@@ -13,7 +13,7 @@
         <div class="row">
             <a href="{{ route('admission.batch.open.list') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
+                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
@@ -26,7 +26,7 @@
             </a>
             <a href="{{ route('admission.batch.temporary.list.student') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
+                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">

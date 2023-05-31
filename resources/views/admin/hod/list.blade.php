@@ -1,28 +1,10 @@
 @extends('layout')
 @section('meta-tag')
-    Admin list || {{ auth()->user()->role->name }}
+    Hod list || {{ auth()->user()->role->name }}
 @endsection
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'admin.hod.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'admin.hod.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
-
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin list table',
+        'title' => $title ?? 'Hod list table',
         'color' => 'card-primary',
     ])
     <div class="card shadow ">

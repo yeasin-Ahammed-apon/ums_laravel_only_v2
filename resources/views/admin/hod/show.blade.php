@@ -1,29 +1,10 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'admin.hod.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'admin.hod.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
+    View Hod || {{ auth()->user()->role->name }}
 @endsection
-
-
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Edit Form',
+        'title' => $title ?? 'Hod Edit Form',
         'color' => 'card-warning',
     ])
     <div class="col-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">

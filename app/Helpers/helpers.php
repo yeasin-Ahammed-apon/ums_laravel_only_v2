@@ -752,13 +752,13 @@ if (!function_exists('admissionSidebarOption')) {
             ],
             [
                 'title' => 'Temporary Student List.',
-                'icon' => 'fas fa-th',
+                'icon' => 'fas fa-th-list',
                 'route' => 'admission.batch.temporary.list.student',
                 'enabled' => "1",
             ],
             [
                 'title' => 'Admission Open list',
-                'icon' => 'fas fa-th',
+                'icon' => 'fas fa-th-list',
                 'route' => 'admission.batch.open.list',
                 'enabled' => "1",
             ],

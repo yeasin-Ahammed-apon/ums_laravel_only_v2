@@ -15,7 +15,6 @@ class AdminHodController extends Controller
     private $authUser = 'admin';
     public function index(Request $request)
     {
-        // dd(auth()->user()->role->name);
         return $this->showUserList(Hod::class, $request, 'hod');
     }
     public function create()

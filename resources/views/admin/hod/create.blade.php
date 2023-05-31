@@ -1,29 +1,12 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'admin.hod.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'admin.hod.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Create Admin || {{ auth()->user()->role->name }}
+    Create Hod || {{ auth()->user()->role->name }}
 @endsection
 
 
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Create Form',
+        'title' => $title ?? 'Hod Create Form',
         'color' => 'card-primary',
     ])
     <!-- general form elements -->

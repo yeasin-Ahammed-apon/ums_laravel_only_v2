@@ -1,10 +1,10 @@
 @extends('layout')
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
+    Edit Department || {{ auth()->user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Edit Form',
+        'title' => $title ?? 'Department Edit Form',
         'color' => 'card-warning',
     ])
     <div class="col-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">

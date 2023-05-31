@@ -4,28 +4,6 @@
 @endsection
 
 @section('css')
-    <style>
-        .box {
-            color: black;
-            text-decoration: none;
-        }
-
-        .info-box:hover,
-        .info-box-text:hover {
-            color: white;
-            background: rgb(45, 45, 151);
-        }
-
-        .dashboard_icon_color {
-            color: rgb(255, 255, 255)
-        }
-
-        @media (max-width: 767.98px) {
-            .border-right {
-                border-right:none !important;
-            }
-        }
-    </style>
 @endsection
 @section('content')
     @include('parts.title_start', [

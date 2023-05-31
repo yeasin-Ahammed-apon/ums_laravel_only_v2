@@ -50,6 +50,7 @@ class DeparmentController extends Controller
         }
         $this->datas = Deparment::orderBy('created_at', 'desc')
             ->paginate($this->pageData);
+            // dd($this->datas);
         return view('department.list', [
             'datas' => $this->datas,
             'pageData' => $this->pageData
@@ -80,7 +81,19 @@ class DeparmentController extends Controller
         $department->faculty_id = $request->faculty_id;
         $department->program_id = $request->program_id;
         $department->save();
-
+        if($department){
+            $departmentWaiver =  new DepartmentWaiver();
+            $departmentWaiver->department_id = $department->id;
+            $departmentWaiver->level1 = 10;
+            $departmentWaiver->level2 = 20;
+            $departmentWaiver->level3 = 30;
+            $departmentWaiver->level4 = 50;
+            $departmentWaiver->level5 = 100;
+            $departmentWaiver->save();
+        }else {
+                fmassage('Fail', 'Department  create fail', 'error');
+                return redirect()->back();
+        }
         if ($department) {
             $departmentCourseFeeInfo = new DepartmentCourseFeeInfo();
             $departmentCourseFeeInfo->deparment_id = $department->id;

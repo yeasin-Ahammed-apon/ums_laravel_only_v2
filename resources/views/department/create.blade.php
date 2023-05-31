@@ -1,10 +1,10 @@
 @extends('layout')
 @section('meta-tag')
-    Create Admin || {{ auth()->user()->role->name }}
+    Create Department || {{ auth()->user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Create Form',
+        'title' => $title ?? 'Department Create Form',
         'color' => 'card-primary',
     ])
     <div class="card">

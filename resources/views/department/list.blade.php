@@ -1,10 +1,10 @@
 @extends('layout')
 @section('meta-tag')
-    Admin list || {{ auth()->user()->role->name }}
+    Department list || {{ auth()->user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin list table',
+        'title' => $title ?? 'Department list table',
         'color' => 'card-primary',
     ])
     <div class="card shadow ">
@@ -20,14 +20,14 @@
                             <button type="submit" class="btn btn-sm mt-1 mb-1 btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('department.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Admins</a>
-                            <a href="{{ route('department.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Admins</a>
+                            <a href="{{ route('department.create') }}"class="btn btn-sm mt-1 mb-1 btn-primary  ml-2">+ Add Department</a>
+                            <a href="{{ route('department.index') }}"class="btn btn-sm mt-1 mb-1 btn-default  ml-2">All Department</a>
                             <a
                                 href="{{ route('department.index', ['status' => 1]) }}"class="btn btn-sm mt-1 mb-1 btn-success mr-2 ml-2">Active
-                                Admins</a>
+                                Department</a>
                             <a href="{{ route('department.index', ['status' => 0]) }}"
                                 class="btn btn-sm mt-1 mb-1 btn-warning">Deactive
-                                Admins</a>
+                                Department</a>
                         </div>
 
                     </div>
