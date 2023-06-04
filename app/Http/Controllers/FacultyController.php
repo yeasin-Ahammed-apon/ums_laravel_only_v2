@@ -15,7 +15,7 @@ class FacultyController extends Controller
      */
     private $data;
     private $datas;
-    private $pageData;
+
 
     public function index(Request $request)
     {

@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    View Hod || {{ auth()->user()->role->name }}
+    View Hod
 @endsection
 @section('content')
     @include('parts.title_start', [

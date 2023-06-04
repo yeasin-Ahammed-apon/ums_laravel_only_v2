@@ -17,7 +17,6 @@ use Illuminate\Validation\Rule;
 
 trait SuperAdmin
 {
-    private $pageData;
     private $request;
     public function showUserList($model, $request, $role)
     {
@@ -69,7 +68,7 @@ trait SuperAdmin
             'address' => 'required|string',
             'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
-        
+
         // create user
         $user  =  new User();
         $user->name = $request->name;

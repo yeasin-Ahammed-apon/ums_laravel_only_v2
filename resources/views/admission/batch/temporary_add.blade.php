@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Student temporary adding form || {{ auth()->user()->role->name }}
+    Student temporary adding form
 @endsection
 @section('breadcrumb')
     @include('parts.breadcrumb')

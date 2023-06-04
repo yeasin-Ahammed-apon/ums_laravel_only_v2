@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Dashboard || {{ auth()->user()->role->name }}
+    Dashboard
 @endsection
 @section('content')
     @include('parts.title_start', [

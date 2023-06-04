@@ -1,43 +1,132 @@
 @extends('layout')
 @section('meta-tag')
-    Temporary Student Detail || {{ auth()->user()->role->name }}
+    Temporary Student Detail
 @endsection
 @section('content')
-    <link rel="stylesheet" href="{{ asset('assets/admin_lte/dist/css/adminlte.min.css') }}">
-    <div class="container-fluid bg-white mt-3">
-        <div class="border-bottom border-dark mb-2">
-            {{-- ------------------------- part 1------------------------------------------------------------- --}}
-        <div class=" row">
-            <div class="col-2 m-auto">
-                <img src="{{ asset('institutionImage/image.png') }}" alt="" width="50%">
+    <div class="mt-2 mb-2">
+        <a href="{{ route('admission.batch.temporary.view.student.download', $data->id) }}" class="btn btn-success"
+            target="_blank">
+            <i class="fas fa-download"></i>
+        </a>
+    </div>
+    <div class="invoice">
+        <div class="paymenyt">
+            <div class="row text-center">
+                <div class="col-2 m-auto">
+                    <img src="{{ asset('institutionImage/image.png') }}" alt="Logo" width="50%" class="img-fluid">
+                </div>
+                <div class="col-8">
+                    <h3>Shanto-Mariam University of Creative Technology</h3>
+                    <p class="fs-4">Plot# 06, Road/Avenue# 06, Sector# 17/H-1, Uttara, Dhaka-1230, Bangladesh</p>
+                    <p class="fs-2">Money Receipt</p>
+                </div>
+                <div class="col-2 m-auto">
+                    <img src="{{ asset('institutionImage/image.png') }}" alt="Logo" width="50%" class="img-fluid">
+                </div>
             </div>
-            <div class="col-8 text-center">
-                <span class="text-bold">shanto mariam university of creative technology</span> <br>
-                <span>Plot# 06, Road/Avenue# 06, Sector# 17/H-1, Uttara, Dhaka-1230</span><br>
-                <span class="text-sm">Money Receipt</span><br>
-                <span class="text-xs">Student Copy</span>
 
+            <!-- Other divs for invoice content -->
+            <div class="row text-sm">
+                <div class="col-4">
+                    <p>Printed at: <span id="printed-time">{{ Carbon\Carbon::now()->format('d F, g:i:s A') }}</span></p>
+                </div>
+                <div class="col-4">
+                    <p>Sacnt: <span id="sacnt-time">{{ Str::uuid() }}</span></p>
+                </div>
+                <div class="col-4">
+                    <p>Printed by: {{ Auth::user()->name }}</p>
+                </div>
             </div>
-            <div class="col-2 m-auto">
-                <img src="{{ asset('institutionImage/image.png') }}" alt="" width="50%">
+            <hr>
+            <div class="row text-sm">
+                <div class="col-3">
+                    <p>User ID: {{ $data->temporary_id }}</p>
+                </div>
+                <div class="col-3">
+                    <p>Name: {{ $data->name }}</p>
+                </div>
+                <div class="col-3">
+                    <p>Department Name: {{ $data->batch->department->name }}</p>
+                </div>
+                <div class="col-3">
+                    <p>Program Name: {{ $data->batch->department->program->name }}</p>
+                </div>
+                <div class="col-3">
+                    <p>slip ID: {{ $data->id }}</p>
+                </div>
+                <div class="col-3">
+                    <p>Created By: {{ App\Models\User::find($data->created_by)->name }}</p>
+                </div>
+                <div class="col-3">
+                    <p>Created at: {{ Carbon\Carbon::parse($data->created_at)->format('d F, g:i:s A') }}</p>
+                </div>
             </div>
-        </div>
-        {{-- ------------------------- part 2------------------------------------------------------------- --}}
-        <div class="row text-center">
-            <div class="col-4">
-                <span class="text-xs">Printed at: {{ Carbon\Carbon::now()->format('Y/m/d h:i A') }}</span>
+
+            <div class="row fs-09 font-weight-bold">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ $data->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Temporary ID</td>
+                                <td>{{ $data->temporary_id }}</td>
+                            </tr>
+                            <tr>
+                                <td>Admission Fee</td>
+                                <td>{{ $data->admission_fee }} tk</td>
+                            </tr>
+                            <tr>
+                                <td>Total Amount</td>
+                                <td>{{ $data->admission_fee }} tk</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="col-4">
-                <span class="text-xs">SACNT/000/000000</span>
+
+            <div class="row text-center" style="padding-top: 60px;">
+                <div class="col-4">
+                    <!-- Empty Part -->
+                </div>
+                <div class="col-4 signature-placeholder">
+                    <p class="signature-text fs-08">
+                        {{ Auth::user()->name }} <br>
+                        (Collected by)
+                    </p>
+                </div>
+                <div class="col-4 signature-placeholder">
+                    <p class="signature-text fs-08">Add name if it has to <br> (Checked by)</p>
+                </div>
             </div>
-            <div class="col-4">
-                <span class="text-xs">Printed by: {{Auth::user()->name }}</span>
-            </div>
-        </div>
         </div>
 
     </div>
-    {{-- out of count --}}
-    <a href="{{ route('admission.batch.temporary.view.student.print', $temporaryStudent->id) }}" class="btn btn-danger"> <i
-            class="fa fa-eye" aria-hidden="true"></i></a>
+@endsection
+@section('css')
+    <style>
+        .signature-text {
+            border-top: 1px dotted black;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+
+        .invoice {
+            margin-top: 10px;
+            border: 1px dotted black;
+        }
+
+        .paymenyt {
+            border-color: black;
+            margin: 10px;
+            padding: 10px;
+
+        }
+
+        .invoice {
+            line-height: normal;
+        }
+    </style>
 @endsection

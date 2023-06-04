@@ -17,7 +17,7 @@
     ])
 @endsection --}}
 @section('meta-tag')
-    Show Teacher || {{ auth()->user()->role->name }}
+    Show Teacher
 @endsection
 
 

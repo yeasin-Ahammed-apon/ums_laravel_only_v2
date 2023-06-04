@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Teacher list || {{ auth()->user()->role->name }}
+    Teacher list
 @endsection
 {{-- @section('breadcrumb')
     @include('parts.breadcrumb', [

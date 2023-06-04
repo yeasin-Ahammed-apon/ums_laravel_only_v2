@@ -730,6 +730,12 @@ if (!function_exists('accountSidebarOption')) {
                 'route' => 'account.profile',
                 'enabled' => "1",
             ],
+            [
+                'title' => 'Temporary Student list',
+                'icon' => 'fas fa-address-card',
+                'route' => 'account.batch.temporary.list.student',
+                'enabled' => "1",
+            ],
         ];
         return json_encode($accountSidebarOption);
     }

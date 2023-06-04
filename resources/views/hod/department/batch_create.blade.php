@@ -17,7 +17,7 @@
     ])
 @endsection --}}
 @section('meta-tag')
-    Batch Create || {{ auth()->user()->role->name }}
+    Batch Create
 @endsection
 
 

@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Completed Batch List || {{ auth()->user()->role->name }}
+    Completed Batch List
 @endsection
 @section('content')
 @include('parts.hod_batch_options')

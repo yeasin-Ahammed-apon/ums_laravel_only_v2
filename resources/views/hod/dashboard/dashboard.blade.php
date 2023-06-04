@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    HOD DASHBOARD || {{ auth()->user()->role->name }}
+    HOD DASHBOARD
 @endsection
 @section('content')
     @include('parts.title_start', [

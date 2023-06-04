@@ -29,8 +29,6 @@
 
 
 
-
-
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -39,7 +37,6 @@
             class="brand-image img-rounded elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">SMUCT</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
@@ -48,11 +45,11 @@
                 <img src="{{ asset('users/images/' . Auth::user()->image) }}" class="img-circle elevation-2"
                     alt="User Image">
             </div>
-            <div class="info">
+            <div class="info text-sm">
                 <a href="{{ route(Auth::user()->role->name.'.dashboard') }}" class="d-block">{{ Auth::user()->name }} <br>( {{ Auth::user()->role->name }} )</a>
             </div>
         </div>
-
+        
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
@@ -73,11 +70,11 @@
                 @foreach ($sidebar as $item)
                     @if (isset($item['enabled']))
                         @if (!isset($item['route']))
-                            <li class="nav-item {{ Route::is($item['sub_active_route']) ? 'menu-open' : '' }}">
+                            <li class="nav-item text-sm {{ Route::is($item['sub_active_route']) ? 'menu-open' : '' }}">
                                 <a href="#"
                                     class="nav-link {{ Route::is($item['sub_active_route']) ? 'active' : '' }}">
                                     <i class="{{ $item['icon'] }}"></i>
-                                    <p>
+                                    <p class="text-sm">
                                         {{ $item['title'] }}
                                         @if (isset($item['sub_menu']))
                                             <i class="right fas fa-angle-left"></i>
@@ -87,11 +84,11 @@
                                 <ul class="nav nav-treeview">
                                     @foreach ($item['sub_menu'] as $sub_item)
                                         @if (isset($sub_item['enabled']))
-                                            <li class="nav-item">
+                                            <li class="nav-item text-sm">
                                                 <a href="{{ Route::has($sub_item['route']) ? route($sub_item['route']) : '#' }}"
                                                     class="nav-link {{ Route::is($sub_item['route']) ? 'active' : '' }}">
                                                     <i class="fa  nav-icon {{ Route::is($sub_item['route']) ? 'fa-dot-circle text-black-50' : 'fa-circle' }}"></i>
-                                                    <p>{{ $sub_item['title'] }}</p>
+                                                    <p class="text-sm">{{ $sub_item['title'] }}</p>
                                                 </a>
                                             </li>
                                         @endif
@@ -99,11 +96,11 @@
                                 </ul>
                             </li>
                         @else
-                            <li class="nav-item">
+                            <li class="nav-item text-sm">
                                 <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
                                     class="nav-link {{ Route::is($item['route']) ? 'active' : '' }}">
                                     <i class="{{ $item['icon'] }}"></i>
-                                    <p>
+                                    <p class="text-sm">
                                     {{ $item['title'] }}
                                     </p>
                                 </a>

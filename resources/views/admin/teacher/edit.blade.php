@@ -17,7 +17,7 @@
     ])
 @endsection --}}
 @section('meta-tag')
-    Edit Teacher || {{ auth()->user()->role->name }}
+    Edit Teacher
 @endsection
 
 

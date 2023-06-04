@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,6 +164,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class, // debugger package .. implemented by apon
         Arcanedev\LogViewer\LogViewerServiceProvider::class, // log-viewer package .. implemented by apon
         // Mccarlosen\LaravelMpdf\LaravelMpdfServiceProvider::class,// pdf making and  downloading package .. implemented by apon
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -233,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         // 'PDF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class, // pdf making and  downloading package .. implemented by apon (in provider LaravelMpdfServiceProvider)
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

@@ -15,7 +15,7 @@ class SuperAdminSidebarController extends Controller
      */
     private $data;
     private $datas;
-    private $pageData;
+
     public function pageDataCheck($request)
     {
         if ($request->pageData) $this->pageData = intval($request->pageData);

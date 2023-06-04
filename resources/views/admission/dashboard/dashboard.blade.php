@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Dashboard || {{ auth()->user()->role->name }}
+    Dashboard
 @endsection
 @section('css')
 @endsection

@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Create Admin || {{ auth()->user()->role->name }}
+    Create Admin
 @endsection
 @section('content')
     @include('parts.title_start', [

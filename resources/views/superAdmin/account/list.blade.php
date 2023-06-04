@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Account list || {{ auth()->user()->role->name }}
+    Account list
 @endsection
 @section('content')
     @include('parts.title_start', [

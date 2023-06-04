@@ -17,7 +17,7 @@
     ])
 @endsection --}}
 @section('meta-tag')
-    Create Admin || {{ auth()->user()->role->name }}
+    Create Admin
 @endsection
 
 

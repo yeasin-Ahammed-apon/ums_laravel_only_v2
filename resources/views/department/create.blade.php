@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Create Department || {{ auth()->user()->role->name }}
+    Create Department
 @endsection
 @section('content')
     @include('parts.title_start', [

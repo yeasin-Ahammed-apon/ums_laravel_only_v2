@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Batch Information || {{ auth()->user()->role->name }}
+    Batch Information
 @endsection
 @section('content')
     @include('parts.title_start', [

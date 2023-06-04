@@ -12,7 +12,7 @@ class DeparmentController extends Controller
 {
     private $data;
     private $datas;
-    private $pageData;
+
     public function index(Request $request)
     {
         $this->pageData = pageDataCheck($request);

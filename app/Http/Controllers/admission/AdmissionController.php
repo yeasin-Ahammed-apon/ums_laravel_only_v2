@@ -7,11 +7,9 @@ use App\Models\Batch;
 use App\Models\TemporaryStudent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdmissionController extends Controller
 {
-    private $pageData;
 
     public function dashboard()
     {
@@ -25,6 +23,9 @@ class AdmissionController extends Controller
             'datas' =>$datas,
             "pageData"=>$this->pageData
         ]);
+    }
+    public function temporary_student_active_form(TemporaryStudent $temporaryStudent){
+        
     }
     public function profile()
     {
@@ -69,7 +70,7 @@ class AdmissionController extends Controller
         $data->temporary_id = $temporary_id;
         $data->batch_id = $batch->id;
         $data->created_by = Auth::user()->id;
-        $data->admission_discount = $admission_discount;
+        $data->admission_discount = $admission_discount ?? 0;
         $data->admission_fee = $student_admission_fee;
         $data->save();
         if($data){
@@ -79,13 +80,13 @@ class AdmissionController extends Controller
     }
     public function temporary_student_view(TemporaryStudent $temporaryStudent){
         return view('admission.batch.temporary_payment_view',[
-             'temporaryStudent' =>$temporaryStudent
+             'data' =>$temporaryStudent
         ]);
 
     }
-    public function temporary_student_view_print(TemporaryStudent $temporaryStudent){
-        $data = ["name"=>$temporaryStudent->name];
-        $pdf = Pdf::loadView('admission.batch.temporary_payment_view_print',$data);
-        return $pdf->stream('invoice.pdf');
+    public function temporary_student_view_download(TemporaryStudent $temporaryStudent){
+        return view("admission.batch.temporary_payment_view_download",[
+            'data' =>$temporaryStudent
+       ]);
     }
 }

@@ -17,7 +17,7 @@
     ])
 @endsection --}}
 @section('meta-tag')
-    User Not Found|| {{ auth()->user()->role->name }}
+    User Not Found
 @endsection
 
 

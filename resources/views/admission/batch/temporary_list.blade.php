@@ -1,11 +1,10 @@
 @extends('layout')
 @section('meta-tag')
-    Temporary Student list || {{ auth()->user()->role->name }}
+    Temporary Student list
 @endsection
-
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin list table',
+        'title' => $title ?? 'Temporary Student list table',
         'color' => 'card-primary',
     ])
     <div class="card shadow ">
@@ -30,6 +29,16 @@
                             <a href="{{ route('admin.account.index', ['status' => 0]) }}"
                                 class="btn btn-sm mt-1 mb-1 btn-warning">Complete
                                 Admins</a>
+                            <a type="button" class="btn btn-sm mt-1 mb-1 ml-1 btn-info" data-toggle="modal"
+                                data-target="#modal-default">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                                @include('parts.info', [
+                                    'datas' => [
+                                        ['info' => 'Active button red means , Admission closed', 'color' => 'bg-danger'],
+                                        ['info' => 'Admission End field red means, Admission time end long time a go.', 'color' => 'bg-danger'],
+                                    ],
+                                ])
                         </div>
 
                     </div>
@@ -67,24 +76,23 @@
                     <td class="text-sm">{{ number_format($data->admission_fee_given, 3) }} tk.</td>
                     <td>
                         @if (!$data->batch->admission_close)
-                        <a href="{{ route('admin.account.status', $data->id) }}" onclick="disableButton(this)"
-                            class="btn btn-sm mt-1 mb-1 btn-danger disabled"><i class="fa fa-circle"
-                                aria-hidden="true"></i> Active</a>
-                        @else
-                            @if ($data->admission_fee_given===$data->admission_fee)
-                            <a href="{{ route('admin.account.status', $data->id) }}" onclick="disableButton(this)"
-                                class="btn btn-sm mt-1 mb-1 btn-outline-success "><i class="fa fa-circle"
-                                    aria-hidden="true"></i> Active</a>
+                            @if ($data->admission_fee_given >= $data->admission_fee)
+                                <a href="{{ route('admission.student.active.form', $data->id) }}" onclick="disableButton(this)"
+                                    class="btn btn-sm mt-1 mb-1 btn-outline-success "><i class="fa fa-circle"
+                                        aria-hidden="true"></i> Active</a>
                             @else
-                            <a onclick="disableButton(this)"
-                                class="btn btn-sm mt-1 mb-1 btn-outline-success disabled "><i class="fa fa-circle"
-                                    aria-hidden="true"></i> Active</a>
+                                <a onclick="disableButton(this)"
+                                    class="btn btn-sm mt-1 mb-1 btn-outline-success disabled "><i class="fa fa-circle"
+                                        aria-hidden="true"></i> Active</a>
                             @endif
+                        @else
+                            <a onclick="disableButton(this)" class="btn btn-sm mt-1 mb-1 btn-danger disabled"><i
+                                    class="fa fa-circle" aria-hidden="true"></i> Active</a>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('admission.batch.temporary.view.student', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success"><i
-                                class="fa fa-eye" aria-hidden="true"></i> View</a>
+                        <a href="{{ route('admission.batch.temporary.view.student', $data->id) }}"
+                            class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                         <a href="{{ route('admin.account.edit', $data->id) }}"
                             class="btn btn-sm mt-1 mb-1 btn-primary edit"><i class="fa fa-cogs" aria-hidden="true"></i>
                             Edit</a>

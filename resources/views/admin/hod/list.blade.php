@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Hod list || {{ auth()->user()->role->name }}
+    Hod list
 @endsection
 @section('content')
     @include('parts.title_start', [

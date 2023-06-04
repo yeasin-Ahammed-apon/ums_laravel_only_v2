@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Edit Admin || {{ auth()->user()->role->name }}
+    Edit Admin
 @endsection
 @section('content')
     {{-- nav bar --}}

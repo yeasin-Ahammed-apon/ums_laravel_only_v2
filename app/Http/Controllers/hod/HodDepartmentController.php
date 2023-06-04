@@ -16,7 +16,6 @@ class HodDepartmentController extends Controller
 {
     private $data;
     private $datas;
-    private $pageData;
     public function department(Request $request)
     {
         $this->pageData = pageDataCheck($request); // make paginate data default

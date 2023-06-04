@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Edit Hod || {{ auth()->user()->role->name }}
+    Edit Hod
 @endsection
 
 

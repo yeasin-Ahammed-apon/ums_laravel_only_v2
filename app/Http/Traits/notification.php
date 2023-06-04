@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 trait notification{
     private $data;
     private $datas;
-    private $pageData;
+
     private $url;
     // private $pageData;
     public function pageDataCheck($request)
@@ -122,7 +122,7 @@ trait notification{
             'teacher' => 'teacher.notifications.',
         ];
         $this->url = $urlMapping[$role] ?? '';
-        
+
         $this->pageDataCheck($request);
         $view = $this->selectedValues($request);
         if ($view) return $view;

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/fontawesome-free/css/all.min.css') }}>
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/toastr/toastr.min.css') }}>
     <!-- Theme style -->
     <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
@@ -57,6 +58,8 @@
     <script src="{{ asset('assets/admin_lte/plugins/popper/umd/popper.min.js') }}"></script>
     <!-- jQuery -->
     <script src={{ asset('assets/admin_lte/plugins/jquery/jquery.min.js') }}></script>
+    <script src={{ asset('assets/admin_lte/plugins/toastr/toastr.min.js') }}></script>
+
     <!-- Bootstrap 4 -->
     <script src={{ asset('assets/admin_lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}></script>
     <!-- overlayScrollbars -->

@@ -21,9 +21,10 @@ class CreateTemporaryStudentsTable extends Migration
             $table->integer('cash_taken_by')->nullable();// user id  of account
             $table->bigInteger('temporary_id');
             $table->bigInteger('batch_id');
-            $table->bigInteger('admission_discount');
+            $table->bigInteger('admission_discount')->default(0);
             $table->bigInteger('admission_fee');
             $table->bigInteger('admission_fee_given')->default(0);
+            $table->bigInteger('advance_payment')->default(0);
             $table->boolean('status')->default(1);// 1 mean active , 0 mean deactive or complete
             $table->timestamps();
         });

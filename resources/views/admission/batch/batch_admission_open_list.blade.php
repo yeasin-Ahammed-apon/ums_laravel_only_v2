@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Admission open batch list || {{ auth()->user()->role->name }}
+    Admission open batch list
 @endsection
 @section('content')
     @include('parts.title_start', [

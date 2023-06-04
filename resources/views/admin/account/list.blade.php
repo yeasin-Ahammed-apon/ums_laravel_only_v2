@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Admin list || {{ auth()->user()->role->name }}
+    Admin list
 @endsection
 
 @section('content')

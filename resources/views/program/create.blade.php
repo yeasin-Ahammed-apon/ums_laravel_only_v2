@@ -1,23 +1,6 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'admin.account.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'admin.account.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Create Admin || {{ auth()->user()->role->name }}
+    Create Admin
 @endsection
 
 

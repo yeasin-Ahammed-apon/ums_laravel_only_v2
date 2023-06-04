@@ -15,7 +15,7 @@ class HodDepartmentAssignController extends Controller
 
     private $data;
     private $datas;
-    private $pageData;
+
     private $request;
     public function index(Request $request)
     {
