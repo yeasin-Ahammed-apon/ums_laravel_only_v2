@@ -1,10 +1,23 @@
+*::selection{
+    background-color: rgb(226, 0, 30);
+    color: white;
+}
+.card-warning{
+    background: yellowgreen ;
+}
 .sidebar-dark-primary {
-    background: rgb(7, 3, 51);
+    background:  inherit;
+    background: brightness(120%);
 }
 
 [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-treeview {
+    background: inherit;
 
-    background: rgb(18, 8, 129);
+}
+.nav-sidebar>.nav-item>.nav-treeview .nav-link{
+    border: 1px solid white;
+    background-color: inherit;
+    border-radius: 0%;
 }
 
 .table th {
@@ -40,8 +53,7 @@
     color: rgb(255, 255, 255)
 }
 .nav-dev{
-    /* color: rgb(17, 185, 59); */
-    background: #051044;
+    background: rgb(7, 3, 51);
 }
 .nav-item a{
     color: white;

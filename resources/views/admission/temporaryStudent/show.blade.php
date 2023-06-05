@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="mt-2 mb-2">
-        <a href="{{ route('admission.batch.temporary.view.student.download', $data->id) }}" class="btn btn-success"
+        <a href="{{ route('admission.temporaryStudent.print', $data->id) }}" class="btn btn-success"
             target="_blank">
             <i class="fas fa-download"></i>
         </a>

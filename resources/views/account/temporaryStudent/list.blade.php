@@ -54,17 +54,17 @@
                     <td class="text-sm">{{ $data->batch->department->name }}
                         {{ ordinalFormat($data->batch->batch_number) }}</td>
                     <td class="text-sm text-bold">{{ number_format($data->admission_fee, 2) }} tk.</td>
-                    <td class="text-sm">{{ number_format($data->admission_fee_given, 3) }} tk.</td>
+                    <td class="text-sm">{{ number_format($data->admission_fee_given, 2) }} tk.</td>
 
                     <td class="text-center">
                         @if ($data->admission_fee_given >= $data->admission_fee)
                         <a  class="btn btn-sm mt-1 mb-1 btn-success disabled">
                             <i class="fas fa-check    "></i> </a>
                         @else
-                        <a href="{{ route('account.batch.temporary.student.pay.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">
+                        <a href="{{ route('account.temporary.payment.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">
                             <i class="fas fa-money-check    "></i></a>
                         @endif
-                        <a href="{{ route('account.batch.temporary.student.pay.slip', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">
+                        <a href="{{ route('account.temporary.payment.print', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fas fa-eye    "></i></a>
                     </td>
                     </tr>

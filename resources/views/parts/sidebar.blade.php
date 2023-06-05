@@ -49,7 +49,7 @@
                 <a href="{{ route(Auth::user()->role->name.'.dashboard') }}" class="d-block">{{ Auth::user()->name }} <br>( {{ Auth::user()->role->name }} )</a>
             </div>
         </div>
-        
+
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
@@ -86,7 +86,7 @@
                                         @if (isset($sub_item['enabled']))
                                             <li class="nav-item text-sm">
                                                 <a href="{{ Route::has($sub_item['route']) ? route($sub_item['route']) : '#' }}"
-                                                    class="nav-link {{ Route::is($sub_item['route']) ? 'active' : '' }}">
+                                                    class="nav-link {{ Route::is($sub_item['route']) ? 'active' : 'nav-link-dev' }}">
                                                     <i class="fa  nav-icon {{ Route::is($sub_item['route']) ? 'fa-dot-circle text-black-50' : 'fa-circle' }}"></i>
                                                     <p class="text-sm">{{ $sub_item['title'] }}</p>
                                                 </a>

@@ -61,9 +61,9 @@
                     <td>{{ $data->admission_start }}</td>
                     <td>{{ $data->admission_end }}</td>
                     <td>
-                        <a href="{{ route('admission.batch.info', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
+                        <a href="{{ route('admission.batch.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fa fa-info-circle" aria-hidden="true"></i> Batch Info</a>
-                        <a href="{{ route('admission.batch.temporary.add.student', $data->id) }}"
+                        <a href="{{ route('admission.temporaryStudent.create', $data->id) }}"
                             class="btn btn-sm mt-1 mb-1 btn-primary">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add</a>
                     </td>
@@ -89,5 +89,5 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.page_number_set_js', ['page_number_url' => 'admission.batch.open.list'])
+    @include('parts.page_number_set_js', ['page_number_url' => 'admission.batch.list'])
 @endsection

@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\admission\AdmissionBatchController as Batch;
 use App\Http\Controllers\admission\AdmissionController;
+use App\Http\Controllers\admission\AdmissionStudentController;
+use App\Http\Controllers\admission\AdmissionTemporaryStudentController as Temporary;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,15 +12,17 @@ Route::middleware(['auth', 'CheckRole:admission'])->group(function () {
     Route::prefix('/admission')->group(function () {
         Route::get('/dashboard', [AdmissionController::class, "dashboard"])->name('admission.dashboard');
         Route::get('/profile', [AdmissionController::class, "profile"])->name('admission.profile');
-        Route::get('/student/{temporaryStudent}/active/form', [AdmissionController::class, "temporary_student_active_form"])->name('admission.student.active.form');
-        Route::get('/batch/admission/open/list', [AdmissionController::class, "admission_open_list"])->name('admission.batch.open.list');
-        Route::get('/batch/temporary/student/list', [AdmissionController::class, "temporary_list_student"])->name('admission.batch.temporary.list.student');
-        Route::get('/batch/temporary/student/{temporaryStudent}/view', [AdmissionController::class, "temporary_student_view"])->name('admission.batch.temporary.view.student');
-        Route::get('/batch/temporary/student/{temporaryStudent}/view/download', [AdmissionController::class, "temporary_student_view_download"])->name('admission.batch.temporary.view.student.download');
-        Route::get('/batch/{batch}/info', [AdmissionController::class, "batch_info"])->name('admission.batch.info');
-        Route::get('/batch/{batch}/temporary/student/add', [AdmissionController::class, "temporary_add_student"])->name('admission.batch.temporary.add.student');
-        Route::post('/batch/{batch}/temporary/student/store', [AdmissionController::class, "temporary_store_student"])->name('admission.batch.temporary.store.student');
+        // Temporary to Parmanent stundet
+        Route::get('/student/create', [AdmissionStudentController::class, "create"])->name('admission.student.create'); //done
+        // Temporary
+        Route::get('/student/temporaryStudent/list', [Temporary::class, "list"])->name('admission.temporaryStudent.list');
+        Route::get('/student/{temporaryStudent}/show', [Temporary::class, "show"])->name('admission.temporaryStudent.show');
+        Route::get('/student/{batch}/temporaryStudent/create', [Temporary::class, "create"])->name('admission.temporaryStudent.create');
+        Route::post('/student/{batch}/temporaryStudent/store', [Temporary::class, "store"])->name('admission.temporaryStudent.store');
+        Route::get('/student/{temporaryStudent}/print', [Temporary::class, "print"])->name('admission.temporaryStudent.print');
 
+        Route::get('/batch/list', [Batch::class, "list"])->name('admission.batch.list');
+        Route::get('/{batch}/show', [Batch::class, "show"])->name('admission.batch.show');
     });
 });
 

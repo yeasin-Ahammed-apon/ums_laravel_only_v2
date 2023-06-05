@@ -52,7 +52,37 @@
     </div>
     <!-- ./wrapper -->
     {{-- sweet alert --}}
+    <script>
+        const selector = ($param) => document.querySelector($param)
+        // Check if the 'sidebar_navbar_background_color' item exists in localStorage
+        if (!localStorage.getItem('sidebar_navbar_background_color') && !localStorage.getItem('card_background_color')) {
+            var element1 = selector('.sidebar-dark-primary');
+            var element2 = selector('.nav-dev');
+            var element3 = selector('.bottombar');
+            element1.style.backgroundColor = 'rgb(7, 3, 51)';
+            element2.style.backgroundColor = 'rgb(7, 3, 51)';
+            element3.style.backgroundColor = 'rgb(7, 3, 51)';
+            localStorage.setItem('sidebar_navbar_background_color', 'rgb(7, 3, 51)');
+            localStorage.setItem('card_background_color', 'white');
+            forAllSameClass('.card');
+        } else {
+            var element1 = selector('.sidebar-dark-primary');
+            var element2 = selector('.nav-dev');
+            var element3 = selector('.bottombar');
+            element1.style.backgroundColor = localStorage.getItem('sidebar_navbar_background_color');
+            element2.style.backgroundColor = localStorage.getItem('sidebar_navbar_background_color');
+            element3.style.backgroundColor = localStorage.getItem('sidebar_navbar_background_color');
+            forAllSameClass('.card');
+        }
 
+        function forAllSameClass(cls) {
+            var ele = document.querySelectorAll(cls);
+            ele.forEach(function(el) {
+                el.style.backgroundColor = localStorage.getItem('card_background_color');
+                el.style.color = localStorage.getItem('card_background_color') === 'white' ? "black" : 'white';
+            });
+        }
+    </script>
     <script src="{{ asset('assets/admin_lte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     {{-- popper --}}
     <script src="{{ asset('assets/admin_lte/plugins/popper/umd/popper.min.js') }}"></script>
@@ -67,7 +97,6 @@
     <!-- AdminLTE App -->
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
     <script>
-        const selector = ($param) => document.querySelector($param)
         const disableButton = (button) => {
             setTimeout(() => {
                 button.disabled = true;

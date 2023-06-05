@@ -11,7 +11,7 @@
         'color' => 'card-info',
     ])
     <div class="card">
-        <form action="{{ route('admission.batch.temporary.store.student',$data->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admission.temporaryStudent.store',$data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <h5 class="shadow p-2">Department: {{ $data->department->name }} --------- Batch : {{ ordinalFormat($data->batch_number) }}</h5>
             <div class="card-body row">

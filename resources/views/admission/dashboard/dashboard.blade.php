@@ -11,7 +11,7 @@
     ])
     <div>
         <div class="row">
-            <a href="{{ route('admission.batch.open.list') }}" class=" col-12 col-sm-6 col-md-3 box">
+            <a href="{{ route('admission.batch.list') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
                     <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admission.batch.temporary.list.student') }}" class=" col-12 col-sm-6 col-md-3 box">
+            <a href="{{ route('admission.temporaryStudent.list') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
                     <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
                         <i class="fas fa-envelope dashboard_icon_color"></i>
@@ -45,7 +45,7 @@
         'title' => $title ?? 'Admission Open Batch',
         'color' => 'card-primary',
     ])
-    <div class="card shadow ">
+    <div class="card shadow">
         <div class="card-header">
             <h3 class="card-title"> List</h3>
         </div>
@@ -73,9 +73,9 @@
                             <td >{{ $data->admission_start }}</td>
                             <td>{{ $data->admission_end }}</td>
                             <td>
-                                <a href="{{ route('admission.batch.info', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
+                                <a href="{{ route('admission.batch.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                                    <i class="fa fa-info-circle" aria-hidden="true"></i> Batch Info</a>
-                                <a href="{{ route('admission.batch.temporary.add.student', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">
+                                <a href="{{ route('admission.temporaryStudent.create', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Add</a>
                             </td>
                             </tr>

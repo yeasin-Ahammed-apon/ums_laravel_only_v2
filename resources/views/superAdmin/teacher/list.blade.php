@@ -2,24 +2,6 @@
 @section('meta-tag')
     Teacher list
 @endsection
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'superAdmin.teacher.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'superAdmin.teacher.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
-
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Teacher list table',
@@ -108,7 +90,7 @@
             </tbody>
         </table>
         @if ($datas->isEmpty())
-            <h1 class="text-center text-black-50">No Data Found</h1>
+            <h1 class="text-center">No Data Found</h1>
         @endif
     </div>
     <!-- /.card-body -->

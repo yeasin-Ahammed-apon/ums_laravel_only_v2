@@ -733,7 +733,7 @@ if (!function_exists('accountSidebarOption')) {
             [
                 'title' => 'Temporary Student list',
                 'icon' => 'fas fa-address-card',
-                'route' => 'account.batch.temporary.list.student',
+                'route' => 'account.temporary.payment.list',
                 'enabled' => "1",
             ],
         ];
@@ -759,13 +759,13 @@ if (!function_exists('admissionSidebarOption')) {
             [
                 'title' => 'Temporary Student List.',
                 'icon' => 'fas fa-th-list',
-                'route' => 'admission.batch.temporary.list.student',
+                'route' => 'admission.temporaryStudent.list',
                 'enabled' => "1",
             ],
             [
                 'title' => 'Admission Open list',
                 'icon' => 'fas fa-th-list',
-                'route' => 'admission.batch.open.list',
+                'route' => 'admission.batch.list',
                 'enabled' => "1",
             ],
         ];

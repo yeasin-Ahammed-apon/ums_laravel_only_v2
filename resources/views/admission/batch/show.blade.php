@@ -59,7 +59,7 @@
             </div>
             <div class="card-footer">
             <div class="text-right">
-                <a href="{{ route('admission.batch.temporary.add.student', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">
+                <a href="{{ route('admission.temporaryStudent.create', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary">
                     <i class="fa fa-plus" aria-hidden="true"></i> Add</a>
             </div>
           </div>

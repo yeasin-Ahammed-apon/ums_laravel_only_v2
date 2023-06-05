@@ -33,12 +33,19 @@
                                 data-target="#modal-default">
                                 <i class="fas fa-info-circle"></i>
                             </a>
-                                @include('parts.info', [
-                                    'datas' => [
-                                        ['info' => 'Active button red means , Admission closed', 'color' => 'bg-danger'],
-                                        ['info' => 'Admission End field red means, Admission time end long time a go.', 'color' => 'bg-danger'],
+                            @include('parts.info', [
+                                'datas' => [
+                                    [
+                                        'info' => 'Active button red means , Admission closed',
+                                        'color' => 'bg-danger',
                                     ],
-                                ])
+                                    [
+                                        'info' =>
+                                            'Admission End field red means, Admission time end long time a go.',
+                                        'color' => 'bg-danger',
+                                    ],
+                                ],
+                            ])
                         </div>
 
                     </div>
@@ -77,7 +84,7 @@
                     <td>
                         @if (!$data->batch->admission_close)
                             @if ($data->admission_fee_given >= $data->admission_fee)
-                                <a href="{{ route('admission.student.active.form', $data->id) }}" onclick="disableButton(this)"
+                                <a href="{{ route('admission.student.create', $data->id) }}" onclick="disableButton(this)"
                                     class="btn btn-sm mt-1 mb-1 btn-outline-success "><i class="fa fa-circle"
                                         aria-hidden="true"></i> Active</a>
                             @else
@@ -91,11 +98,14 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('admission.batch.temporary.view.student', $data->id) }}"
-                            class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                        <a href="{{ route('admin.account.edit', $data->id) }}"
-                            class="btn btn-sm mt-1 mb-1 btn-primary edit"><i class="fa fa-cogs" aria-hidden="true"></i>
-                            Edit</a>
+                        <a href="{{ route('admission.temporaryStudent.show', $data->id) }}"
+                            class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ route('admin.account.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary"><i
+                                class="fa fa-cogs" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ route('admin.account.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-danger"><i
+                                class="fas fa-trash"></i>
+                        </a>
                     </td>
                     </tr>
                 @endforeach
