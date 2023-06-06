@@ -15,6 +15,7 @@ Route::middleware(['auth', 'CheckRole:admission'])->group(function () {
         // Temporary to Parmanent stundet
         Route::get('/student/create', [AdmissionStudentController::class, "create"])->name('admission.student.create'); //done
         // Temporary
+        Route::get('/student/temporaryStudent/history', [Temporary::class, "history"])->name('admission.temporaryStudent.history');
         Route::get('/student/temporaryStudent/list', [Temporary::class, "list"])->name('admission.temporaryStudent.list');
         Route::get('/student/{temporaryStudent}/show', [Temporary::class, "show"])->name('admission.temporaryStudent.show');
         Route::get('/student/{batch}/temporaryStudent/create', [Temporary::class, "create"])->name('admission.temporaryStudent.create');

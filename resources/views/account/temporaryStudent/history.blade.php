@@ -1,11 +1,11 @@
 @extends('layout')
 @section('meta-tag')
-    Temporary Student list
+    Temporary Student Payment History
 @endsection
 
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin list table',
+        'title' => $title ?? 'Temporary Student Payment History table',
         'color' => 'card-primary',
     ])
     <div class="card shadow ">
@@ -33,40 +33,23 @@
         <table class="table  table-bordered border-top">
             <thead>
                 <tr class="text-sm">
+                    <th>Temporary id</th>
                     <th>Name</th>
-                    <th>Id</th>
-                    <th>Admission End</th>
-                    <th>Batch</th>
-                    <th>Fee</th>
-                    <th>Fee Given</th>
-                    <th class="text-center">Action</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Recived by</th>
+                    <th>Reciver id</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                    <td class="text-sm">{{ $data->name }}</td>
-                    <td class="text-sm">{{ $data->temporary_id }}</td>
-                    @if (Carbon\Carbon::parse($data->batch->admission_end)->lessThan(Carbon\Carbon::now()))
-                        <td class="bg-danger text-sm">{{ dateFormat($data->batch->admission_end) }}</td>
-                    @else
-                        <td class="text-sm">{{ dateFormat($data->batch->admission_end) }}</td>
-                    @endif
-                    <td class="text-sm">{{ $data->batch->department->name }}
-                        {{ ordinalFormat($data->batch->batch_number) }}</td>
-                    <td class="text-sm text-bold">{{ number_format($data->admission_fee, 2) }} tk.</td>
-                    <td class="text-sm">{{ number_format($data->admission_fee_given, 2) }} tk.</td>
+                    <td class="text-sm">{{ $data->temporary_student->temporary_id }}</td>
+                    <td class="text-sm">{{ $data->temporary_student->name }}</td>
+                    <td class="text-sm text-bold">{{ number_format($data->amount, 2) }} tk.</td>
+                    <td class="text-sm">{{ Carbon\Carbon::parse($data->created_at)->format('d F, g:i:s A') }}</td>
+                    <td class="text-sm">{{ $data->account_name }}</td>
+                    <td class="text-sm">{{ $data->account_id }}</td>
 
-                    <td class="text-center">
-                        @if ($data->admission_fee_given >= $data->admission_fee)
-                        <a  class="btn btn-sm mt-1 mb-1 btn-success disabled">
-                            <i class="fas fa-check    "></i> </a>
-                        @else
-                        <a href="{{ route('account.temporary.payment.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">
-                            <i class="fas fa-money-check    "></i></a>
-                        @endif
-                        <a href="{{ route('account.temporary.payment.print', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
-                            <i class="fas fa-eye    "></i></a>
-                    </td>
                     </tr>
                 @endforeach
             </tbody>

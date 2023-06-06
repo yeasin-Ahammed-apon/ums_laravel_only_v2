@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admission;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\temporaryStudentTrait;
 use App\Models\Batch;
 use App\Models\TemporaryStudent;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AdmissionTemporaryStudentController extends Controller
 {
+    use temporaryStudentTrait;
+
     public function list(Request $request){
         $this->pageData=pageDataCheck($request);
         $datas = TemporaryStudent::where('status',1)->orderBy('created_at', 'desc')->paginate($this->pageData);
@@ -17,6 +20,9 @@ class AdmissionTemporaryStudentController extends Controller
             "datas"=>$datas,
             'pageData'=> $this->pageData
         ]);
+    }
+    public function history(Request $request){
+        return $this->TemporaryStudentList($request);
     }
     public function show(TemporaryStudent $temporaryStudent){
         return view('admission.temporaryStudent.show',[

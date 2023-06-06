@@ -92,5 +92,5 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.page_number_set_js', ['page_number_url' => 'faculty.index'])
+    @include('parts.page_number_set_js', ['page_number_url' => Route::currentRouteName()])
 @endsection

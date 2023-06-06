@@ -16,6 +16,7 @@
                         <th>User Id</th>
                         <th >Name</th>
                         <th >Admission Fee</th>
+                        <th >Admission Fee Given</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,6 +24,7 @@
                         <td>{{ $data->temporary_id }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->admission_fee }}</td>
+                        <td>{{ $data->admission_fee_given }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -32,7 +34,7 @@
             <div class="card-body row">
                 <div class="form-group col-12 col-sm-6">
                     <label for="admission_fee_given">Admission Fee Given</label>
-                    <input type="telephone" value="{{ $data->admission_fee_given }}" name="admission_fee_given"
+                    <input type="telephone"  name="admission_fee_given"
                         class="form-control @error('admission_fee_given') is-invalid @enderror" id="admission_fee_given" placeholder="Enter admission_fee_given">
                     {!! validationError('admission_fee_given', $errors) !!}
                 </div>

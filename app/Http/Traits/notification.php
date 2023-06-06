@@ -11,11 +11,6 @@ trait notification{
 
     private $url;
     // private $pageData;
-    public function pageDataCheck($request)
-    {
-        if ($request->pageData) $this->pageData = intval($request->pageData);
-        else $this->pageData = 10;
-    }
     public function selectedValues($request)
     {
         try {
@@ -122,8 +117,8 @@ trait notification{
             'teacher' => 'teacher.notifications.',
         ];
         $this->url = $urlMapping[$role] ?? '';
-
-        $this->pageDataCheck($request);
+        
+        pageDataCheck($request);
         $view = $this->selectedValues($request);
         if ($view) return $view;
         $view = $this->markAsRead($request);
