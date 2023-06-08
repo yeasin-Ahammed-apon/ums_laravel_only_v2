@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTemporarStudentIdToTemporaryStudentPaymentHistoryTable extends Migration
+class CreateStudentAdvanceAmountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddTemporarStudentIdToTemporaryStudentPaymentHistoryTable extends Migratio
      */
     public function up()
     {
-        Schema::table('temporary_student_payment_histories', function (Blueprint $table) {
-            $table->integer('temporary_student_id')->after('id');
+        Schema::create('student_advance_amounts', function (Blueprint $table) {
+            $table->id();
+            $table->integer('student_id');
+            $table->bigInteger('amount')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddTemporarStudentIdToTemporaryStudentPaymentHistoryTable extends Migratio
      */
     public function down()
     {
-        Schema::table('temporary_student_payment_histories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('student_advance_amounts');
     }
 }

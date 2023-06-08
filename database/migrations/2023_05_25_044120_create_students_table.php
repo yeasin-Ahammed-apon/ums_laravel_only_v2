@@ -19,7 +19,9 @@ class CreateStudentsTable extends Migration
             $table->integer('admit_batch_id');
             $table->integer('active_batch_id');
             $table->integer('student_info_id');
-            $table->integer('student_payment_info_id');
+            $table->bigInteger('student_advance_amount_id')->nullable();
+            $table->bigInteger('temporary_id');
+            $table->integer('student_admit_info_id');
             $table->integer('education_info_id');
             $table->timestamps();
         });

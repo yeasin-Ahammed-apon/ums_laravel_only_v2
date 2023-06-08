@@ -82,7 +82,9 @@
                     <td class="text-sm text-bold">{{ number_format($data->admission_fee, 2) }} tk.</td>
                     <td class="text-sm">{{ number_format($data->admission_fee_given, 3) }} tk.</td>
                     <td>
+                        {{-- if admission not close --}}
                         @if (!$data->batch->admission_close)
+                        {{-- if all fee given --}}
                             @if ($data->admission_fee_given >= $data->admission_fee)
                                 <a href="{{ route('admission.student.create', $data->id) }}" onclick="disableButton(this)"
                                     class="btn btn-sm mt-1 mb-1 btn-outline-success "><i class="fa fa-circle"
@@ -98,11 +100,14 @@
                         @endif
                     </td>
                     <td class="text-center">
+                        {{-- view --}}
                         <a href="{{ route('admission.temporaryStudent.show', $data->id) }}"
                             class="btn btn-sm mt-1 mb-1 btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        {{-- edit --}}
                         <a href="{{ route('admin.account.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-primary"><i
                                 class="fa fa-cogs" aria-hidden="true"></i>
                         </a>
+                        {{-- delete --}}
                         <a href="{{ route('admin.account.edit', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-danger"><i
                                 class="fas fa-trash"></i>
                         </a>
@@ -112,7 +117,7 @@
             </tbody>
         </table>
         @if ($datas->isEmpty())
-            <h1 class="text-center text-black-50">No Data Found</h1>
+            <h1 class="text-center">No Data Found</h1>
         @endif
     </div>
     <!-- /.card-body -->

@@ -1,29 +1,10 @@
 @extends('layout')
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'admin.account.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'admin.account.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
 @section('meta-tag')
-    Create Admin
+    Create account
 @endsection
-
-
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin Create Form',
+        'title' => $title ?? 'account Create Form',
         'color' => 'card-primary',
     ])
     <!-- general form elements -->

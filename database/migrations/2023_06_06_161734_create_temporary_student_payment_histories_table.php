@@ -15,7 +15,7 @@ class CreateTemporaryStudentPaymentHistoriesTable extends Migration
     {
         Schema::create('temporary_student_payment_histories', function (Blueprint $table) {
             $table->id();
-            // temporary_student_id in another file;
+            $table->integer('temporary_student_id');
             $table->integer('account_id');
             $table->bigInteger('amount');
             $table->string('account_name');

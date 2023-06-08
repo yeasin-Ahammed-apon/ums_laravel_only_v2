@@ -11,7 +11,7 @@ class AdmissionController extends Controller
 
     public function dashboard()
     {
-        $datas = Batch::where('status', 0)->orderBy('created_at', 'desc')->get();
+        $datas = Batch::where('admission_close', 0)->orderBy('created_at', 'desc')->get();
         return view('admission.dashboard.dashboard', ['datas' => $datas]);
     }
     public function profile()

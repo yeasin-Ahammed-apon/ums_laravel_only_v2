@@ -65,7 +65,7 @@
             </tbody>
         </table>
         @if ($admission_batch->isEmpty())
-            <h1 class="text-center text-black-50">No Data Found</h1>
+            <h1 class="text-center">No Data Found</h1>
         @endif
     </div>
 

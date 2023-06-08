@@ -736,6 +736,12 @@ if (!function_exists('accountSidebarOption')) {
                 'route' => 'account.temporary.payment.list',
                 'enabled' => "1",
             ],
+            [
+                'title' => 'Temporary payment History',
+                'icon' => 'fas fa-address-card',
+                'route' => 'account.temporary.payment.history',
+                'enabled' => "1",
+            ],
         ];
         return json_encode($accountSidebarOption);
     }
@@ -760,6 +766,12 @@ if (!function_exists('admissionSidebarOption')) {
                 'title' => 'Temporary Student List.',
                 'icon' => 'fas fa-th-list',
                 'route' => 'admission.temporaryStudent.list',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Temporary Payment History.',
+                'icon' => 'fas fa-th-list',
+                'route' => 'admission.temporaryStudent.history',
                 'enabled' => "1",
             ],
             [

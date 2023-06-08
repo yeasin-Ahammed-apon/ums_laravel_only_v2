@@ -25,6 +25,7 @@ class CreateStudentInfosTable extends Migration
             $table->string('emergency_phone')->default(null);
             $table->string('emergency_phone_name')->default(null);
             $table->integer('blood_group_id')->default(null);
+            $table->integer('gender_id')->nullable();
             $table->timestamps();
         });
     }
