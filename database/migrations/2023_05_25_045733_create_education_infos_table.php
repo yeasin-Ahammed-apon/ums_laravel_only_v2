@@ -17,10 +17,11 @@ class CreateEducationInfosTable extends Migration
             $table->id();
             $table->integer('student_id');
             $table->integer('board_id')->default(0);
-            $table->string('name');
-            $table->float('double', 5, 2);
-            $table->year('year');
-            $table->year('session');
+            $table->string('title');
+            $table->string('pdf')->nullable();
+            $table->float('result', 5, 2);
+            $table->year('year')->nullable();
+            $table->year('session')->nullable();
             $table->timestamps();
         });
     }

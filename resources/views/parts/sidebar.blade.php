@@ -33,9 +33,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('login') }}" class="brand-link">
-        <img src="https://smuct.ac.bd/wp-content/uploads/2020/10/SMUCT-Logo-1-Converted.png" alt="AdminLTE Logo"
+        <img src="{{ asset('institutionImage/ums.png') }}" alt="AdminLTE Logo"
             class="brand-image img-rounded elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">SMUCT</span>
+        <span class="brand-text font-weight-light">UMS</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">

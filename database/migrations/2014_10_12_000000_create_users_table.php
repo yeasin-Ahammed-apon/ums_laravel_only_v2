@@ -18,7 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('login_id')->unique();
             $table->string('password');
-            $table->string('gender_id');
+            $table->integer('gender_id')->nullable();
+            $table->integer('blood_group_id')->nullable();
             $table->string('image');
             $table->integer('role_id');
             $table->integer('department_id')->default(0);// mean admin,account,admission

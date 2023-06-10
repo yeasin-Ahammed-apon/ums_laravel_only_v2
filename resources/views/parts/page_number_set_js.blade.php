@@ -5,7 +5,6 @@ function pageNumberSet() {
         type: 'GET',
         url: "{{ route($page_number_url) }}",
         data: {
-            _token: '{{ csrf_token() }}',
             pageData,
         },
         success: function(data) {

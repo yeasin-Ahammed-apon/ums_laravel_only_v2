@@ -9,7 +9,6 @@
     background:  inherit;
     background: brightness(120%);
 }
-
 [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-treeview {
     background: inherit;
 
@@ -19,36 +18,30 @@
     background-color: inherit;
     border-radius: 0%;
 }
-
 .table th {
     background-color: rgb(214, 217, 240);
     color: rgb(0, 0, 0);
     padding: 0.7rem;
 }
-
 .table td {
     padding: 0.2rem;
     padding-left: 0.8rem;
     /* text-align: center; */
 }
-
 .sticky-top {
 
     position: sticky;
     top: 0;
 }
-
 .box {
     color: black;
     text-decoration: none;
 }
-
 .info-box:hover,
 .info-box-text:hover {
     color: white;
     background: rgb(45, 45, 151);
 }
-
 .dashboard_icon_color {
     color: rgb(255, 255, 255)
 }
@@ -58,7 +51,19 @@
 .nav-item a{
     color: white;
 }
-
+.custom-form-control{
+    padding: 1px;
+    padding-left:5px ;
+    height: auto;
+}.custom-form-group{
+    margin-bottom: 10px;
+}
+.custom-file-input,.custom-file-label,.custom-file-label::after{
+    height: auto ;
+    padding: 1px;
+    line-height: normal;
+    padding-left:5px ;
+}
 @media (max-width: 767.98px) {
     .border-right {
         border-right: none !important;

@@ -17,7 +17,6 @@ class CreateTemporaryStudentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('created_by')->nullable();// user id  of admission
-            $table->integer('admited_by')->nullable();// user id  of admission
             $table->bigInteger('temporary_id');
             $table->bigInteger('batch_id');
             $table->bigInteger('admission_discount')->default(0);

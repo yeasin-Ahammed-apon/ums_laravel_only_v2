@@ -18,14 +18,12 @@ class CreateStudentInfosTable extends Migration
             $table->integer('student_id');
             $table->string('father_name');
             $table->string('mother_name');
-            $table->string('present_address')->default(null);
-            $table->string('permanent_address')->default(null);
-            $table->string('email')->default(null);
-            $table->string('phone')->default(null);
-            $table->string('emergency_phone')->default(null);
-            $table->string('emergency_phone_name')->default(null);
-            $table->integer('blood_group_id')->default(null);
-            $table->integer('gender_id')->nullable();
+            $table->string('present_address')->nullable();
+            $table->string('permanent_address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone');
+            $table->string('emergency_phone')->nullable();
+            $table->string('emergency_phone_name')->nullable();
             $table->timestamps();
         });
     }
