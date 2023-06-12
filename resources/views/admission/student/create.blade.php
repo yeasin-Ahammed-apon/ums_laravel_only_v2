@@ -138,10 +138,10 @@
                     <label>image</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" name="image"
+                            <input type="file" name="image" id="custom-file-input"
                                 class="custom-file-input  @error('image') is-invalid @enderror"
                                 accept="image/png, image/jpeg, image/jpg" onchange="previewImage(event)">
-                            <label class="custom-file-label">Choose Image</label>
+                            <label class="custom-file-label" id="custom-file-label">Choose Image</label>
                         </div>
                     </div>
                     <div class="mt-2">
@@ -155,7 +155,6 @@
                 <button type="submit" class="btn btn-sm mt-1 mb-1 btn-primary" onclick="disableButton(this)">
                     Update
                 </button>
-
             </div>
         </form>
     </div>
@@ -166,6 +165,7 @@
 @section('scripts')
     <script>
         document.getElementById('image-preview').style.display = 'none';
+
         function previewImage(event) {
             var reader = new FileReader();
             reader.onload = function() {

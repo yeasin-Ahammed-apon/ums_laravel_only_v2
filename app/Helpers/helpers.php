@@ -6,6 +6,24 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+
+if (!function_exists('storeFile')) {
+    function storeFile($request,$path)
+    {
+        if ($request->file('image')) $file = $request->file('image');
+        if ($request->file('pdf')) $file = $request->file('pdf');
+        $fileName = time() . '-' . $file->getClientOriginalName();
+        $filePath = public_path($path);
+        $file->move($filePath, $fileName);
+        return ["file" => $file, "fileName" => $fileName];
+    }
+}
+if (!function_exists('deleteFile')) {
+    function deleteFile($file,$path){
+        $filePath = public_path($path);
+        unlink($filePath . $file['imageName']);
+    }
+}
 if (!function_exists('ordinalFormat')) {
     function ordinalFormat($number) {
         $suffix = 'th';

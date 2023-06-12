@@ -34,7 +34,7 @@
             <div class="card-body row">
                 <div class="form-group col-12 col-sm-6">
                     <label for="admission_fee_given">Admission Fee Given</label>
-                    <input type="telephone"  name="admission_fee_given"
+                    <input type="telephone"  name="admission_fee_given" value="0"
                         class="form-control @error('admission_fee_given') is-invalid @enderror" id="admission_fee_given" placeholder="Enter admission_fee_given">
                     {!! validationError('admission_fee_given', $errors) !!}
                 </div>

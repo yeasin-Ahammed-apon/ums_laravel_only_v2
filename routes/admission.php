@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\admission\AdmissionBatchController as Batch;
-use App\Http\Controllers\admission\AdmissionController;
-use App\Http\Controllers\admission\AdmissionStudentController;
+use App\Http\Controllers\admission\AdmissionController As Admission;
+use App\Http\Controllers\admission\AdmissionStudentController As Student;
 use App\Http\Controllers\admission\AdmissionTemporaryStudentController as Temporary;
 use Illuminate\Support\Facades\Route;
 
@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Route;
 // hod routes
 Route::middleware(['auth', 'CheckRole:admission'])->group(function () {
     Route::prefix('/admission')->group(function () {
-        Route::get('/dashboard', [AdmissionController::class, "dashboard"])->name('admission.dashboard');
-        Route::get('/profile', [AdmissionController::class, "profile"])->name('admission.profile');
+        Route::get('/dashboard', [Admission::class, "dashboard"])->name('admission.dashboard');
+        Route::get('/profile', [Admission::class, "profile"])->name('admission.profile');
 
         // Temporary to Parmanent stundet
-        Route::get('/student/create/{temporaryStudent}', [AdmissionStudentController::class, "create"])->name('admission.student.create');
-        Route::post('/student/store/{temporaryStudent}', [AdmissionStudentController::class, "store"])->name('admission.student.store');
-
+        Route::get('/student/list', [Student::class, "list"])->name('admission.student.list');
+        Route::get('/student/create/{temporaryStudent}', [Student::class, "create"])->name('admission.student.create');
+        Route::post('/student/store/{temporaryStudent}', [Student::class, "store"])->name('admission.student.store');
+        Route::get('/student/education/create/{user}', [Student::class, "education_create"])->name('admission.student.education_create');
+        Route::post('/student/education/store/{user}', [Student::class, "education_store"])->name('admission.student.education_store');
 
         // Temporary
         Route::get('/student/temporaryStudent/history', [Temporary::class, "history"])->name('admission.temporaryStudent.history');
@@ -26,6 +28,7 @@ Route::middleware(['auth', 'CheckRole:admission'])->group(function () {
         Route::post('/student/{batch}/temporaryStudent/store', [Temporary::class, "store"])->name('admission.temporaryStudent.store');
         Route::get('/student/{temporaryStudent}/print', [Temporary::class, "print"])->name('admission.temporaryStudent.print');
 
+        //batch data
         Route::get('/batch/list', [Batch::class, "list"])->name('admission.batch.list');
         Route::get('/{batch}/show', [Batch::class, "show"])->name('admission.batch.show');
     });

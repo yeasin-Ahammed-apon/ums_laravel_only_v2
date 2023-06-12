@@ -26,6 +26,7 @@ Route::get('/',function (){
 Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'authenticate'])->name('authenticate');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+// Route::get('/education/pdf/{pdf}',[AuthController::class,'pdf'])->name('pdf');
 
 // multiple user check (superAdmin and admin)
 Route::middleware(['auth', 'CheckRole:superAdmin&admin'])->group(function () {

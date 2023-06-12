@@ -58,7 +58,7 @@
 }.custom-form-group{
     margin-bottom: 10px;
 }
-.custom-file-input,.custom-file-label,.custom-file-label::after{
+#custom-file-input,#custom-file-label,#custom-file-label::after{
     height: auto ;
     padding: 1px;
     line-height: normal;

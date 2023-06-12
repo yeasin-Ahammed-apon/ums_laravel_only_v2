@@ -21,6 +21,10 @@ class AccountTemporaryStudentController extends Controller
         ]);
     }
     public function edit(TemporaryStudent $temporaryStudent){
+        if ($temporaryStudent->admission_fee_given >=$temporaryStudent->admission_fee ) {
+            fmassage('Warning','This Student Admission is given, no need to add more','warning');
+            return redirect()->back();
+        }
         return view('account.temporaryStudent.edit',[
             "data"=>$temporaryStudent,
         ]);

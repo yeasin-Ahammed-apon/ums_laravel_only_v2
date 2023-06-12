@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('department_id')->default(0);// mean admin,account,admission
             $table->integer('permission_id')->nullable();
             $table->boolean('status')->default(1);//1 mean active , 0 mean deactive
+            $table->boolean('education')->default(0);//1 mean active , 0 mean deactive
             $table->bigInteger('created_by');
             $table->rememberToken();
             $table->timestamps();

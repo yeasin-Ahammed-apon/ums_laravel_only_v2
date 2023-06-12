@@ -28,6 +28,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function education_info(){
+        return $this->hasMany(EducationInfo::class);
+    }
     public function permission()
     {
         return $this->hasOne(Permission::class);
@@ -56,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Admission::class);
     }
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
 }
