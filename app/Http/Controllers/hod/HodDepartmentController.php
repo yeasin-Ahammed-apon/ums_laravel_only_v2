@@ -9,8 +9,11 @@ use App\Models\BatchWaiver;
 use App\Models\Deparment;
 use App\Models\DepartmentWaiver;
 use App\Models\HodDepartmentAssign;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HodDepartmentController extends Controller
 {
@@ -144,5 +147,22 @@ class HodDepartmentController extends Controller
                 fmassage('Fail', 'batch  create fail', 'error');
                 return redirect()->route('hod.batch.admission.list', $department_id);
         }
+    }
+    public function student_list(Request $request,$department_id,$batch){
+    $this->pageData = pageDataCheck($request);
+        // $datas = Student::where('admit_batch_id',$batch)->orderBy('created_at', 'desc')->paginate(10);
+    $datas = DB::table('students') // something fishy going on with model , that whay using query builder
+    ->join('users', 'students.user_id', '=', 'users.id')
+    ->select('students.*', 'users.*')
+    ->where('students.admit_batch_id', $batch)
+    ->orderBy('students.created_at', 'desc')
+    ->paginate($this->pageData);
+
+        return view('hod.student.list',[
+            'datas'=>$datas,
+            'department_id'=>$department_id,
+            'batch'=>$batch,
+            'pageData'=>$this->pageData
+        ]);
     }
 }

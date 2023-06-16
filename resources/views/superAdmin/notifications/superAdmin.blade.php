@@ -2,25 +2,6 @@
 @section('meta-tag')
     Admin list
 @endsection
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'superAdmin.hod.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'superAdmin.hod.index',
-                'enable' => false,
-            ],
-        ],
-
-    ])
-@endsection --}}
-
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Admin list table',
@@ -116,5 +97,5 @@
 @endsection
 @section('scripts')
     @include('parts.multiple_check_js',['multiple_check_url'=>'superAdmin.notification.superAdmin'])
-    @include('parts.page_number_set_js',['page_number_url'=>'superAdmin.notification.superAdmin'])
+    @include('parts.page_number_set_js',['page_number_url'=>Route::currentRouteName()])
 @endsection

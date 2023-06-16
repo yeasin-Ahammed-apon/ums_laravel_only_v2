@@ -50,7 +50,7 @@
                         <a href="{{ route('hod.batch.info', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                              Info</a>
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-success">
+                        <a href="{{ route('hod.batch.student.list', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-success">
                             <i class="fas fa-eye    "></i>
                             Students</a>
                         @if ($data->batchPaymentInfo->duration_semester === $data->semester){{-- if semester complete  --}}

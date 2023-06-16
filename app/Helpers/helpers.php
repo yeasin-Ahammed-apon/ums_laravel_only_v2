@@ -5,14 +5,17 @@ use App\Models\EmployeesNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 
 if (!function_exists('storeFile')) {
     function storeFile($request,$path)
     {
+
         if ($request->file('image')) $file = $request->file('image');
         if ($request->file('pdf')) $file = $request->file('pdf');
-        $fileName = time() . '-' . $file->getClientOriginalName();
+        $uuid = Str::uuid()->toString();
+        $fileName = time() .$uuid.'-'.$file->getClientOriginalName();
         $filePath = public_path($path);
         $file->move($filePath, $fileName);
         return ["file" => $file, "fileName" => $fileName];
@@ -109,6 +112,7 @@ if (!function_exists('dataDecode')) {
 if (!function_exists('pageDataCheck')) {
     function pageDataCheck($request)
     {
+        // dd($request->page);
         if ($request->pageData) return $pageData = intval($request->pageData);
         else return $pageData = 10;
     }

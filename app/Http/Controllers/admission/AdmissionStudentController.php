@@ -25,17 +25,18 @@ class AdmissionStudentController extends Controller
                 'data' => $temporaryStudent
             ]);
         }
-        fmassage('Warning',"this student is Already Created",'warning');
+        fmassage('Warning', "this student is Already Created", 'warning');
         return redirect()->back();
     }
-    public function list(){
-        $role_id = Role::where('name','student')->first()->id;
-        $datas = User::where('role_id',$role_id)->where('status',1)->orderBy('created_at', 'desc')->paginate($this->pageData);
-        return view('admission.student.list',[
-            'datas'=>$datas,
-            'pageData'=>$this->pageData
+    public function list(Request $request)
+    {
+        $this->pageData = pageDataCheck($request);
+        $role_id = Role::where('name', 'student')->first()->id;
+        $datas = User::where('role_id', $role_id)->where('status', 1)->orderBy('created_at', 'desc')->paginate($this->pageData);
+        return view('admission.student.list', [
+            'datas' => $datas,
+            'pageData' => $this->pageData
         ]);
-
     }
     public function store(Request $request, TemporaryStudent $temporaryStudent)
     {
@@ -86,7 +87,7 @@ class AdmissionStudentController extends Controller
         $student_admit_info_id = null;
         // add user and store the id
         $user = new User();
-        $image = storeFile($request,'/users/images');
+        $image = storeFile($request, '/users/images');
         if ($image['file']) { // If the image was successfully stored, update the $user model's image property
             $user->name = $name;
             $user->login_id = $login_id;
@@ -107,7 +108,7 @@ class AdmissionStudentController extends Controller
                 $student->user_id = $user_id;
                 $student->admit_batch_id = $temporaryStudent->batch->id;
                 $student->active_batch_id = $temporaryStudent->batch->id;
-                $student->temporary_id = $temporaryStudent->temporary_id;
+                $student->temporary_id = $temporary_id;
                 $student->save();
                 if ($student) {
                     $student_id = $student->id; // storing student id
@@ -124,7 +125,7 @@ class AdmissionStudentController extends Controller
                     $student_info->emergency_phone_name = $emergency_phone_name;
                     $student_info->save();
                     if ($student_info) {
-                        $student_info_id = $student_info->id;// storing student_info id
+                        $student_info_id = $student_info->id; // storing student_info id
                         // add student_admit_info and store the id
                         $batch_payment_info = $temporaryStudent->batch->batchPaymentInfo;
                         $student_admit_info = new StudentAdmitInfo();
@@ -138,7 +139,7 @@ class AdmissionStudentController extends Controller
                         $student_admit_info->total_fee = $batch_payment_info->total_fee;
                         $student_admit_info->save();
                         if ($student_admit_info) {
-                            $student_admit_info_id = $student_admit_info->id;// storing student_admit_info id
+                            $student_admit_info_id = $student_admit_info->id; // storing student_admit_info id
                             // add student_advance_amount and store the id
                             $student_advance_amount = new StudentAdvanceAmount();
                             $student_advance_amount->student_id = $student_id;
@@ -147,7 +148,7 @@ class AdmissionStudentController extends Controller
                             if ($student_advance_amount) {
                                 // increase batch total student
                                 $batch = Batch::find($temporaryStudent->batch->id);
-                                $batch->total_student = $batch->total_student+1;
+                                $batch->total_student = $batch->total_student + 1;
                                 $batch->save();
                                 $temporaryStudent->status = 0;
                                 $temporaryStudent->save();
@@ -162,7 +163,7 @@ class AdmissionStudentController extends Controller
                                 $student_info->delete();
                                 $student_admit_info = StudentAdmitInfo::find($student_admit_info_id);
                                 $student_admit_info->delete();
-                                deleteFile($image,'/users/images');
+                                deleteFile($image, '/users/images');
                                 fmassage('Fail', "Student created Fail,Something went wrong with 'student_advance_amount'", 'error');
                                 return redirect()->back();
                             }
@@ -173,7 +174,7 @@ class AdmissionStudentController extends Controller
                             $student->delete();
                             $student_info = StudentInfo::find($student_info_id);
                             $student_info->delete();
-                            deleteFile($image,'/users/images');
+                            deleteFile($image, '/users/images');
                             fmassage('Fail', "Student created Fail,Something went wrong with 'student_admit_info'", 'error');
                             return redirect()->back();
                         }
@@ -182,30 +183,32 @@ class AdmissionStudentController extends Controller
                         $user->delete();
                         $student = Student::find($student_id);
                         $student->delete();
-                        deleteFile($image,'/users/images');
+                        deleteFile($image, '/users/images');
                         fmassage('Fail', "Student created Fail,Something went wrong with 'student_info'", 'error');
                         return redirect()->back();
                     }
                 } else {
                     $user = User::find($user_id);
                     $user->delete();
-                    deleteFile($image,'/users/images');
+                    deleteFile($image, '/users/images');
                     fmassage('Fail', "Student created Fail,Something went wrong with 'student'", 'error');
                     return redirect()->back();
                 }
             } else {
-                deleteFile($image,'/users/images');
+                deleteFile($image, '/users/images');
                 fmassage('Fail', "Student created Fail,Something went wrong with 'user'", 'error');
                 return redirect()->back();
             }
         }
     }
-    public function education_create(User $user){
-        return view("admission.student.education",[
-            'data'=>$user
+    public function education_create(User $user)
+    {
+        return view("admission.student.education", [
+            'data' => $user
         ]);
     }
-    public function education_store(Request $request,User $user){
+    public function education_store(Request $request, User $user)
+    {
         $validatedData = $request->validate([
             'title' => 'required',
             'board_id' => 'required',
@@ -214,23 +217,23 @@ class AdmissionStudentController extends Controller
             'session' => 'required',
             'pdf' => 'required|mimes:pdf|max:2048',
         ]);
-         $education_info = new EducationInfo();
-         $education_info->user_id = $user->id;
-         $education_info->title = $request->title;
-         $education_info->board_id = $request->board_id;
-         $education_info->result = $request->result;
-         $education_info->year = $request->year;
-         $education_info->session = $request->session;
-         $file = storeFile($request,'/users/education');
-         if ($file) {
-             $education_info->pdf = $file['fileName'];
-             $education_info->save();
-             $user->education = true;
-             $user->save();
-             fmassage('success','Education info saved','success');
-             return redirect()->back();
-         }
-        fmassage('Fail','Education info not saved','error');
+        $education_info = new EducationInfo();
+        $education_info->user_id = $user->id;
+        $education_info->title = $request->title;
+        $education_info->board_id = $request->board_id;
+        $education_info->result = $request->result;
+        $education_info->year = $request->year;
+        $education_info->session = $request->session;
+        $file = storeFile($request, '/users/education');
+        if ($file) {
+            $education_info->pdf = $file['fileName'];
+            $education_info->save();
+            $user->education = true;
+            $user->save();
+            fmassage('success', 'Education info saved', 'success');
+            return redirect()->back();
+        }
+        fmassage('Fail', 'Education info not saved', 'error');
         return redirect()->back();
     }
 }

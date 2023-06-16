@@ -6,6 +6,7 @@ use App\Http\Controllers\DeparmentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\HodDepartmentAssignController;
 use App\Http\Controllers\ProgramController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +20,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // there is also superAdmin,admin,hod,cod,account,admission.php for there respectful role wise
+Route::get('clear-all', function () {
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:cache');
+    \Illuminate\Support\Facades\Artisan::call('clear-compiled');
+    \Illuminate\Support\Facades\Artisan::call('route:clear');
+    dd('Cached Cleared' . ' view:clear ' . ' config:clear ' .
+    ' cache:clear ' . ' config:cache ' . ' clear-compiled ' .
+    ' route:clear ');
+});
 
-Route::get('/',function (){
+Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
-Route::get('/login',[AuthController::class,'login'])->name('login');
-Route::post('/login',[AuthController::class,'authenticate'])->name('authenticate');
-Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('/users/education/{filename}', function () {
+//     if (Auth::check()) {
+//         return "ok";
+//     } else {
+//         abort(404);
+//     }
+// });
+
 // Route::get('/education/pdf/{pdf}',[AuthController::class,'pdf'])->name('pdf');
 
 // multiple user check (superAdmin and admin)
@@ -40,4 +60,3 @@ Route::middleware(['auth', 'CheckRole:superAdmin&admin'])->group(function () {
     Route::resource('/auth/department', DeparmentController::class)->names('department');
     Route::resource('/auth/hod_department_assign', HodDepartmentAssignController::class)->names('hod.department.assign');
 });
-

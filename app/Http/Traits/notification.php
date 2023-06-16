@@ -117,8 +117,8 @@ trait notification{
             'teacher' => 'teacher.notifications.',
         ];
         $this->url = $urlMapping[$role] ?? '';
-        
-        pageDataCheck($request);
+
+        $this->pageData = pageDataCheck($request);
         $view = $this->selectedValues($request);
         if ($view) return $view;
         $view = $this->markAsRead($request);

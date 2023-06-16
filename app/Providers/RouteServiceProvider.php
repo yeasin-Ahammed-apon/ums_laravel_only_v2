@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
                 $route_files = [
                     'web','superAdmin','admin','teacher','student',
-                    'hod','cod','account','admission'
+                    'hod','cod','account','admission','hr'
                 ];
                 foreach ($route_files as  $route_file) {
                     Route::middleware('web')

@@ -1,17 +1,17 @@
 @extends('layout')
 @section('meta-tag')
-    Admission open batch list
+    Student list
 @endsection
 @section('content')
     @include('parts.title_start', [
-        'title' => $title ?? 'Admin list table',
-        'color' => 'card-primary',
+        'title' => $title ?? 'Student list table',
+        'color' => 'card-info',
     ])
     <div class="card shadow ">
         <div class="card-header">
             <h3 class="card-title"> List</h3>
             <div class="card-tools">
-                <form action="{{ route('department.index') }}" method="GET">
+                <form method="GET">
                     @csrf
                     <div class="input-group input-group-sm">
                         @include('parts.card_tool_option_per_page', ['pageData' => $pageData])
@@ -44,38 +44,30 @@
                 <tr class=" text-sm">
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Temporary id</th>
                     <th>Status</th>
-                    <th class="text-center text-xs">Education</th>
+                    <th class="text-center text-xs">Info</th>
                 </tr>
             </thead>
             <tbody>
-
                 @foreach ($datas as $data)
                     <td class="text-sm text-bolder">{{ $data->login_id }}</td>
                     <td class="text-sm text-bolder">{{ $data->name }}</td>
-                    <td class="text-sm text-bolder">{{ $data->student->temporary_id }}</td>
                     <td class="text-center">
                         @if ($data->status)
                             <span class="btn btn-sm mt-1 mb-1 btn-success">
                                 <i class="fas fa-eye    "></i>
                             </span>
                         @else
-                        <span class="btn btn-sm mt-1 mb-1 btn-danger">
-                            <i class="fas fa-eye-slash"></i>
-                        </span>
+                            <span class="btn btn-sm mt-1 mb-1 btn-danger">
+                                <i class="fas fa-eye-slash"></i>
+                            </span>
                         @endif
                     </td>
-                    <td>
-                        @if ($data->education)
-                        <a href="{{ route('admission.student.education_create', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-secondary" >
-                            <i class="fas fa-plus    "></i>
+                    <td class="text-center">
+                        <a href="{{ route('admission.student.education_create', $data->id) }}"
+                            class="btn btn-sm mt-1 mb-1 btn-info">
+                            <i class="fas fa-info-circle    "></i>
                         </a>
-                        @else
-                        <a href="{{ route('admission.student.education_create', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
-                            <i class="fas fa-plus    "></i>
-                        </a>
-                        @endif
                     </td>
                     </tr>
                 @endforeach
@@ -99,5 +91,9 @@
     @include('parts.title_end')
 @endsection
 @section('scripts')
-    @include('parts.page_number_set_js', ['page_number_url' => Route::currentRouteName()])
+    @include('parts.page_number_set_js2', [
+        'page_number_url' => Route::currentRouteName(),
+        'p1' => $department_id,
+        'p2' => $batch,
+    ])
 @endsection

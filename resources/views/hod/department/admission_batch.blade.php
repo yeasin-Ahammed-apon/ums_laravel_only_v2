@@ -50,7 +50,7 @@
                         <a href="{{ route('hod.batch.info', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                             Info</a>
-                        <a href="{{ route('admin.cod.show', $data->id) }}" class="btn btn-sm mt-1 mb-1 btn-info">
+                        <a href="{{ route('hod.batch.student.list', [$department_id,$data->id]) }}" class="btn btn-sm mt-1 mb-1 btn-info">
                             <i class="fas fa-eye    "></i>
                             Students</a>
                         <a href="{{ route('hod.batch.active', [$department_id, $data->id]) }}"

@@ -16,6 +16,7 @@ class AuthController extends Controller
         'cod' => 'cod.dashboard',
         'account' => 'account.dashboard',
         'admission' => 'admission.dashboard',
+        'hr' => 'hr.dashboard',
     ];
     public function redirectRoleWise()
     {
@@ -51,15 +52,11 @@ class AuthController extends Controller
             fmassage('Welcome', Auth::user()->name, 'success');
             return $this->redirectRoleWise();
         }
-        return back();
+        return redirect()->back();
     }
     public function logout()
     {
         Auth::logout();
         return redirect()->route('login');
-    }
-    public function pdf($pdf)
-    {
-        
     }
 }
