@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\superAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\SuperAdmin;
+use App\Http\Traits\userManagementTrait;
 use App\Models\Cod;
 use App\Models\Hod;
 use App\Models\Role;
@@ -14,17 +14,16 @@ use Illuminate\Support\Facades\Auth;
 
 class SuperAdminTeacherController extends Controller
 {
-    use SuperAdmin;
+    use userManagementTrait;
     private $data;
     private $datas;
-    private $authUser = 'superAdmin';
     public function index(Request $request)
     {
         return $this->showUserList(Teacher::class, $request, 'teacher');
     }
     public function create()
     {
-        return view('superAdmin.teacher.create');
+        return $this->CreateUser('teacher');
     }
     public function store(Request $request)
     {

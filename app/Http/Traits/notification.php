@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 trait notification{
     private $data;
     private $datas;
-
     private $url;
     // private $pageData;
     public function selectedValues($request)
@@ -95,6 +94,7 @@ trait notification{
     }
     public function normalRrturn($role, $viewUrl)
     {
+        // dd($role);
         $this->datas = EmployeesNotification::where('role', $role)
             ->orderBy('created_at', 'desc')
             ->with('user')
@@ -106,7 +106,7 @@ trait notification{
     }
     public function notification($request, $role)
     {
-        $role = Auth::user()->role->name;
+        $authUser = Auth::user()->role->name;
         $urlMapping = [
             'superAdmin' => 'superAdmin.notifications.',
             'admin' => 'admin.notifications.',
@@ -115,8 +115,11 @@ trait notification{
             'account' => 'account.notifications.',
             'admission' => 'admission.notifications.',
             'teacher' => 'teacher.notifications.',
+            'hr' => 'hr.notifications.',
+            'storeManager' => 'storeManager.notifications.',
+            'librarian' => 'librarian.notifications.',
         ];
-        $this->url = $urlMapping[$role] ?? '';
+        $this->url = $urlMapping[$authUser] ?? '';
 
         $this->pageData = pageDataCheck($request);
         $view = $this->selectedValues($request);

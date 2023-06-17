@@ -25,6 +25,8 @@ class RolesTableSeeder extends Seeder
                 ['name' => 'account'],
                 ['name' => 'admission'],
                 ['name' => 'hr'],
+                ['name' => 'storeManager'],
+                ['name' => 'librarian'],
                 // Add more users here...
             ]);
         }

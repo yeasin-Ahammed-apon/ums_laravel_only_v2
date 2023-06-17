@@ -3,23 +3,22 @@
 namespace App\Http\Controllers\superAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\SuperAdmin;
+use App\Http\Traits\userManagementTrait;
 use App\Models\Account;
 use Illuminate\Http\Request;
 
 class SuperAdminAccountController extends Controller
 {
-    use SuperAdmin;
+    use userManagementTrait;
     private $data;
     private $datas;
-    private $authUser = 'superAdmin';
     public function index(Request $request)
     {
         return $this->showUserList(Account::class, $request, 'account');
     }
     public function create()
     {
-        return view('superAdmin.account.create');
+        return $this->CreateUser('account');
     }
     public function store(Request $request)
     {

@@ -75,7 +75,13 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-warning navbar-badge">
+                    @if (Auth::user()->role->name === 'superAdmin')
+                        {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name])->where('seen', 0)->count() }}
+                    @elseif (Auth::user()->role->name === 'admin')
+                        {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name])->where('seen', 0)->count() }}
+                    @endif
+                </span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -104,9 +110,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  data-toggle="modal" role="button"
-                data-target="#modal-color">
-                <i class="fas fa-eye-dropper"></i>
+            <a class="nav-link" data-toggle="modal" role="button" data-target="#modal-color">
+                <i class="fas fa-user-cog    "></i>
             </a>
         </li>
         <li class="nav-item">

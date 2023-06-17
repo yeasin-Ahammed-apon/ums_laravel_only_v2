@@ -6,7 +6,6 @@ use App\Http\Controllers\DeparmentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\HodDepartmentAssignController;
 use App\Http\Controllers\ProgramController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,13 +37,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-// Route::get('/users/education/{filename}', function () {
-//     if (Auth::check()) {
-//         return "ok";
-//     } else {
-//         abort(404);
-//     }
-// });
+
 
 // Route::get('/education/pdf/{pdf}',[AuthController::class,'pdf'])->name('pdf');
 

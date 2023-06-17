@@ -17,6 +17,8 @@ class AuthController extends Controller
         'account' => 'account.dashboard',
         'admission' => 'admission.dashboard',
         'hr' => 'hr.dashboard',
+        'storeManager' => 'storeManager.dashboard',
+        'librarian' => 'librarian.dashboard',
     ];
     public function redirectRoleWise()
     {

@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 if (!function_exists('storeFile')) {
     function storeFile($request,$path)
     {
-
         if ($request->file('image')) $file = $request->file('image');
         if ($request->file('pdf')) $file = $request->file('pdf');
         $uuid = Str::uuid()->toString();

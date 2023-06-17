@@ -3,23 +3,22 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\SuperAdmin;
+use App\Http\Traits\userManagementTrait;
 use App\Models\Cod;
 use Illuminate\Http\Request;
 
 class AdminCodController extends Controller
 {
-    use SuperAdmin;
+    use userManagementTrait;
     private $data;
     private $datas;
-    private $authUser = 'admin';
     public function index(Request $request)
     {
         return $this->showUserList(Cod::class, $request, 'cod');
     }
     public function create()
     {
-        return view('admin.cod.create');
+        return $this->CreateUser('cod');
     }
     public function store(Request $request)
     {

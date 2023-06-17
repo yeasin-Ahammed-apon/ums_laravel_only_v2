@@ -6,9 +6,12 @@ use App\Http\Controllers\superAdmin\SuperAdminAdmissionController;
 use App\Http\Controllers\superAdmin\SuperAdminCodController;
 use App\Http\Controllers\superAdmin\SuperAdminController;
 use App\Http\Controllers\superAdmin\SuperAdminHodController;
+use App\Http\Controllers\superAdmin\SuperAdminHrController;
+use App\Http\Controllers\superAdmin\SuperAdminLibrarianController;
 use App\Http\Controllers\superAdmin\SuperAdminNotificationController;
 use App\Http\Controllers\superAdmin\SuperAdminPageSettingController;
 use App\Http\Controllers\superAdmin\SuperAdminSidebarController;
+use App\Http\Controllers\superAdmin\SuperAdminStoreManagerController;
 use App\Http\Controllers\superAdmin\SuperAdminTeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +51,15 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
         Route::get('/teacher/make/cod/{id}', [SuperAdminTeacherController::class, "cod"])->name('superAdmin.teacher.cod');
         Route::get('/teacher/status/{id}', [SuperAdminTeacherController::class, "status"])->name('superAdmin.teacher.status');
         Route::resource('/teacher', SuperAdminTeacherController::class)->names('superAdmin.teacher');
+        // hr
+        Route::get('/hr/status/{id}', [SuperAdminHrController::class, "status"])->name('superAdmin.hr.status');
+        Route::resource('/hr', SuperAdminHrController::class)->names('superAdmin.hr');
+        // librarian
+        Route::get('/librarian/status/{id}', [SuperAdminLibrarianController::class, "status"])->name('superAdmin.librarian.status');
+        Route::resource('/librarian', SuperAdminLibrarianController::class)->names('superAdmin.librarian');
+        // storeManager
+        Route::get('/storeManager/status/{id}', [SuperAdminStoreManagerController::class, "status"])->name('superAdmin.storeManager.status');
+        Route::resource('/storeManager', SuperAdminStoreManagerController::class)->names('superAdmin.storeManager');
         // notification user wise
         Route::get('/notification/superAdmin', [SuperAdminNotificationController::class, "notification_superAdmin"])->name('superAdmin.notification.superAdmin');
         Route::get('/notification/admin', [SuperAdminNotificationController::class, "notification_admin"])->name('superAdmin.notification.admin');
