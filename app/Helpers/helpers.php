@@ -636,6 +636,117 @@ if (!function_exists('adminSidebarOption')) {
         return json_encode($adminSidebarOption);
     }
 }
+if (!function_exists('hrSidebarOption')) {
+    function hrSidebarOption()
+    {
+        $hrSidebarOption = [
+            [
+                'title' => 'Dashboard',
+                'icon' => 'fas fa-th',
+                'route' => 'hr.dashboard',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Profile',
+                'icon' => 'fas fa-address-card',
+                'route' => 'hr.profile',
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Teacher',
+                'icon' => 'fas fa-chalkboard-teacher',
+                'sub_active_route' => 'hr.teacher*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Teacher List',
+                        'route' => 'hr.teacher.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Teacher',
+                        'route' => 'hr.teacher.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Hod',
+                'icon' => 'fas fa-user',
+                'sub_active_route' => 'hr.hod*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Hod List',
+                        'route' => 'hr.hod.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Hod',
+                        'route' => 'hr.hod.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Cod',
+                'icon' => 'fas fa-handshake',
+                'sub_active_route' => 'hr.cod*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Cod List',
+                        'route' => 'hr.cod.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Cod',
+                        'route' => 'hr.cod.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Account',
+                'icon' => 'fas fa-user',
+                'sub_active_route' => 'hr.account*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Account List',
+                        'route' => 'hr.account.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Account',
+                        'route' => 'hr.account.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
+                'title' => 'Admission',
+                'icon' => 'fas fa-user',
+                'sub_active_route' => 'hr.admission*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Admission List',
+                        'route' => 'hr.admission.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Add Admission',
+                        'route' => 'hr.admission.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+
+        ];
+        return json_encode($hrSidebarOption);
+    }
+}
 if (!function_exists('hodSidebarOption')) {
     function hodSidebarOption()
     {

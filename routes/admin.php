@@ -5,14 +5,17 @@ use App\Http\Controllers\admin\AdminAdmissionController;
 use App\Http\Controllers\admin\AdminCodController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminHodController;
+use App\Http\Controllers\admin\AdminHrController;
+use App\Http\Controllers\admin\AdminLibrarianController;
 use App\Http\Controllers\admin\AdminNotificationController;
+use App\Http\Controllers\admin\AdminStoreManagerController;
 use App\Http\Controllers\admin\AdminTeacherController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth', 'CheckRole:admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
-        //superAdmin
+        //admin
         Route::get('/dashboard', [AdminController::class, "dashboard"])->name('admin.dashboard');
         // admission
         Route::get('/admission/status/{id}', [AdminAdmissionController::class, "status"])->name('admin.admission.status');
@@ -32,6 +35,15 @@ Route::middleware(['auth', 'CheckRole:admin'])->group(function () {
         Route::get('/teacher/make/cod/{id}', [AdminTeacherController::class, "cod"])->name('admin.teacher.cod');
         Route::get('/teacher/status/{id}', [AdminTeacherController::class, "status"])->name('admin.teacher.status');
         Route::resource('/teacher', AdminTeacherController::class)->names('admin.teacher');
+        // hr
+        Route::get('/hr/status/{id}', [AdminHrController::class, "status"])->name('admin.hr.status');
+        Route::resource('/hr', AdminHrController::class)->names('admin.hr');
+        // librarian
+        Route::get('/librarian/status/{id}', [AdminLibrarianController::class, "status"])->name('admin.librarian.status');
+        Route::resource('/librarian', AdminLibrarianController::class)->names('admin.librarian');
+        // storeManager
+        Route::get('/storeManager/status/{id}', [AdminStoreManagerController::class, "status"])->name('admin.storeManager.status');
+        Route::resource('/storeManager', AdminStoreManagerController::class)->names('admin.storeManager');
         // notification user wise
         Route::get('/notification/admin', [AdminNotificationController::class, "notification_admin"])->name('admin.notification.admin');
         Route::get('/notification/hod', [AdminNotificationController::class, "notification_hod"])->name('admin.notification.hod');

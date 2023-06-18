@@ -8,188 +8,40 @@
         'color' => 'card-primary',
     ])
     <div>
-        <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Notifications</h5>
-        <div class="row">
-            <a href="{{ route('superAdmin.notification.admin', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(13, 199, 13)">
-                        <i class="fas fa-envelope dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Admin') }} Notification</span>
-                        <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'admin')->get()) }}
-                        </span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('superAdmin.notification.hod', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(218, 25, 25)">
-                        <i class="fas fa-envelope dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Hod') }} Notification</span>
-                        <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'hod')->get()) }}
-                        </span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('superAdmin.notification.cod', ['seen' => '0']) }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(0, 146, 127)">
-                        <i class="fas fa-envelope dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('cod') }} Notification</span>
-                        <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'cod')->get()) }}
-                        </span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('superAdmin.notification.account', ['seen' => '0']) }}"
-                class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(255, 14, 175)">
-                        <i class="fas fa-envelope dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('account') }} Notification</span>
-                        <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'account')->get()) }}
-                        </span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('superAdmin.notification.admission', ['seen' => '0']) }}"
-                class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: rgb(232, 255, 26)">
-                        <i class="fas fa-envelope dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('admission') }} Notification</span>
-                        <span class="info-box-number">
-                            {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'admission')->get()) }}
-                        </span>
-                    </div>
-                </div>
-            </a>
-        </div>
+        {{-- users list that hr can assess  --}}
+        @php
+                $roles = ['hod', 'cod', 'account', 'admission', 'librarian', 'storeManager', 'hr'];
+        @endphp
         <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">Create User</h5>
         <div class="row">
-            {{-- <a href="{{ route('superAdmin.admin.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Admin') }} Create</span>
+            @foreach ($roles as $role)
+                <a href="{{ route('hr.' . $role . '.create') }}" class="col-12 col-sm-6 col-md-3 box">
+                    <div class="info-box">
+                        <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
+                            <i class="fas fa-user-plus dashboard_icon_color"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{ Str::upper($role) }} Create</span>
+                        </div>
                     </div>
-                </div>
-            </a> --}}
-            <a href="{{ route('hr.hod.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Hod') }} Create</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hr.cod.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('cod') }} Create</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hr.account.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('account') }} Create</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hr.admission.create') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-                        <i class="fas fa-user-plus dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('admission') }} Create</span>
-                    </div>
-
-                </div>
-            </a>
+                </a>
+            @endforeach
         </div>
         <h5 class="text-left pb-2" style="border-bottom: 4px solid rgba(7, 10, 177, 0.562)">User List</h5>
         <div class="row">
-            <a href="{{ route('hr.admin.index') }}" class=" col-12 col-sm-6 col-md-3 box">
+            @foreach ($roles as $role)
+            <a href="{{ route('hr.' . $role . '.index') }}" class=" col-12 col-sm-6 col-md-3 box">
                 <div class="info-box ">
                     <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
 
                         <i class="fas fa-list dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Admin') }} List</span>
+                        <span class="info-box-text">{{ Str::upper($role) }} List</span>
                     </div>
                 </div>
             </a>
-            <a href="{{ route('hr.hod.index') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-
-                        <i class="fas fa-list dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Hod') }} List</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hr.cod.index') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-
-                        <i class="fas fa-list dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('cod') }} List</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hr.account.index') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-
-                        <i class="fas fa-list dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('account') }} List</span>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ route('hr.admission.index') }}" class=" col-12 col-sm-6 col-md-3 box">
-                <div class="info-box ">
-                    <span class="info-box-icon elevation-1" style="background: {{ random_rgb_color() }}">
-
-                        <i class="fas fa-list dashboard_icon_color"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('admission') }} List</span>
-                    </div>
-
-                </div>
-            </a>
+            @endforeach
         </div>
     </div>
     @include('parts.title_end')

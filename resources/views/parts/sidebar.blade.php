@@ -23,6 +23,15 @@
     elseif (Auth::user()->role->name === 'student') {
         $sidebar = json_decode(codSidebarOption(), true);
     }
+    elseif (Auth::user()->role->name === 'hr') {
+        $sidebar = json_decode(hrSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'librarian') {
+        $sidebar = json_decode(librarianSidebarOption(), true);
+    }
+    elseif (Auth::user()->role->name === 'storeManager') {
+        $sidebar = json_decode(storeManagerSidebarOption(), true);
+    }
 
 @endphp
 {{-- {{ dd($sidebar) }} --}}

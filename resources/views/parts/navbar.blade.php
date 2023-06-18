@@ -79,7 +79,9 @@
                     @if (Auth::user()->role->name === 'superAdmin')
                         {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name])->where('seen', 0)->count() }}
                     @elseif (Auth::user()->role->name === 'admin')
-                        {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name])->where('seen', 0)->count() }}
+                        {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name, 'superAdmin'])->where('seen', 0)->count() }}
+                    @else
+                        0
                     @endif
                 </span>
             </a>

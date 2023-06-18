@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('meta-tag') || UMS</title>
+    <title>Page Not Found ||UMS</title>
 
+    <link rel="icon" href="{{ asset('institutionImage/ums.png') }}" sizes="32x32">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -44,6 +45,9 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="text-center">
+                <img src="{{ asset('institutionImage/ums.png') }}" width="20%"  alt="">
+            </div>
           <div class="error-page">
             <h2 class="headline text-warning"> 404</h2>
 

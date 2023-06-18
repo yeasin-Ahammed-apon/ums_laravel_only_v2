@@ -7,5 +7,13 @@ use Illuminate\Http\Request;
 
 class HrController extends Controller
 {
-    //
+    private $data;
+    private $datas;
+    public function dashboard()
+    {
+        return view('hr.dashboard.dashboard');
+    }
+    public function profile(){
+        return view('hr.profile.profile');
+    }
 }
