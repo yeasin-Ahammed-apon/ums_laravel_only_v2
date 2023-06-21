@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\superAdmin;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 
-class SuperAdminAdminController extends Controller
+class AdminController extends Controller
 {
     use userManagementTrait;
 

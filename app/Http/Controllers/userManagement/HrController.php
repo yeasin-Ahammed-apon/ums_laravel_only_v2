@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
-use App\Models\Account;
+use App\Models\Hr;
 use Illuminate\Http\Request;
 
-class AdminAccountController extends Controller
+class HrController extends Controller
 {
     use userManagementTrait;
     private $data;
     private $datas;
     public function index(Request $request)
     {
-        return $this->showUserList(Account::class, $request, 'account');
+        return $this->showUserList(Hr::class, $request, 'hr');
     }
     public function create()
     {
-        return $this->CreateUser('account');
+        return $this->CreateUser('hr');
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Account::class, $request, 'accounts');
+        return $this->StoreUser(Hr::class, $request, 'hrs');
     }
     public function show($id)
     {
-        return $this->ShowUser(Account::class,'account',$id);
+        return $this->ShowUser(Hr::class,'hr',$id);
     }
     public function edit($id)
     {
-        return $this->EditUser(Account::class,'account',$id);
+        return $this->EditUser(Hr::class,'hr',$id);
     }
     public function update(Request $request, $id)
     {
-        return $this->UpdateUser(Account::class, $request, 'accounts', $id);
+        return $this->UpdateUser(Hr::class, $request, 'hrs', $id);
     }
     public function status($id)
     {
@@ -42,6 +42,6 @@ class AdminAccountController extends Controller
     }
     public function destroy($id)
     {
-        return $this->DeleteUser(Account::class, 'account', $id);
+        return $this->DeleteUser(Hr::class, 'hr', $id);
     }
 }

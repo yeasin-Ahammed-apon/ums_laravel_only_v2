@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\hr;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
 use App\Models\StoreManager;
 use Illuminate\Http\Request;
 
-class HrStoreManagerController extends Controller
+class StoreManagerController extends Controller
 {
-
     use userManagementTrait;
     private $data;
     private $datas;
@@ -45,5 +44,4 @@ class HrStoreManagerController extends Controller
     {
         return $this->DeleteUser(StoreManager::class, 'storeManager', $id);
     }
-
 }

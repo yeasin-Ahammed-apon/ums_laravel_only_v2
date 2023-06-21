@@ -1,48 +1,47 @@
 <?php
 
-namespace App\Http\Controllers\hr;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
-use App\Models\Admission;
+use App\Models\Account;
 use Illuminate\Http\Request;
 
-class HrAdmissionController extends Controller
+class AccountController extends Controller
 {
     use userManagementTrait;
     private $data;
     private $datas;
     public function index(Request $request)
     {
-        return $this->showUserList(Admission::class, $request, 'admission');
+        return $this->showUserList(Account::class, $request, 'account');
     }
     public function create()
     {
-        return $this->CreateUser('admission');
+        return $this->CreateUser('account');
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Admission::class,$request,'admissions');
+        return $this->StoreUser(Account::class, $request, 'accounts');
     }
     public function show($id)
     {
-        return $this->ShowUser(Admission::class,'admission',$id);
+        return $this->ShowUser(Account::class,'account',$id);
     }
     public function edit($id)
     {
-        return $this->EditUser(Admission::class,'admission',$id);
+        return $this->EditUser(Account::class,'account',$id);
     }
     public function update(Request $request, $id)
     {
-        return $this->UpdateUser(Admission::class,$request,'admissions',$id);
+        return $this->UpdateUser(Account::class, $request, 'accounts', $id);
     }
     public function status($id)
     {
-
         return $this->UpdateStatus($id);
     }
     public function destroy($id)
     {
-        return $this->DeleteUser(Admission::class,'admission',$id);
+        return $this->DeleteUser(Account::class, 'account', $id);
     }
 }

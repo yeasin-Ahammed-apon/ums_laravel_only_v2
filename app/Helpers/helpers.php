@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
+if (!function_exists('queryAppend')) {
+    // this query is appending to pagination mainly
+    function queryAppend($request,$datas,$querys)
+    {
+        foreach ($querys as  $value) {
+            $datas =  $datas->appends([
+                $value => $request->query($value),
+            ]);
+        }
+        return $datas;
+    }
+}
 if (!function_exists('storeFile')) {
     function storeFile($request,$path)
     {
@@ -61,7 +73,6 @@ if (!function_exists('random_rgb_color')) {
         return "rgb($r, $g, $b)";
     }
 }
-
 if (!function_exists('fmassage')) {
     function fmassage($title = '', $text = '', $icon = '')
     {
@@ -111,7 +122,7 @@ if (!function_exists('dataDecode')) {
 if (!function_exists('pageDataCheck')) {
     function pageDataCheck($request)
     {
-        // dd($request->page);
+        // dd($request->all());
         if ($request->pageData) return $pageData = intval($request->pageData);
         else return $pageData = 10;
     }

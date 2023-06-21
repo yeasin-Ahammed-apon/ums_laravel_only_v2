@@ -97,5 +97,5 @@
 @endsection
 @section('scripts')
     @include('parts.multiple_check_js',['multiple_check_url'=>'superAdmin.notification.superAdmin'])
-    @include('parts.page_number_set_js',['page_number_url'=>Route::currentRouteName()])
+    @include('parts.page_number_set_js',['page_number_url'=> 'superAdmin.notification.superAdmin'])
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\superAdmin;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SuperAdminTeacherController extends Controller
+class TeacherController extends Controller
 {
     use userManagementTrait;
     private $data;

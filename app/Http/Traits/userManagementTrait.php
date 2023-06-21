@@ -34,9 +34,10 @@ trait userManagementTrait
                     ->orWhere('name', 'LIKE', "%{$this->request->search}%");
             }
         });
-        $datas = $query->orderBy('created_at', 'desc')->paginate($this->pageData);
+        $this->datas = $query->orderBy('created_at', 'desc')->paginate($this->pageData);
+        $this->datas = queryAppend($this->request,$this->datas,['pageData','status']);
         return view('users.' . $role . '.list', [
-            'datas' => $datas,
+            'datas' => $this->datas,
             'pageData' => $this->pageData
         ]);
     }

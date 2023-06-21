@@ -76,7 +76,7 @@
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge">
-                    @if (Auth::user()->role->name === 'superAdmin')
+                    @if (Auth::user()->role->name??'' === 'superAdmin')
                         {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name])->where('seen', 0)->count() }}
                     @elseif (Auth::user()->role->name === 'admin')
                         {{ \App\Models\EmployeesNotification::whereNotIn('role', [Auth::user()->role->name, 'superAdmin'])->where('seen', 0)->count() }}

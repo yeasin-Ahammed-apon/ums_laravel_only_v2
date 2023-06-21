@@ -9,6 +9,9 @@ trait notification{
     private $data;
     private $datas;
     private $url;
+    private $request;
+
+
     // private $pageData;
     public function selectedValues($request)
     {
@@ -53,27 +56,33 @@ trait notification{
     }
     public function unseen($request, $role, $viewUrl)
     {
+
         if ($request->seen === '0') {
             $this->datas = EmployeesNotification::where('role', $role)
                 ->where('seen', 0)
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->pageData);
+                $this->datas = queryAppend($this->request,$this->datas,['pageData','seen','unseen']);
             return view($viewUrl, [
                 'datas' => $this->datas,
-                'pageData' => $this->pageData
+                'pageData' => $this->pageData,
+
             ]);
         }
     }
     public function seen($request, $role, $viewUrl)
     {
+
         if ($request->seen === '1') {
             $this->datas = EmployeesNotification::where('role', $role)
                 ->where('seen', 1)
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->pageData);
+                $this->datas = queryAppend($this->request,$this->datas,['pageData','seen','unseen']);
             return view($viewUrl, [
                 'datas' => $this->datas,
-                'pageData' => $this->pageData
+                'pageData' => $this->pageData,
+
             ]);
         }
     }
@@ -86,6 +95,7 @@ trait notification{
                 ->where('role', $role)
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->pageData);
+                $this->datas = queryAppend($this->request,$this->datas,['pageData','seen','unseen']);
             return view($viewUrl, [
                 'datas' => $this->datas,
                 'pageData' => $this->pageData
@@ -94,11 +104,11 @@ trait notification{
     }
     public function normalRrturn($role, $viewUrl)
     {
-        // dd($role);
         $this->datas = EmployeesNotification::where('role', $role)
-            ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->paginate($this->pageData);
+        ->orderBy('created_at', 'desc')
+        ->with('user')
+        ->paginate($this->pageData);
+        $this->datas = queryAppend($this->request,$this->datas,['pageData','seen','unseen']);
         return view($viewUrl, [
             'datas' => $this->datas,
             'pageData' => $this->pageData
@@ -120,7 +130,7 @@ trait notification{
             'librarian' => 'librarian.notifications.',
         ];
         $this->url = $urlMapping[$authUser] ?? '';
-
+        $this->request = $request;
         $this->pageData = pageDataCheck($request);
         $view = $this->selectedValues($request);
         if ($view) return $view;

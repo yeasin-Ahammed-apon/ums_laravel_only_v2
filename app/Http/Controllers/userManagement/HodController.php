@@ -1,41 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
-use App\Models\Librarian;
+use App\Models\Hod;
 use Illuminate\Http\Request;
 
-class AdminLibrarianController extends Controller
+class HodController extends Controller
 {
-
     use userManagementTrait;
     private $data;
     private $datas;
     public function index(Request $request)
     {
-        return $this->showUserList(Librarian::class, $request, 'librarian');
+        return $this->showUserList(Hod::class, $request, 'hod');
     }
     public function create()
     {
-        return $this->CreateUser('librarian');
+        return $this->CreateUser('hod');
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Librarian::class, $request, 'librarians');
+        return $this->StoreUser(Hod::class,$request,'hods');
     }
     public function show($id)
     {
-        return $this->ShowUser(Librarian::class,'librarian',$id);
+        return $this->ShowUser(Hod::class,'hod',$id);
     }
     public function edit($id)
     {
-        return $this->EditUser(Librarian::class,'librarian',$id);
+        return $this->EditUser(Hod::class,'hod',$id);
     }
     public function update(Request $request, $id)
     {
-        return $this->UpdateUser(Librarian::class, $request, 'librarians', $id);
+        return $this->UpdateUser(Hod::class,$request,'hods',$id);
     }
     public function status($id)
     {
@@ -43,7 +42,6 @@ class AdminLibrarianController extends Controller
     }
     public function destroy($id)
     {
-        return $this->DeleteUser(Librarian::class, 'librarian', $id);
+        return $this->DeleteUser(Hod::class,'hod',$id);
     }
-
 }

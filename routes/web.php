@@ -6,7 +6,10 @@ use App\Http\Controllers\DeparmentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\HodDepartmentAssignController;
 use App\Http\Controllers\ProgramController;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Yajra\DataTables\Facades\DataTables;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +40,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/demo', [AuthController::class, 'demo'])->name('demo');
 
 
 // Route::get('/education/pdf/{pdf}',[AuthController::class,'pdf'])->name('pdf');

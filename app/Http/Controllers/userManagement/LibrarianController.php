@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\superAdmin;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
-use App\Models\Account;
+use App\Models\Librarian;
 use Illuminate\Http\Request;
 
-class SuperAdminAccountController extends Controller
+class LibrarianController extends Controller
 {
     use userManagementTrait;
     private $data;
     private $datas;
     public function index(Request $request)
     {
-        return $this->showUserList(Account::class, $request, 'account');
+        return $this->showUserList(Librarian::class, $request, 'librarian');
     }
     public function create()
     {
-        return $this->CreateUser('account');
+        return $this->CreateUser('librarian');
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Account::class, $request, 'accounts');
+        return $this->StoreUser(Librarian::class, $request, 'librarians');
     }
     public function show($id)
     {
-        return $this->ShowUser(Account::class,'account',$id);
+        return $this->ShowUser(Librarian::class,'librarian',$id);
     }
     public function edit($id)
     {
-        return $this->EditUser(Account::class,'account',$id);
+        return $this->EditUser(Librarian::class,'librarian',$id);
     }
     public function update(Request $request, $id)
     {
-        return $this->UpdateUser(Account::class, $request, 'accounts', $id);
+        return $this->UpdateUser(Librarian::class, $request, 'librarians', $id);
     }
     public function status($id)
     {
@@ -42,6 +42,6 @@ class SuperAdminAccountController extends Controller
     }
     public function destroy($id)
     {
-        return $this->DeleteUser(Account::class, 'account', $id);
+        return $this->DeleteUser(Librarian::class, 'librarian', $id);
     }
 }

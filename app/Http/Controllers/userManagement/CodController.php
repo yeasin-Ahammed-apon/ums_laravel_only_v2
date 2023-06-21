@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\superAdmin;
+namespace App\Http\Controllers\userManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\userManagementTrait;
-use App\Models\Hr;
+use App\Models\Cod;
 use Illuminate\Http\Request;
 
-class SuperAdminHrController extends Controller
+class CodController extends Controller
 {
     use userManagementTrait;
     private $data;
     private $datas;
     public function index(Request $request)
     {
-        return $this->showUserList(Hr::class, $request, 'hr');
+        return $this->showUserList(Cod::class, $request, 'cod');
     }
     public function create()
     {
-        return $this->CreateUser('hr');
+        return $this->CreateUser('cod');
     }
     public function store(Request $request)
     {
-        return $this->StoreUser(Hr::class, $request, 'hrs');
+        return $this->StoreUser(Cod::class, $request, 'cods');
     }
     public function show($id)
     {
-        return $this->ShowUser(Hr::class,'hr',$id);
+        return $this->ShowUser(Cod::class, 'cod', $id);
     }
     public function edit($id)
     {
-        return $this->EditUser(Hr::class,'hr',$id);
+        return $this->EditUser(Cod::class, 'cod', $id);
     }
     public function update(Request $request, $id)
     {
-        return $this->UpdateUser(Hr::class, $request, 'hrs', $id);
+        return $this->UpdateUser(Cod::class, $request, 'cods', $id);
     }
     public function status($id)
     {
@@ -42,6 +42,6 @@ class SuperAdminHrController extends Controller
     }
     public function destroy($id)
     {
-        return $this->DeleteUser(Hr::class, 'hr', $id);
+        return $this->DeleteUser(Cod::class, 'cod', $id);
     }
 }
