@@ -161,6 +161,34 @@ if (!function_exists('superAdminSidebarOption')) {
     {
         $superAdminSidebarOption = [
             [
+                'title' => 'Inventory',
+                'icon' => 'fas fa-user',
+                'sub_active_route' => 'superAdmin.inventory*',
+                'sub_menu' => [
+                    [
+                        'title' => 'Inventory Categories list',
+                        'route' => 'superAdmin.inventory.categorie.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Inventory Categories Create',
+                        'route' => 'superAdmin.inventory.categorie.create',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Inventory Item list',
+                        'route' => 'superAdmin.inventory.item.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'Inventory Item Create',
+                        'route' => 'superAdmin.inventory.item.create',
+                        'enabled' => "1",
+                    ],
+                ],
+                'enabled' => "1",
+            ],
+            [
                 'title' => 'Hod Department Assign',
                 'icon' => 'fas fa-tachometer-alt',
                 'sub_active_route' => 'hod.department.assign*',

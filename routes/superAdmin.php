@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\storeManagement\InventoryCategoriesController as InventoryCategories;
+use App\Http\Controllers\storeManagement\InventoryItemController as InventoryItem;
+use App\Http\Controllers\storeManagement\InventoryStockInController as StockInController;
 use App\Http\Controllers\userManagement\AccountController;
 use App\Http\Controllers\userManagement\AdminController;
 use App\Http\Controllers\userManagement\AdmissionController;
@@ -73,5 +76,17 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
         Route::get('/notification/teacher', [NotificationController::class, "notification_teacher"])->name('superAdmin.notification.teacher');
         Route::get('/notification/account', [NotificationController::class, "notification_account"])->name('superAdmin.notification.account');
         Route::get('/notification/admission', [NotificationController::class, "notification_admission"])->name('superAdmin.notification.admission');
+    });
+    Route::prefix('/superAdmin/inventory')->group(function () {
+        //inventory categorie crud
+        Route::get('/categorie/status/{id}', [InventoryCategories::class, "status"])->name('superAdmin.inventory.categorie.status');
+        Route::resource('/categorie', InventoryCategories::class)->names('superAdmin.inventory.categorie');
+        //inventory
+        Route::get('/item/stock_in', [StockInController::class, "stock_in"])->name('superAdmin.inventory.item.stock_in');
+        Route::post('/item/search', [StockInController::class, 'search'])->name('item_search');
+
+        //inventory item crud
+        Route::get('/item/status/{id}', [InventoryItem::class, "status"])->name('superAdmin.inventory.item.status');
+        Route::resource('/item', InventoryItem::class)->names('superAdmin.inventory.item');
     });
 });
