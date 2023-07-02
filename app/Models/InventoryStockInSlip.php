@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class InventoryStockInSlip extends Model
 {
     use HasFactory;
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    public function inventoryStockInHistory(){
+        return $this->hasMany(InventoryStockInHistory::class,'stock_in_slip_id','id');
+    }
 }

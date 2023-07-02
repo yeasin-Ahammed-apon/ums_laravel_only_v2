@@ -155,4 +155,28 @@ class InventoryCategoriesController extends Controller
         fmassage('Success', 'Inventory Categories Status updated successfully', 'success');
         return redirect()->back();
     }
+    public function item(Request $request)
+    {
+        $this->request = $request;
+        $this->pageData = pageDataCheck($this->request);
+        $this->datas = InventoryCategories::query()
+            ->when($this->request->status === '1', function ($query) {
+                $query->where('status', 1);
+            })
+            ->when($this->request->status === '0', function ($query) {
+                $query->where('status', 0);
+            })
+            ->when($this->request->search, function ($query) {
+                $query->where('name', 'LIKE', "%{$this->request->search}%");
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->pageData);
+        $this->datas = queryAppend($this->request, $this->datas, ['pageData', 'seen', 'unseen', 'search']);
+        return view('storeManagement.categories.withItem',
+            [
+                'datas' => $this->datas,
+                'pageData' => $this->pageData
+            ]
+        );
+    }
 }

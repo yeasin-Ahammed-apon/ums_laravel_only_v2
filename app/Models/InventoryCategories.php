@@ -12,4 +12,8 @@ class InventoryCategories extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function inventory_item()
+    {
+        return $this->hasMany(InventoryItems::class);
+    }
 }

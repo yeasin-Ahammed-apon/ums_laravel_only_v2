@@ -64,11 +64,17 @@
         {{--  add item list --}}
         <div class="col-12 col-sm-8">
             <div>
-                <h4 class="d-inline ">Slip Number:
+                <h4 class=" ">Slip Number:
                     <span class="text-info">
                         {{ $slipNumber }}
                     </span>
                 </h4>
+                <h6>Stock out For:
+                    <span class="text-info">{{ $user->name }}</span>
+                    <span class="text-success">[role : {{ $user->role->name }}]</span>
+                    <span class="text-success">[id : {{ $user->login_id }}]</span>
+
+                </h6>
                 <div>
                 </div>
                 <button class="btn btn-danger btn-xs d-inline float-right" onclick="clearItems()">
@@ -82,7 +88,7 @@
                     </tbody>
                 </table>
                 <button type="button" class="btn btn-primary btn-sm btn-block stockAddButton"
-                    onclick="disableButton(this);stockIn()">
+                    onclick="disableButton(this);stockOut()">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Add
                 </button>
@@ -118,13 +124,14 @@
 @section('scripts')
     <script>
         let slipNumber = {{ $slipNumber }}
+        let userId = {{ $user->id }}
         let stockAddButton = $('.stockAddButton')
-        let items = localStorage.getItem('stockInItems');
+        let items = localStorage.getItem('stockOutItems');
         let loadingIcon = $('#loading_icon');
         let resultDiv = $('.item_search_result');
         if (!items) { // check it local storage exist or not
             items = '[]'; // Create an empty array as a string
-            localStorage.setItem('stockInItems', items);
+            localStorage.setItem('stockOutItems', items);
         }
         printItems();
         loadingIcon.hide();
@@ -160,9 +167,10 @@
                                     <tr class="text-sm">
                                         <td>${item.name}</td>
                                         <td>${item.code}</td>
+                                        <td>${item.quantity}</td>
                                         <td >
                                             <a class="btn btn-xs  btn-primary "
-                                            onclick="addItem(${item.id},'${item.name}','${item.code}')" >
+                                            onclick="addItem(${item.id},'${item.name}','${item.code}','${item.quantity}')" >
                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                             </a>
                                         </td>
@@ -179,67 +187,73 @@
                 });
             }
         }
-
-        function addItem(id, name, code) {
-            let existingItems = localStorage.getItem('stockInItems');
-            let items = existingItems ? JSON.parse(existingItems) : [];
-            // Check if the ID already exists
-            let existingItem = items.find(function(item) {
-                return item.id === id;
-            });
-            if (existingItem) {
-                $('#duplicateItemModal').modal('show');
-                return;
+        function addItem(id, name, code, current_quantity) {
+            current_quantity = parseInt(current_quantity)
+            if ( current_quantity!== 0) {
+                let existingItems = localStorage.getItem('stockOutItems');
+                let items = existingItems ? JSON.parse(existingItems) : [];
+                // Check if the ID already exists
+                let existingItem = items.find(function(item) {
+                    return item.id === id;
+                });
+                if (existingItem) {
+                    $('#duplicateItemModal').modal('show');
+                    return;
+                }
+                // Add the item to the array
+                let price = 0;
+                let quantity = 1;
+                let newItem = {
+                    id,
+                    name,
+                    code,
+                    quantity,
+                    current_quantity
+                };
+                items.push(newItem);
+                // Save the updated items array in local storage
+                localStorage.setItem('stockOutItems', JSON.stringify(items));
+                // Print the data from local storage
+                printItems();
+            }else{
+                Swal.fire({
+                            title: 'Warning',
+                            text: `item : ${name}[current quantity: ${current_quantity}]  `,
+                            icon: 'erorr',
+                        })
             }
-            // Add the item to the array
-            let price = 0;
-            let quantity = 1;
-            let newItem = {
-                id,
-                name,
-                code,
-                price,
-                quantity
-            };
-            items.push(newItem);
-            // Save the updated items array in local storage
-            localStorage.setItem('stockInItems', JSON.stringify(items));
-            // Print the data from local storage
-            printItems();
         }
 
         function printItems() {
-            let items = localStorage.getItem('stockInItems');
+            let items = localStorage.getItem('stockOutItems');
             if (items) {
                 items = JSON.parse(items);
                 let tableRows = `
                 <tr class="text-sm bg-info">
                     <td>Name</td>
                     <td>Code</td>
+                    <td>Current Quantity</td>
                     <td>Quantity</td>
-                    <td>Price</td>
                     <td>
                         Action
                     </td>
                 </tr>`;
                 items.forEach(function(item) {
                     let tableRow = `
-                <tr class="text-sm">
-                    <td>${item.name}</td>
-                    <td>${item.code}</td>
-                    <td>
-                        <input type="number" class="form-control quantity-input" placeholder="Quantity" value="${item.quantity}" min="1" onchange="updateItemQuantity(${item.id}, this.value)">
-                    </td>
-                    <td>
-                        <input type="number" class="form-control price-input" placeholder="Price" value="${item.price}" min="0" onchange="updateItemPrice(${item.id}, this.value)">
-                    </td>
-                    <td>
-                        <a class="btn btn-xs btn-danger" onclick="removeItem(this)">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tr>
-            `;
+                            <tr class="text-sm">
+                                <td>${item.name}</td>
+                                <td>${item.code}</td>
+                                <td>${item.current_quantity}</td>
+                                <td>
+                                    <input type="number" class="form-control quantity-input" placeholder="Quantity" value="${item.quantity}" min="1" max="${item.current_quantity}" onchange="updateItemQuantity(${item.id}, this.value)">
+                                </td>
+                                <td>
+                                    <a class="btn btn-xs btn-danger" onclick="removeItem(this)">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        `;
                     tableRows += tableRow;
                 });
                 $('.stock_list_with_quantity').html(tableRows);
@@ -249,7 +263,7 @@
         }
 
         function updateItemQuantity(itemId, quantity) {
-            let items = localStorage.getItem('stockInItems');
+            let items = localStorage.getItem('stockOutItems');
             if (items) {
                 items = JSON.parse(items);
                 let itemIndex = items.findIndex(function(item) {
@@ -257,21 +271,7 @@
                 });
                 if (itemIndex !== -1) {
                     items[itemIndex].quantity = parseInt(quantity);
-                    localStorage.setItem('stockInItems', JSON.stringify(items));
-                }
-            }
-        }
-
-        function updateItemPrice(itemId, price) {
-            let items = localStorage.getItem('stockInItems');
-            if (items) {
-                items = JSON.parse(items);
-                let itemIndex = items.findIndex(function(item) {
-                    return item.id === itemId;
-                });
-                if (itemIndex !== -1) {
-                    items[itemIndex].price = parseFloat(price);
-                    localStorage.setItem('stockInItems', JSON.stringify(items));
+                    localStorage.setItem('stockOutItems', JSON.stringify(items));
                 }
             }
         }
@@ -282,21 +282,21 @@
             // Remove the item from the table
             row.remove();
             // Remove the item from local storage
-            let items = localStorage.getItem('stockInItems');
+            let items = localStorage.getItem('stockOutItems');
             if (items) {
                 items = JSON.parse(items);
                 items = items.filter(function(item) {
                     return item.code !== itemCode;
                 });
-                localStorage.setItem('stockInItems', JSON.stringify(items));
+                localStorage.setItem('stockOutItems', JSON.stringify(items));
             }
             lenghtCheck(items)
         }
 
         function clearItems() {
-            let items = localStorage.getItem('stockInItems');
+            let items = localStorage.getItem('stockOutItems');
             items = '[]'; // Create an empty array as a string
-            localStorage.setItem('stockInItems', items);
+            localStorage.setItem('stockOutItems', items);
             printItems();
         }
 
@@ -307,8 +307,8 @@
             }
         }
 
-        function stockIn() {
-            let datas = JSON.stringify(localStorage.getItem('stockInItems'));
+        function stockOut() {
+            let datas = JSON.stringify(localStorage.getItem('stockOutItems'));
             console.log(datas);
             $.ajaxSetup({
                 headers: {
@@ -317,12 +317,12 @@
                 }
             });
             $.ajax({
-                url: "{{ route(Auth::user()->role->name.'.inventory.item.stock_in_store') }}",
+                url: "{{ route(Auth::user()->role->name . '.inventory.item.stock_out_store') }}",
                 type: 'POST',
                 data: {
                     datas,
-                    slipNumber
-
+                    slipNumber,
+                    userId
                 },
                 success: function(data) {
                     if (data.status === 200) {

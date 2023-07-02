@@ -17,7 +17,7 @@ class CreateInventoryStockOutSlipsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('slip_number');
-            $table->bigInteger('stock_out_by');
+            $table->bigInteger('stock_out_for');
             $table->timestamps();
         });
     }

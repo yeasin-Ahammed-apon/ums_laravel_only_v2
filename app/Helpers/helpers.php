@@ -64,6 +64,12 @@ if (!function_exists('dateFormat')) {
         return Carbon::parse($date)->format('M d, Y');
     }
 }
+if (!function_exists('dateTimeFormat')) {
+    function dateTimeFormat($dateTime)
+    {
+        return Carbon::parse($dateTime)->format('M d, Y \a\t h\h:i\m:s\s A');
+    }
+}
 if (!function_exists('random_rgb_color')) {
     function random_rgb_color()
     {
@@ -166,23 +172,73 @@ if (!function_exists('superAdminSidebarOption')) {
                 'sub_active_route' => 'superAdmin.inventory*',
                 'sub_menu' => [
                     [
-                        'title' => 'Inventory Categories list',
+                        'title' => ' Categories list',
                         'route' => 'superAdmin.inventory.categorie.index',
                         'enabled' => "1",
                     ],
                     [
-                        'title' => 'Inventory Categories Create',
+                        'title' => ' Categories with Item list',
+                        'route' => 'superAdmin.inventory.categorie.item',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Categories Create',
                         'route' => 'superAdmin.inventory.categorie.create',
                         'enabled' => "1",
                     ],
                     [
-                        'title' => 'Inventory Item list',
+                        'title' => ' Item list',
                         'route' => 'superAdmin.inventory.item.index',
                         'enabled' => "1",
                     ],
                     [
-                        'title' => 'Inventory Item Create',
+                        'title' => ' Item Create',
                         'route' => 'superAdmin.inventory.item.create',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Stock In',
+                        'route' => 'superAdmin.inventory.item.stock_in',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Stock In History',
+                        'route' => 'superAdmin.inventory.item.stock_in_history',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Stock Out',
+                        'route' => 'superAdmin.inventory.item.stock_out_user',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Stock Out History',
+                        'route' => 'superAdmin.inventory.item.stock_out_history',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Stock Return',
+                        'route' => 'superAdmin.inventory.item.stock_return_user',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Stock Return History',
+                        'route' => 'superAdmin.inventory.item.stock_return_history',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'User Stock in info',
+                        'route' => 'superAdmin.inventory.item.user_stock_in',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'User Stock out info',
+                        'route' => 'superAdmin.inventory.item.user_stock_out',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => 'User Stock Return info',
+                        'route' => 'superAdmin.inventory.item.user_stock_return',
                         'enabled' => "1",
                     ],
                 ],

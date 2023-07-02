@@ -35,13 +35,10 @@ class InventoryItemController extends Controller
             ->paginate($this->pageData);
 
         $this->datas = queryAppend($this->request, $this->datas, ['pageData', 'seen', 'unseen', 'search']);
-        return view(
-            'storeManagement.items.list',
-            [
+        return view('storeManagement.items.list',[
                 'datas' => $this->datas,
                 'pageData' => $this->pageData
-            ]
-        );
+        ]);
     }
 
     /**

@@ -20,8 +20,10 @@ class CreateInventoryItemsTable extends Migration
             $table->string('code')->nullable();
             $table->boolean('status')->default(1);
             $table->bigInteger('quantity')->default(0);
+            $table->bigInteger('total_price')->default(0);
             $table->bigInteger('total_in')->default(0);
             $table->bigInteger('total_out')->default(0);
+            // total_return in another file
             $table->bigInteger('user_id');
             $table->bigInteger('inventory_categories_id');
             $table->timestamps();

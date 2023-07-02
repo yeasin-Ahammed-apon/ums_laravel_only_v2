@@ -1,16 +1,15 @@
 <style>
     .color-box {
-
         display: inline;
         margin-right: 10px;
-        border: 1px solid black;
+        border: 1px solid rgb(185, 184, 184);
         padding: 20px
     }
 </style>
 <div class="modal fade" id="modal-color">
     <div class="modal-dialog">
-        <div class="modal-content bg-info">
-            <div class="modal-header">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
                 <h4 class="modal-title">COLORS </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -18,13 +17,13 @@
             </div>
             <div class="modal-body">
                         <div class="row d-block">
-                            <h4 class="">Navbar and Sidebar Colors</h4>
+                            <h4 class="">Navbar,Sidebar & Bottombar Colors</h4>
                             <div class="sidebarAndNavbarColor"></div>
-                            <h4 class="">Card Colors</h4>
+                            <h4 class="">Card & Modal Colors</h4>
                             <div class="cardColor"></div>
                         </div>
             </div>
-            <div class="modal-footer justify-content-between">
+            <div class="modal-footer bg-info justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -64,6 +63,7 @@
       function SetCardColor(color) {
             localStorage.setItem('card_background_color', color);
             forAllSameClass('.card');
+            forAllSameClass('.modal-body');
         }
         function applyColorToTarget(color) {
             var element1 = selector('.sidebar-dark-primary');

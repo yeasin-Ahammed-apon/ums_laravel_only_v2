@@ -18,6 +18,7 @@ class CreateInventoryStockInHistoriesTable extends Migration
             $table->bigInteger('stock_in_slip_id');
             $table->bigInteger('inventory_item_id');
             $table->bigInteger('quantity');
+            $table->bigInteger('price');
             $table->timestamps();
         });
     }

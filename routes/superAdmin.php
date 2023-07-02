@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\storeManagement\InventoryCategoriesController as InventoryCategories;
 use App\Http\Controllers\storeManagement\InventoryItemController as InventoryItem;
+use App\Http\Controllers\storeManagement\InventoryItemReportController;
 use App\Http\Controllers\storeManagement\InventoryStockInController as StockInController;
+use App\Http\Controllers\storeManagement\InventoryStockOutController as StockOutController;
+use App\Http\Controllers\storeManagement\InventoryStockReturnController as StockReturnController;
 use App\Http\Controllers\userManagement\AccountController;
 use App\Http\Controllers\userManagement\AdminController;
 use App\Http\Controllers\userManagement\AdmissionController;
@@ -79,14 +82,44 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
     });
     Route::prefix('/superAdmin/inventory')->group(function () {
         //inventory categorie crud
+        Route::get('/categorie/item', [InventoryCategories::class, "item"])->name('superAdmin.inventory.categorie.item');
         Route::get('/categorie/status/{id}', [InventoryCategories::class, "status"])->name('superAdmin.inventory.categorie.status');
         Route::resource('/categorie', InventoryCategories::class)->names('superAdmin.inventory.categorie');
-        //inventory
+        //inventory stock in
         Route::get('/item/stock_in', [StockInController::class, "stock_in"])->name('superAdmin.inventory.item.stock_in');
+        Route::post('/item/stock_in', [StockInController::class, "stock_in_store"])->name('superAdmin.inventory.item.stock_in_store');
+        Route::get('/item/stock_in_history', [StockInController::class, "stock_in_history"])->name('superAdmin.inventory.item.stock_in_history');
+        Route::get('/item/stock_in_history_info', [StockInController::class, "stock_in_history_info"])->name('superAdmin.inventory.item.stock_in_history_info');
+        Route::get('/item/user_stock_in', [StockInController::class, "user_stock_in"])->name('superAdmin.inventory.item.user_stock_in');// who order it
+        Route::get('/item/user_stock_in_info', [StockInController::class, "user_stock_in_info"])->name('superAdmin.inventory.item.user_stock_in_info');// who order it
+        //inventory stock Out
+        Route::get('/item/stock_out_user', [StockOutController::class, "stock_out_user"])->name('superAdmin.inventory.item.stock_out_user');// who order it
+        Route::get('/item/stock_out', [StockOutController::class, "stock_out"])->name('superAdmin.inventory.item.stock_out');
+        Route::post('/item/stock_out', [StockOutController::class, "stock_out_store"])->name('superAdmin.inventory.item.stock_out_store');
+        Route::get('/item/stock_out_history', [StockOutController::class, "stock_out_history"])->name('superAdmin.inventory.item.stock_out_history');
+        Route::get('/item/stock_out_history_info', [StockOutController::class, "stock_out_history_info"])->name('superAdmin.inventory.item.stock_out_history_info');
+        Route::get('/item/user_stock_out', [StockOutController::class, "user_stock_out"])->name('superAdmin.inventory.item.user_stock_out');// who order it
+        Route::get('/item/user_stock_out_info', [StockOutController::class, "user_stock_out_info"])->name('superAdmin.inventory.item.user_stock_out_info');// who order it
+        //inventory stock_return
+        Route::get('/item/stock_return_user', [StockReturnController::class, "stock_return_user"])->name('superAdmin.inventory.item.stock_return_user');// who order it
+        Route::get('/item/stock_return', [StockReturnController::class, "stock_return"])->name('superAdmin.inventory.item.stock_return');
+        Route::post('/item/stock_return', [StockReturnController::class, "stock_return_store"])->name('superAdmin.inventory.item.stock_return_store');
+        Route::get('/item/stock_return_history', [StockReturnController::class, "stock_return_history"])->name('superAdmin.inventory.item.stock_return_history');
+        Route::get('/item/stock_return_history_info', [StockReturnController::class, "stock_return_history_info"])->name('superAdmin.inventory.item.stock_return_history_info');
+        Route::get('/item/user_stock_return', [StockReturnController::class, "user_stock_return"])->name('superAdmin.inventory.item.user_stock_return');// who order it
+        Route::get('/item/user_stock_return_info', [StockReturnController::class, "user_stock_return_info"])->name('superAdmin.inventory.item.user_stock_return_info');// who order it
+
+        //inventory item search
         Route::post('/item/search', [StockInController::class, 'search'])->name('item_search');
 
         //inventory item crud
         Route::get('/item/status/{id}', [InventoryItem::class, "status"])->name('superAdmin.inventory.item.status');
+
+        //inventory item_report
+        Route::get('/item/report/{item}', [InventoryItemReportController::class, "report"])->name('superAdmin.inventory.item.report');
+        Route::get('/item/report_info/{item}/{day}/{type}', [InventoryItemReportController::class, "report_info"])->name('superAdmin.inventory.item.report_info');
+
+        //inventory item crud
         Route::resource('/item', InventoryItem::class)->names('superAdmin.inventory.item');
     });
 });

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class InventoryStockOutHistory extends Model
 {
     use HasFactory;
+    public function inventory_item(){
+        return $this->belongsTo(InventoryItems::class);
+    }
 }
