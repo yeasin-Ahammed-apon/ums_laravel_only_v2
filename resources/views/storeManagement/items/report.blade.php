@@ -75,7 +75,7 @@
                     @foreach([ 30 =>'1M', 90=>'3 M',180=> '6 M',365 =>'1 Y',730 =>'2 Y',0 =>'All'] as $index => $duration)
                         <td class="text-center text-xs">
                             <a href="{{ route(Auth::user()->role->name . '.inventory.item.report_info', [$data->id,$index,'stock_all']) }}"
-                                class="btn btn-sm mt-1 mb-1 btn-info">
+                                class="btn btn-sm mt-1 mb-1 btn-warning">
                                 {{ $duration }} return
                              </a>
                         </td>

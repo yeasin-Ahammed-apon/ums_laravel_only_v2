@@ -64,6 +64,39 @@
     line-height: normal;
     padding-left:5px ;
 }
+
+#animatedBox {
+    border: 5px solid rgb(6, 122, 255);
+    box-shadow: 0 0 50px rgb(6, 122, 255);
+    transition: border-color 7s ease, box-shadow 7s ease;
+    border-radius: 5px;
+
+}
+
+/* For webkit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+    width: 10px;
+    /* Width of the scroll bar */
+    /* Color of the thumb and track */
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar-track {
+    background: #dfdfdf;
+    /* Background color of the track */
+    scrollbar-color: #2600fd #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    /* border-radius: 10px; */
+    background: #2600fd;
+    /* Color of the scroll bar thumb */
+}
+
+/* For Firefox */
+/* Note: Firefox supports a different set of properties */
+/* You may need to use vendor prefixes for older versions */
+/* Width of the scroll bar */
 @media (max-width: 767.98px) {
     .border-right {
         border-right: none !important;

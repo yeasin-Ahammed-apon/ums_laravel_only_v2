@@ -18,13 +18,34 @@
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/toastr/toastr.min.css') }}>
     <!-- Theme style -->
-    <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.main.css') }}>
+    {{-- <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.v1.css') }}> --}}
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
     @yield('css')
+    <style>
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000e3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <!-- Site wrapper -->
+    <div id="loading-screen">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" style="width: 15rem; height: 15rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
     <div class="wrapper">
         @include('parts.navbar')
         @include('parts.sidebar')
@@ -33,11 +54,10 @@
             <!-- Content Header (Page header) -->
             @yield('breadcrumb')
             <!-- Main content -->
-            <section class="content">
+            <section class="content pb-1 ml-1 mr-1" id="animatedBox">
                 <div class="row">
                     <div class="col-12">
                         <!-- Default box -->
-
                         @yield('content')
                         <!-- /.card -->
                     </div>
@@ -49,9 +69,28 @@
         <!-- /.content-wrapper -->
         @include('parts.footer')
     </div>
-    <!-- ./wrapper -->
-    {{-- sweet alert --}}
+    <script>
+        // -------------------------loading screen-----------------
+        // Fade in the loading screen
+        window.addEventListener('DOMContentLoaded', function() {
+            var loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.9s';
+            setTimeout(function() {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 0.1s';
+            }, 1000);
+        });
+        // Fade out and hide the loading screen when the page finishes loading
+        window.addEventListener('load', function() {
+            var loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
 
+            setTimeout(function() {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        });
+    </script>
     {{-- helper functions --}}
     <script src="{{ asset('js/helper.js') }}"></script>
     {{-- colorSettings --}}
@@ -69,6 +108,7 @@
     <script src={{ asset('assets/admin_lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}></script>
     <!-- AdminLTE App -->
     <script src={{ asset('assets/admin_lte/dist/js/adminlte.min.js') }}></script>
+
     @if (session('alert'))
         <script>
             Swal.fire({

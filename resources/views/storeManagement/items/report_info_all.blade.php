@@ -9,8 +9,9 @@
     ])
     <div class="row">
         {{-- in start --}}
-        <div class="col-4">
+        <div class="col-12 col-sm-4">
             <div class="card-body table-responsive ">
+                <h1 class="text-success">Stock In</h1>
                 {{-- {{ dd($datas )}} --}}
                 showing {{ count($stockIn->items()) }} Result out of {{ $stockIn->total() }}
                 <table class="table  table-bordered border-top">
@@ -47,9 +48,10 @@
         </div>
         {{-- Out start --}}
 
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 <div class="card-body table-responsive ">
                     {{-- {{ dd($datas )}} --}}
+                    <h1 class="text-danger">Stock Out</h1>
                     showing {{ count($stockOut->items()) }} Result out of {{ $stockOut->total() }}
                     <table class="table  table-bordered border-top">
                         <thead>
@@ -86,8 +88,9 @@
 
         {{-- return start --}}
 
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 <div class="card-body table-responsive ">
+                    <h1 class="text-info">Stock Return</h1>
                     {{-- {{ dd($datas )}} --}}
                     showing {{ count($stockReturn->items()) }} Result out of {{ $stockReturn->total() }}
                     <table class="table  table-bordered border-top">

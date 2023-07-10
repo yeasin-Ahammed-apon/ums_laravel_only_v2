@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\libraryManagement\LibraryBookController;
+use App\Http\Controllers\libraryManagement\LibraryBookCopyController;
+use App\Http\Controllers\libraryManagement\LibraryBookIssueController;
+use App\Http\Controllers\libraryManagement\LibraryCategoriesController;
 use App\Http\Controllers\storeManagement\InventoryCategoriesController as InventoryCategories;
 use App\Http\Controllers\storeManagement\InventoryItemController as InventoryItem;
 use App\Http\Controllers\storeManagement\InventoryItemReportController;
@@ -108,18 +112,35 @@ Route::middleware(['auth', 'CheckRole:superAdmin'])->group(function () {
         Route::get('/item/stock_return_history_info', [StockReturnController::class, "stock_return_history_info"])->name('superAdmin.inventory.item.stock_return_history_info');
         Route::get('/item/user_stock_return', [StockReturnController::class, "user_stock_return"])->name('superAdmin.inventory.item.user_stock_return');// who order it
         Route::get('/item/user_stock_return_info', [StockReturnController::class, "user_stock_return_info"])->name('superAdmin.inventory.item.user_stock_return_info');// who order it
-
         //inventory item search
         Route::post('/item/search', [StockInController::class, 'search'])->name('item_search');
-
         //inventory item crud
         Route::get('/item/status/{id}', [InventoryItem::class, "status"])->name('superAdmin.inventory.item.status');
-
         //inventory item_report
         Route::get('/item/report/{item}', [InventoryItemReportController::class, "report"])->name('superAdmin.inventory.item.report');
         Route::get('/item/report_info/{item}/{day}/{type}', [InventoryItemReportController::class, "report_info"])->name('superAdmin.inventory.item.report_info');
-
         //inventory item crud
         Route::resource('/item', InventoryItem::class)->names('superAdmin.inventory.item');
+    });
+    Route::prefix('/superAdmin/library')->group(function () {
+        //Library categorie crud
+        Route::get('/categorie/status/{id}', [LibraryCategoriesController::class, "status"])->name('superAdmin.library.categorie.status');
+        Route::resource('/categorie', LibraryCategoriesController::class)->names('superAdmin.library.categorie');
+        //Library book crud
+        Route::get('/book/status/{id}', [LibraryBookController::class, "status"])->name('superAdmin.library.book.status');
+        Route::resource('/book', LibraryBookController::class)->names('superAdmin.library.book');
+        //Library book copy crud
+        Route::get('/book/copy/status/{id}', [LibraryBookCopyController::class, "status"])->name('superAdmin.library.book.copy.status');
+        Route::resource('/book/copy', LibraryBookCopyController::class)->names('superAdmin.library.book.copy');
+        //Library book issue
+        Route::get('/issue/status/{id}', [LibraryBookIssueController::class, "status"])->name('superAdmin.library.issue.status');
+        Route::get("/issue/list", [LibraryBookIssueController::class, "list"])->name('superAdmin.library.issue.list');
+        Route::get("/issue/book", [LibraryBookIssueController::class, "issue"])->name('superAdmin.library.issue.book');
+        Route::get("/issue/user_search", [LibraryBookIssueController::class, "user_search"])->name('superAdmin.library.user_search');
+        Route::get("/issue/book_search", [LibraryBookIssueController::class, "book_search"])->name('superAdmin.library.book_search');
+        Route::get("/issue/book_copy", [LibraryBookIssueController::class, "book_copy"])->name('superAdmin.library.book_copy');
+        Route::post("/issue/book_add", [LibraryBookIssueController::class, "book_add"])->name('superAdmin.library.issue.add');
+        Route::get("/issue/book_edit/{issue}", [LibraryBookIssueController::class, "book_edit"])->name('superAdmin.library.issue.edit');
+        Route::put("/issue/book_store/{issue}", [LibraryBookIssueController::class, "book_store"])->name('superAdmin.library.issue.store');
     });
 });

@@ -28,10 +28,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
-    // public function inventory_stok_in_slip()
-    // {
-    //     return $this->hasOne(InventoryStockInSlip::class);
-    // }
     public function education_info(){
         return $this->hasMany(EducationInfo::class);
     }
@@ -79,5 +75,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(StoreManager::class);
     }
-
 }

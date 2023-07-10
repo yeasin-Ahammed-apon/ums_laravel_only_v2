@@ -167,6 +167,94 @@ if (!function_exists('superAdminSidebarOption')) {
     {
         $superAdminSidebarOption = [
             [
+                'title' => 'Library',
+                'icon' => 'fas fa-user',
+                'sub_active_route' => 'superAdmin.library*',
+                'sub_menu' => [
+                    [
+                        'title' => ' Categories list',
+                        'route' => 'superAdmin.library.categorie.index',
+                        'enabled' => "1",
+                    ],
+                    // [
+                    //     'title' => ' Categories with Item list',
+                    //     'route' => 'superAdmin.library.categorie.item',
+                    //     'enabled' => "1",
+                    // ],
+                    [
+                        'title' => ' Categories Create',
+                        'route' => 'superAdmin.library.categorie.create',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Book list',
+                        'route' => 'superAdmin.library.book.index',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Book Create',
+                        'route' => 'superAdmin.library.book.create',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Book issue',
+                        'route' => 'superAdmin.library.issue.book',
+                        'enabled' => "1",
+                    ],
+                    [
+                        'title' => ' Book issue list',
+                        'route' => 'superAdmin.library.issue.list',
+                        'enabled' => "1",
+                    ],
+                    // [
+                    //     'title' => ' Stock In',
+                    //     'route' => 'superAdmin.library.item.stock_in',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => ' Stock In History',
+                    //     'route' => 'superAdmin.library.item.stock_in_history',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => ' Stock Out',
+                    //     'route' => 'superAdmin.library.item.stock_out_user',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => ' Stock Out History',
+                    //     'route' => 'superAdmin.library.item.stock_out_history',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => ' Stock Return',
+                    //     'route' => 'superAdmin.library.item.stock_return_user',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => ' Stock Return History',
+                    //     'route' => 'superAdmin.library.item.stock_return_history',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => 'User Stock in info',
+                    //     'route' => 'superAdmin.library.item.user_stock_in',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => 'User Stock out info',
+                    //     'route' => 'superAdmin.library.item.user_stock_out',
+                    //     'enabled' => "1",
+                    // ],
+                    // [
+                    //     'title' => 'User Stock Return info',
+                    //     'route' => 'superAdmin.library.item.user_stock_return',
+                    //     'enabled' => "1",
+                    // ],
+                ],
+                'enabled' => "1",
+            ],
+            [
                 'title' => 'Inventory',
                 'icon' => 'fas fa-user',
                 'sub_active_route' => 'superAdmin.inventory*',
