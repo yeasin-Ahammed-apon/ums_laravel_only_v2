@@ -16,7 +16,7 @@
                         <i class="fas fa-envelope dashboard_icon_color"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">{{ Str::upper('Admin') }} Notification</span>
+                        <span class="info-box-text" style="color: ">{{ Str::upper('Admin') }} Notification</span>
                         <span class="info-box-number">
                             {{ count(App\Models\EmployeesNotification::where('seen', 0)->where('role', 'admin')->get()) }}
                         </span>

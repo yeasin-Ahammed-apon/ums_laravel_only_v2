@@ -1,4 +1,4 @@
-<div class="card m-0 p-0 mt-1 {{ $color ?? '' }}">
+<div class="card m-0 p-0 mt-1 {{ $color ?? '' }}" >
     <div class="card-header">
         <h3 class="card-title">{{ $title ?? "" }}</h3>
 

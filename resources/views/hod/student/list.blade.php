@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Student list
+{{ $title ?? Auth::user()->role->name }}
 @endsection
 @section('content')
     @include('parts.title_start', [

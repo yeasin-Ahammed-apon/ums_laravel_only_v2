@@ -18,8 +18,8 @@
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/toastr/toastr.min.css') }}>
     <!-- Theme style -->
-    <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.main.css') }}>
-    {{-- <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.v1.css') }}> --}}
+    {{-- <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.main.css') }}> --}}
+    <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.v1.css') }}>
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
     @yield('css')
     <style>
@@ -54,7 +54,7 @@
             <!-- Content Header (Page header) -->
             @yield('breadcrumb')
             <!-- Main content -->
-            <section class="content pb-1 ml-1 mr-1" id="animatedBox">
+            <section class="content pb-1"  id="animatedBox">
                 <div class="row">
                     <div class="col-12">
                         <!-- Default box -->

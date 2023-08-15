@@ -85,8 +85,9 @@ trait userManagementTrait
             $model === Account::class ||
             $model === Hr::class ||
             $model === Librarian::class ||
-            $model === StoreManager::class
-        ) ?
+            $model === StoreManager::class||
+            $model === Admission::class
+            ) ?
             $user->department_id = 0 : $user->department_id = $request->department_id;
         $user->password = Hash::make($request->password);
         $user->role_id = Role::where('name', $request->role)->first()->id;

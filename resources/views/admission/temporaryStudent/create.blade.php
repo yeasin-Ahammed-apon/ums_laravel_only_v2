@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Student temporary adding form
+{{ $title ?? Auth::user()->role->name }}
 @endsection
 @section('breadcrumb')
     @include('parts.breadcrumb')

@@ -1,25 +1,7 @@
 @extends('layout')
 @section('meta-tag')
-    Teacher list
+{{ $title ?? Auth::user()->role->name }}
 @endsection
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'superAdmin.teacher.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'superAdmin.teacher.index',
-                'enable' => false,
-            ],
-        ],
-    ])
-@endsection --}}
-
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Teacher list table',

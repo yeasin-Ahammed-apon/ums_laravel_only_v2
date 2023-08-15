@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +17,7 @@
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href={{ asset('assets/admin_lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}>
     <!-- Theme style -->
-    <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/admin_lte/dist/css/adminlte.min.main.css') }}>
     <link rel="stylesheet" href={{ asset('assets/global/app.css') }}>
 
 </head>

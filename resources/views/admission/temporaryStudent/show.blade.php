@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Temporary Student Detail
+{{ $title ?? Auth::user()->role->name }}
 @endsection
 @section('content')
     <div class="mt-2 mb-2">

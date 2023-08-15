@@ -1,26 +1,7 @@
 @extends('layout')
 @section('meta-tag')
-    Admin list
+{{ $title ?? Auth::user()->role->name }}
 @endsection
-{{-- @section('breadcrumb')
-    @include('parts.breadcrumb', [
-        'page_title' => 'Admin list Page',
-        'links' => [
-            [
-                'title' => 'dashboard',
-                'route' => 'hod.hod.dashboard',
-                'enable' => true,
-            ],
-            [
-                'title' => 'Admin List',
-                'route' => 'hod.hod.index',
-                'enable' => false,
-            ],
-        ],
-
-    ])
-@endsection --}}
-
 @section('content')
     @include('parts.title_start', [
         'title' => $title ?? 'Account Notification list table',

@@ -1,6 +1,6 @@
 @extends('InvoiceLayout')
 @section('title')
-    Payment
+{{ $title ?? Auth::user()->role->name }}
 @endsection
 @section('invoice')
     <div class="invoice">

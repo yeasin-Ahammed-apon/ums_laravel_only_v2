@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Temporary Student Payment History
+{{ $title ?? Auth::user()->role->name }}
 @endsection
 
 @section('content')

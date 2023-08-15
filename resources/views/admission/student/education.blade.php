@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta-tag')
-    Education Information and Add form
+{{ $title ?? Auth::user()->role->name }}
 @endsection
 @section('content')
 {{-------------- Education Information List------------------------------------------------------------- --}}
